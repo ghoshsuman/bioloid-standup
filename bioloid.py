@@ -1,4 +1,5 @@
 from limb import *
+import vrep
 
 
 class Bioloid:
@@ -17,3 +18,9 @@ class Bioloid:
     def move_legs(self, values):
         self.leftLeg.move_joints(self.client_id, values)
         self.rightLeg.move_joints(self.client_id, values)
+
+    def read_state(self):
+        return_code, com_x = vrep.simxGetFloatSignal(self.client_id, 'COM_x', vrep.simx_opmode_blocking)
+        return_code, com_y = vrep.simxGetFloatSignal(self.client_id, 'COM_y', vrep.simx_opmode_blocking)
+        return_code, com_z = vrep.simxGetFloatSignal(self.client_id, 'COM_z', vrep.simx_opmode_blocking)
+        print(str(com_x) + '   ' + str(com_y) + '   ' + str(com_z))

@@ -1,11 +1,10 @@
 import pickle
 import vrep
 import pylab
-from bioloid import Bioloid
 from pybrain.rl.agents import LearningAgent
 from pybrain.rl.experiments import Experiment
 from pybrain.rl.learners import ActionValueTable, Q
-from pybrain_components import Simulator, RaiseArmsTask
+from pybrain_components import RaiseArmSimulator, RaiseArmsTask
 
 
 def main():
@@ -22,7 +21,7 @@ def main():
     pylab.ion()
 
     # Define RL elements
-    environment = Simulator(client_id)
+    environment = RaiseArmSimulator(client_id)
 
     controller = ActionValueTable(260, 27)
     controller.initialize(1.)
@@ -50,38 +49,6 @@ def main():
         with open('rl.pkl', 'wb') as handle:
             pickle.dump(controller.params, handle)
 
-
-    '''
-    vrep.simxLoadScene(client_id, '/home/simone/Dropbox/Vuotto Thesis/bioloid.ttt', 0, vrep.simx_opmode_blocking)
-
-    # enable the synchronous mode on the client:
-    vrep.simxSynchronous(client_id, True)
-
-    # start the simulation:
-    vrep.simxStartSimulation(client_id, vrep.simx_opmode_blocking)
-
-    bioloid = Bioloid(client_id)
-
-    # Now step a few times:
-    startTime = time.time()
-    while time.time()-startTime < 30:
-
-        arm_values = [random.randint(-1, 1) for i in range(3)]
-        leg_values = [random.randint(-1, 1) for i in range(3)]
-        # bioloid.move_arms(arm_values)
-        # bioloid.move_legs(leg_values)
-
-        for i in range(5):
-            vrep.simxSynchronousTrigger(client_id)
-        time.sleep(0.01)
-        # input('Press <enter> key to step the simulation!')
-
-    # stop the simulation:
-    vrep.simxStopSimulation(client_id,vrep.simx_opmode_blocking)
-
-    vrep.simxCloseScene(client_id, vrep.simx_opmode_blocking)
-    # Now close the connection to V-REP:
-    '''
     vrep.simxFinish(client_id)
 
 

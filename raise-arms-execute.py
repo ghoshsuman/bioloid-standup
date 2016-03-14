@@ -1,14 +1,10 @@
 import pickle
 
 import vrep
-import time
-import random
-import pylab
-from bioloid import Bioloid
 from pybrain.rl.agents import LearningAgent
 from pybrain.rl.experiments import Experiment
 from pybrain.rl.learners import ActionValueTable, Q
-from pybrain_components import Simulator, RaiseArmsTask
+from pybrain_components import RaiseArmSimulator, RaiseArmsTask
 
 
 def main():
@@ -22,7 +18,7 @@ def main():
     print('Connected to remote API server')
 
     # Define RL elements
-    environment = Simulator(client_id)
+    environment = RaiseArmSimulator(client_id)
 
     controller = ActionValueTable(260, 27)
     controller.initialize(1.)
@@ -45,7 +41,6 @@ def main():
         experiment.doInteractions(50)
         agent.learn()
         agent.reset()
-
 
     vrep.simxFinish(client_id)
 

@@ -3,12 +3,12 @@ from bioloid import Bioloid
 from pybrain.rl.environments import Environment, Task
 
 
-class Simulator(Environment):
+class RaiseArmSimulator(Environment):
     SCENE_PATH = '/home/simone/Dropbox/Vuotto Thesis/bioloid.ttt'
     opmode = vrep.simx_opmode_blocking
 
     def __init__(self, client_id):
-        super(Simulator, self).__init__()
+        super(RaiseArmSimulator, self).__init__()
         self.discreteActions = True
         self.discreteStates = True
         self.client_id = client_id
@@ -17,11 +17,11 @@ class Simulator(Environment):
         self.reset()
 
     def reset(self):
-        super(Simulator, self).reset()
+        super(RaiseArmSimulator, self).reset()
         print('*** Reset ***')
         vrep.simxStopSimulation(self.client_id, self.opmode)
         vrep.simxCloseScene(self.client_id, self.opmode)
-        vrep.simxLoadScene(self.client_id, Simulator.SCENE_PATH, 0, self.opmode)
+        vrep.simxLoadScene(self.client_id, RaiseArmSimulator.SCENE_PATH, 0, self.opmode)
         vrep.simxSynchronous(self.client_id, True)
         vrep.simxStartSimulation(self.client_id, self.opmode)
         return_code, self.hand_handle = vrep.simxGetObjectHandle(self.client_id, 'left_hand_link_visual', self.opmode)
