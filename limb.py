@@ -65,6 +65,9 @@ class Leg(Limb):
     ANKLE_SWING_HANDLE = 'ankle_swing'
     ANKLE_LATERAL_HANDLE = 'ankle_lateral'
 
+    # We use only a subset of availble joints in the leg
+    used_joints = [HIP_SWING_HANDLE, KNEE_HANDLE, ANKLE_SWING_HANDLE]
+
     def __init__(self, side, client_id):
         super().__init__(side)
         self.add_joint(client_id, side + '_hip_twist_joint', self.HIP_TWIST_HANDLE)
@@ -75,10 +78,16 @@ class Leg(Limb):
         self.add_joint(client_id, side + '_ankle_lateral_joint', self.ANKLE_LATERAL_HANDLE)
 
     def move_joints(self, client_id, values):
-        # We use only a subset of availble joints in the leg
-        used_joints = [self.HIP_SWING_HANDLE, self.KNEE_HANDLE, self.ANKLE_SWING_HANDLE]
-        assert len(values) == len(used_joints)
+
+        assert len(values) == len(self.used_joints)
         v = [0] * len(self.handlesList)
-        for j_name, value in zip(used_joints, values):
+        for j_name, value in zip(self.used_joints, values):
             v[self.get_joint_index(j_name)] = value
         super(Leg, self).move_joints(client_id, v)
+
+    def get_joints_position(self, client_id):
+        positions = super(Leg, self).get_joints_position(client_id)
+        new_pos = []
+        for joint in self.used_joints:
+            new_pos.append(positions[self.get_joint_index(joint)])
+        return new_pos
