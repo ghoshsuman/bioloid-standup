@@ -1,6 +1,142 @@
+import random
+
+import pickle
+
+from scipy.spatial import KDTree
+from scipy.spatial.distance import euclidean
+
 import vrep
 from bioloid import Bioloid
 from pybrain.rl.environments import Environment, Task
+import scipy
+
+
+class StandingUpSimulator(Environment):
+    SCENE_PATH = '/home/simone/Dropbox/Vuotto Thesis/bioloid.ttt'
+    opmode = vrep.simx_opmode_blocking
+    STATIONARY_THRESHOLD = 0.01
+    MAX_ITERATIONS_PER_ACTION = 20
+
+    def __init__(self, client_id):
+        super(StandingUpSimulator, self).__init__()
+        self.discreteActions = True
+        self.discreteStates = True
+        self.client_id = client_id
+        self.bioloid = None
+        self.reset()
+
+    def reset(self):
+        super(StandingUpSimulator, self).reset()
+        # print('*** Reset ***')
+        vrep.simxStopSimulation(self.client_id, self.opmode)
+        vrep.simxCloseScene(self.client_id, self.opmode)
+        vrep.simxLoadScene(self.client_id, RaiseArmSimulator.SCENE_PATH, 0, self.opmode)
+        vrep.simxSynchronous(self.client_id, True)
+        vrep.simxStartSimulation(self.client_id, self.opmode)
+        self.bioloid = Bioloid(self.client_id)
+
+    def getSensors(self):
+        return self.bioloid.read_state()
+
+    def performAction(self, action):
+        self.bioloid.move_arms(action[0:3])
+        self.bioloid.move_legs(action[3:])
+        old_state = self.bioloid.read_state()
+        dist = 1
+        count = 0
+        while dist > self.STATIONARY_THRESHOLD and count < self.MAX_ITERATIONS_PER_ACTION:
+            vrep.simxSynchronousTrigger(self.client_id)
+            new_state = self.bioloid.read_state()
+            dist = euclidean(old_state, new_state)
+            old_state = new_state
+            count += 1
+        print('Count: ' + str(count))
+        '''
+        for i in range(5):
+            vrep.simxSynchronousTrigger(self.client_id)
+            new_state = self.bioloid.read_state()
+            dist = euclidean(old_state, new_state)
+            print('Distance: '+str(dist))
+            old_state = new_state
+        '''
+
+    def vecToInt(self, action):
+        res = 0
+        for a in reversed(action):
+            res = res * 3 + a + 1
+        return res
+
+    def intToVec(self, action, vecLength=6):
+        a = []
+        for i in range(vecLength):
+            v = action % 3
+            action //= 3
+            a.append(v-1)
+        return a
+
+
+class StandingUpTask(Task):
+
+    GOAL_REWARD = 100
+    ENERGY_CONSUMPTION_REWARD = -0.01
+    FALLEN_REWARD = -100
+    SELF_COLLISION_REWARD = -10
+    GOAL_DISTANCE_REWARD = 5
+    GOAL_STATE = 8947
+
+    def __init__(self, environment):
+        super(StandingUpTask, self).__init__(environment)
+        with open('state-space-filtered.pkl', 'rb') as handle:
+            data = pickle.load(handle)
+        self.kdtree = KDTree(data)
+        self.current_state = 0
+        self.finished = False
+
+    def getReward(self):
+        distance = euclidean(self.kdtree.data[self.GOAL_STATE], self.current_state)
+        _, index = self.kdtree.query(self.current_state)
+        reward = self.ENERGY_CONSUMPTION_REWARD + self.GOAL_DISTANCE_REWARD / distance
+        if self.env.bioloid.isFallen():
+            print('Fallen!')
+            reward = self.FALLEN_REWARD
+            self.finish()
+        elif self.env.bioloid.isSelfCollided():
+            print('Collision!')
+            reward += self.SELF_COLLISION_REWARD
+            self.finish()
+        elif index == self.GOAL_STATE:
+            print('Goal!')
+            reward += self.GOAL_REWARD
+            self.finish()
+
+        return reward
+
+    def performAction(self, action):
+        self.env.performAction(self.env.intToVec(action))
+
+    def getObservation(self):
+        state = self.env.getSensors()
+        dist, index = self.kdtree.query(state)
+        self.current_state = state
+        print(str(index) + '  ' + str(dist))
+        return [index]
+
+    def finish(self):
+        self.finished = True
+        self.env.reset()
+
+    def reset(self):
+        self.current_state = 0
+        self.finished = False
+
+    def isFinished(self):
+        return self.finished
+
+    def getStateNumber(self):
+        return len(self.kdtree.data)
+
+    def getActionNumber(self):
+        return 729
 
 
 class RaiseArmSimulator(Environment):
