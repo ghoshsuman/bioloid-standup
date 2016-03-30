@@ -60,13 +60,15 @@ class StandingUpSimulator(Environment):
             old_state = new_state
         '''
 
-    def vecToInt(self, action):
+    @classmethod
+    def vecToInt(cls, action):
         res = 0
         for a in reversed(action):
             res = res * 3 + a + 1
         return res
 
-    def intToVec(self, action, vecLength=6):
+    @classmethod
+    def intToVec(cls, action, vecLength=6):
         a = []
         for i in range(vecLength):
             v = action % 3
