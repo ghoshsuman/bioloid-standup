@@ -1,3 +1,4 @@
+import os
 import pickle
 
 
@@ -27,5 +28,8 @@ class NDSparseMatrix:
             pickle.dump(self.elements, file)
 
     def load(self, filename=DEFAULT_FILE_NAME):
-        with open(filename, 'rb') as file:
-            self.elements = pickle.load(file)
+        if os.path.isfile(filename):
+            with open(filename, 'rb') as file:
+                self.elements = pickle.load(file)
+        else:
+            self.elements = {}
