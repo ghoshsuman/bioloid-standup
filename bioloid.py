@@ -1,3 +1,5 @@
+import numpy
+
 from limb import *
 import vrep
 
@@ -34,7 +36,7 @@ class Bioloid:
         state_vector += self.rightArm.get_joints_position(self.client_id)
         state_vector += self.leftLeg.get_joints_position(self.client_id)
         state_vector += self.rightLeg.get_joints_position(self.client_id)
-        return state_vector
+        return numpy.array(state_vector)
 
     def isSelfCollided(self):
         return_code, selfcollision = vrep.simxGetIntegerSignal(self.client_id, 'is-self-collided', self.opmode)
