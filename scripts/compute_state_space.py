@@ -8,6 +8,7 @@ from pybrain.rl.agents import LearningAgent
 from pybrain.rl.experiments import Experiment
 from pybrain.rl.learners import ActionValueTable, Q
 from pybrain_components import StandingUpSimulator, StandingUpTask
+from scripts.utils import Utils
 
 
 def main():
@@ -47,7 +48,7 @@ def main():
             environment.reset()
             for i in range(index):
                 environment.performAction(staningUpActions[i])
-            environment.performAction(environment.intToVec(a))
+            environment.performAction(Utils.intToVec(a))
             data.append(environment.getSensors())
             print('N states: '+str(len(data)))
 
@@ -57,9 +58,6 @@ def main():
     kdtree = KDTree(data)
     epsilon = 0.01
 
-    print(environment.vecToInt([0, -1, 0, 0, 0, 0]))
-    print(environment.intToVec(445))
-    print(len(data))
     numpy.set_printoptions(threshold=numpy.nan)
     n_similar = [0] * len(data)
     for i in range(len(data)):

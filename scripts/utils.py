@@ -1,9 +1,12 @@
+from scipy.spatial.distance import euclidean
+
 import vrep
 
 
 class Utils:
 
     N_ACTIONS = 729
+    NULL_ACTION = 364  # Action in which to movement is done -> [0, 0, 0, 0, 0, 0]
 
     standingUpActions = [[0, 1, 0, 1, -1, 0],
                          [0, 1, 0, 1, -1, 0],
@@ -29,6 +32,10 @@ class Utils:
         return cls.client_id
 
     @classmethod
+    def endVREP(cls):
+        vrep.simxFinish(cls.client_id)
+
+    @classmethod
     def vecToInt(cls, action):
         res = 0
         for a in reversed(action):
@@ -44,3 +51,9 @@ class Utils:
             a.append(v-1)
         return a
 
+    @classmethod
+    def distance(cls, v1, v2):
+        d1 = euclidean(v1[0:3], v2[0:3])
+        d2 = euclidean(v1[3:6], v2[3:6])
+        d3 = euclidean(v1[6:], v2[6:])
+        return d1 * 5 + d2 * 5 + d3

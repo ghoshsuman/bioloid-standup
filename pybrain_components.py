@@ -13,6 +13,8 @@ from bioloid import Bioloid
 from pybrain.rl.environments import Environment, Task
 import scipy
 
+from scripts.utils import Utils
+
 
 class NormalisationState:
 
@@ -21,32 +23,25 @@ class NormalisationState:
                                        -0.12, -1.16, -1.71, -0.11, -1.16, -1.71, -0.11])
         self.upperbound = numpy.array([0.16, 0.13, 0.29, 1.80, -1.35, 3.24, 0.12, 1.60, 0.11, 0.12, 1.59, 0.11,
                                         1.68, 0.11, 1.15, 1.68, 0.11, 1.15])
-        self.isInitialised = False
+        self.isInitialised = True
         self.isStable = True
 
     def normalise(self, state_vector):
         state_vector = numpy.array(state_vector)
-        '''if not self.isInitialised:
+        if not self.isInitialised:
             self.lowerbound = state_vector - 0.1
             self.upperbound = state_vector + 0.1
             self.isInitialised = True
-        else:'''
-        old_lowerbound = self.lowerbound
-        old_upperbound = self.upperbound
-        self.lowerbound = numpy.minimum(self.lowerbound, state_vector)
-        self.upperbound = numpy.maximum(self.upperbound, state_vector)
-        if not (old_lowerbound - self.lowerbound == 0).all() or not (old_upperbound - self.upperbound == 0).all():
-            self.isStable = False
-            self.lowerbound = numpy.minimum(self.lowerbound, state_vector - 0.1)
-            self.upperbound = numpy.maximum(self.upperbound, state_vector + 0.1)
-            print('state vector')
-            print(state_vector)
-            print('lower and upper bounds: ')
-            print(old_lowerbound)
-            print(self.lowerbound)
-            print(old_upperbound)
-            print(self.upperbound)
-        return (state_vector - self.lowerbound) / (self.upperbound - self.lowerbound)
+        else:
+            old_lowerbound = self.lowerbound
+            old_upperbound = self.upperbound
+            self.lowerbound = numpy.minimum(self.lowerbound, state_vector)
+            self.upperbound = numpy.maximum(self.upperbound, state_vector)
+            if not (old_lowerbound - self.lowerbound == 0).all() or not (old_upperbound - self.upperbound == 0).all():
+                self.isStable = False
+                self.lowerbound = numpy.minimum(self.lowerbound, state_vector - 0.1)
+                self.upperbound = numpy.maximum(self.upperbound, state_vector + 0.1)
+            return (state_vector - self.lowerbound) / (self.upperbound - self.lowerbound)
 
 
 class StandingUpSimulator(Environment):
@@ -54,7 +49,7 @@ class StandingUpSimulator(Environment):
     STATIONARY_THRESHOLD = 0.01
     MAX_ITERATIONS_PER_ACTION = 20
 
-    def __init__(self, client_id, model_path='bioloid.ttt'):
+    def __init__(self, client_id, model_path='data/models/bioloid.ttt'):
         super(StandingUpSimulator, self).__init__()
         self.model_path = os.path.abspath(model_path)
         self.discreteActions = True
@@ -75,51 +70,27 @@ class StandingUpSimulator(Environment):
         self.bioloid = Bioloid(self.client_id)
 
     def getSensors(self):
-        state_vector = self.bioloid.read_state
-        print('not norm: '+ str(state_vector))
+        state_vector = self.bioloid.read_state()
+        # print('not norm: '+ str(state_vector))
         state_vector = self.norm.normalise(state_vector)
-        print('norm: '+ str(state_vector))
+        # print('norm: '+ str(state_vector))
         return state_vector
-
 
     def performAction(self, action):
         self.bioloid.move_arms(action[0:3])
         self.bioloid.move_legs(action[3:])
-        old_state = self.bioloid.read_state
+        old_state = self.bioloid.read_state()
         dist = 1
         count = 0
         while dist > self.STATIONARY_THRESHOLD and count < self.MAX_ITERATIONS_PER_ACTION:
             vrep.simxSynchronousTrigger(self.client_id)
-            new_state = self.bioloid.read_state
-            #dist = euclidean(old_state, new_state)
+            new_state = self.bioloid.read_state()
+            # dist = euclidean(old_state, new_state)
             dist = numpy.max(numpy.absolute(old_state - new_state))
+            # print('dist: ' + str(dist))
             old_state = new_state
             count += 1
         print('Count: ' + str(count))
-        '''
-        for i in range(5):
-            vrep.simxSynchronousTrigger(self.client_id)
-            new_state = self.bioloid.read_state()
-            dist = euclidean(old_state, new_state)
-            print('Distance: '+str(dist))
-            old_state = new_state
-        '''
-
-    @classmethod
-    def vecToInt(cls, action):
-        res = 0
-        for a in reversed(action):
-            res = res * 3 + a + 1
-        return res
-
-    @classmethod
-    def intToVec(cls, action, vecLength=6):
-        a = []
-        for i in range(vecLength):
-            v = action % 3
-            action //= 3
-            a.append(v-1)
-        return a
 
 
 class StandingUpTask(Task):
@@ -136,7 +107,7 @@ class StandingUpTask(Task):
 
     def __init__(self, environment):
         super(StandingUpTask, self).__init__(environment)
-        with open('state-space-filtered-normalized.pkl', 'rb') as handle:
+        with open('data/state-space-filtered-normalized.pkl', 'rb') as handle:
             data = pickle.load(handle)
         self.kdtree = KDTree(data)
         self.current_state = 0
@@ -181,7 +152,7 @@ class StandingUpTask(Task):
 
     def performAction(self, action):
         print('Action: '+str(action))
-        self.env.performAction(self.env.intToVec(action))
+        self.env.performAction(Utils.intToVec(action))
 
     def getObservation(self):
         sensors = self.env.getSensors()

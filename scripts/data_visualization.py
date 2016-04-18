@@ -76,8 +76,6 @@ def main():
     plt.savefig('state_space_colour_2.png', bbox_inches='tight')
     plt.show()
 
-    for i in range(100):
-        print(StandingUpSimulator.intToVec(i))
 
 if __name__ == '__main__':
     main()
