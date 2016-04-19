@@ -26,12 +26,16 @@ class Bioloid:
         self.rightLeg.move_joints(self.client_id, values)
 
     def read_state(self):
+        # Retriece Center of Mass Values
         return_code, com_x = vrep.simxGetFloatSignal(self.client_id, 'COM_x', self.opmode)
         return_code, com_y = vrep.simxGetFloatSignal(self.client_id, 'COM_y', self.opmode)
         return_code, com_z = vrep.simxGetFloatSignal(self.client_id, 'COM_z', self.opmode)
-        res = vrep.simxGetObjectGroupData(self.client_id, vrep.sim_object_shape_type, 5, self.opmode)
-        index = res[1].index(self.body_handle) * 3
-        state_vector = [com_x, com_y, com_z, res[3][index], res[3][index + 1], res[3][index + 2]]
+        # Retrieve quaternion values
+        return_code, q1 = vrep.simxGetFloatSignal(self.client_id, 'q1', self.opmode)
+        return_code, q2 = vrep.simxGetFloatSignal(self.client_id, 'q2', self.opmode)
+        return_code, q3 = vrep.simxGetFloatSignal(self.client_id, 'q3', self.opmode)
+        return_code, q4 = vrep.simxGetFloatSignal(self.client_id, 'q4', self.opmode)
+        state_vector = [com_x, com_y, com_z, q1, q2, q3, q4]
         state_vector += self.leftArm.get_joints_position(self.client_id)
         state_vector += self.rightArm.get_joints_position(self.client_id)
         state_vector += self.leftLeg.get_joints_position(self.client_id)
