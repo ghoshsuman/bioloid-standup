@@ -52,3 +52,8 @@ class StateNormalizer:
             self.lowerbound = data['lowerbound']
             self.upperbound = data['upperbound']
             self.isInitialised = True
+
+    def __str__(self):
+        s = 'lowerbound:\n'+self.lowerbound.__str__() + '\n'
+        s += 'upperbound:\n'+self.upperbound.__str__() + '\n'
+        return s
