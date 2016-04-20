@@ -1,5 +1,5 @@
 from pybrain_components import StandingUpSimulator, StandingUpTask
-from scripts.utils import Utils
+from utils import Utils
 
 
 def main():

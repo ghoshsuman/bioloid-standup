@@ -1,6 +1,4 @@
 import os
-import random
-
 import pickle
 
 import numpy
@@ -9,40 +7,10 @@ from scipy.spatial.distance import euclidean
 
 import vrep
 from NDSparseMatrix import NDSparseMatrix
+from StateNormalizer import StateNormalizer
 from bioloid import Bioloid
 from pybrain.rl.environments import Environment, Task
-import scipy
-
-from scripts.utils import Utils
-
-
-class NormalisationState:
-
-    def __init__(self):
-        self.lowerbound = numpy.array([-0.11, -0.31, -0.11, -2.14, -1.68, -3.25, -0.65, -0.11, -0.12, -0.65, -0.11,
-                                       -0.12, -1.16, -1.71, -0.11, -1.16, -1.71, -0.11])
-        self.upperbound = numpy.array([0.16, 0.13, 0.29, 1.80, -1.35, 3.24, 0.12, 1.60, 0.11, 0.12, 1.59, 0.11,
-                                        1.68, 0.11, 1.15, 1.68, 0.11, 1.15])
-        self.isInitialised = True
-        self.isStable = True
-
-    def normalise(self, state_vector):
-        state_vector = numpy.array(state_vector)
-        if not self.isInitialised:
-            self.lowerbound = state_vector - 0.1
-            self.upperbound = state_vector + 0.1
-            self.isInitialised = True
-        else:
-            old_lowerbound = self.lowerbound
-            old_upperbound = self.upperbound
-            self.lowerbound = numpy.minimum(self.lowerbound, state_vector)
-            self.upperbound = numpy.maximum(self.upperbound, state_vector)
-            if not (old_lowerbound - self.lowerbound == 0).all() or not (old_upperbound - self.upperbound == 0).all():
-                self.isStable = False
-                self.lowerbound = numpy.minimum(self.lowerbound, state_vector - 0.1)
-                self.upperbound = numpy.maximum(self.upperbound, state_vector + 0.1)
-            return (state_vector - self.lowerbound) / (self.upperbound - self.lowerbound)
-
+from utils import Utils
 
 class StandingUpSimulator(Environment):
     opmode = vrep.simx_opmode_blocking
@@ -57,7 +25,7 @@ class StandingUpSimulator(Environment):
         self.client_id = client_id
         self.bioloid = None
         self.reset()
-        self.norm = NormalisationState()
+        self.state_normalizer = StateNormalizer()
 
     def reset(self):
         super(StandingUpSimulator, self).reset()
@@ -72,7 +40,7 @@ class StandingUpSimulator(Environment):
     def getSensors(self):
         state_vector = self.bioloid.read_state()
         # print('not norm: '+ str(state_vector))
-        state_vector = self.norm.normalise(state_vector)
+        state_vector = self.state_normalizer.normalize(state_vector)
         # print('norm: '+ str(state_vector))
         return state_vector
 
@@ -100,24 +68,30 @@ class StandingUpTask(Task):
     FALLEN_REWARD = -100
     SELF_COLLISION_REWARD = -10
     GOAL_DISTANCE_REWARD = 5
-    GOAL_STATE = [ 0.04096225, -0.19906859,  0.18113354, -1.57723653, -1.43803906, -3.10940623,
-                   -0.013273 ,   0.44458103 ,-0.00739765, -0.01841736,  0.44921207, -0.01123691,
-                   -0.01468205, -0.54389405,  0.51448083, -0.01127958, -0.54686332, 0.51179767]
+    GOAL_STATE = [0.99249412,  0.01152511,  0.9999996 ,  0.26637849,  0.7365726 ,
+                  0.72537018,  0.26239846,  0.93522064,  0.61111627,  0.49702422,
+                  0.79671855,  0.42516445,  0.49819804,  0.49492229,  0.94970996,
+                  0.24974432,  0.49877833,  0.94491837,  0.25551248]
     TOO_FAR_THRESHOLD = 5  # 0.15  # 0.24 Mean distance of points
 
     def __init__(self, environment):
         super(StandingUpTask, self).__init__(environment)
-        with open('data/state-space-filtered-normalized.pkl', 'rb') as handle:
-            data = pickle.load(handle)
-        self.kdtree = KDTree(data)
+        self.kdtree = None
         self.current_state = 0
         self.current_action = -1
-        self.current_sensors = data[0]
         self.finished = False
-        self.too_far_state = self.getStateNumber() - 1
         self.t_table = NDSparseMatrix()
         self.t_table.load()
-        self.distances = []
+        self.load_state_space()
+        self.current_sensors = self.kdtree.data[0]
+        self.too_far_state = self.getStateNumber() - 1
+
+    def load_state_space(self, filepath = 'data/state-space/state-space-all-0.pkl'):
+        with open(filepath, 'rb') as handle:
+            data = pickle.load(handle)
+        for i in range(len(data)):
+            data[i] = self.env.state_normalizer.normalize(data[i])
+        self.kdtree = KDTree(data)
 
     def calcDistance(self, v1, v2):
         d1 = euclidean(v1[0:3], v2[0:3])
@@ -126,11 +100,11 @@ class StandingUpTask(Task):
         return d1 * 10 + d2 * 10 + d3
 
     def getReward(self):
-        goal = self.env.norm.normalise(self.GOAL_STATE)
-        distance = self.calcDistance(goal, self.current_sensors)
+        goal = self.env.norm.normalize(self.GOAL_STATE)
+        # distance = self.calcDistance(goal, self.current_sensors)
+        distance = euclidean(goal, self.current_sensors)
         print('Goal distance: ' + str(distance))
-        self.distances.append(distance)
-        reward = self.ENERGY_CONSUMPTION_REWARD + self.GOAL_DISTANCE_REWARD / (distance * 100)
+        reward = self.ENERGY_CONSUMPTION_REWARD
         if self.env.bioloid.isFallen():
             print('Fallen!')
             reward = self.FALLEN_REWARD

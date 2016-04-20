@@ -1,14 +1,16 @@
 import xlsxwriter
+from scipy.spatial.distance import euclidean
 
 from StateNormalizer import StateNormalizer
 from pybrain_components import StandingUpSimulator, StandingUpTask
-from scripts.utils import Utils
+from utils import Utils
 
 
 def main():
 
     client_id = Utils.connectToVREP()
     environment = StandingUpSimulator(client_id)
+    task = StandingUpTask(environment)
     state_vector_length = len(environment.bioloid.read_state())
     stateNormalizer = StateNormalizer()
     n = int(input('Number of iterations: '))
@@ -22,11 +24,15 @@ def main():
         print('Iteration ' + str(i + 1))
         for j, action in enumerate(Utils.standingUpActions):
             environment.performAction(action)
-            state_vector = environment.bioloid.read_state()
-            print(state_vector)
-            stateNormalizer.update_bounds(state_vector)
+            state_vector = environment.getSensors()
             for k, s in enumerate(state_vector):
                 worksheets[j].write(i, k, s)
+
+            state_n = task.getObservation()
+            goal_distance = euclidean(task.GOAL_STATE, state_vector)
+            worksheets[j].write(i, state_vector_length + 3, state_n[0])
+            worksheets[j].write(i, state_vector_length + 4, goal_distance)
+
         environment.reset()
 
     res_worksheet = workbook.add_worksheet('Results')

@@ -14,10 +14,9 @@ class StateNormalizer:
         if os.path.isfile(filepath):
             self.load_bound(filepath)
 
-
         self.isStable = True
 
-    def normalise(self, state_vector):
+    def normalize(self, state_vector):
         normalized_state = (state_vector - self.lowerbound) / (self.upperbound - self.lowerbound)
         # Check that all value are in [0, 1] range
         assert (normalized_state >= 0).all() and (normalized_state <= 1).all(), \

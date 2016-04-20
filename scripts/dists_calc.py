@@ -7,7 +7,8 @@ from scipy.spatial.distance import euclidean
 from scipy.stats import probplot
 import statsmodels.api as sm
 
-from pybrain_components import StandingUpSimulator, NormalisationState
+from StateNormalizer import StateNormalizer
+from pybrain_components import StandingUpSimulator
 
 N_ACTIONS = 729
 
@@ -30,10 +31,10 @@ with open('state-space.pkl', 'rb') as handle:
     data = pickle.load(handle)
     data = numpy.matrix(data)
 
-    norm = NormalisationState()
+    norm = StateNormalizer()
 
     for i in range(len(data)):
-        data[i, :] = norm.normalise(data[i, :])
+        data[i, :] = norm.normalize(data[i, :])
 
     with open('state-space-normalized2.pkl', 'wb') as file:
         pickle.dump(data, file)
