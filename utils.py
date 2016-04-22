@@ -26,9 +26,9 @@ class Utils:
     client_id = -1
 
     @classmethod
-    def connectToVREP(cls):
+    def connectToVREP(cls, port=19997):
         vrep.simxFinish(-1)  # just in case, close all opened connections
-        cls.client_id = vrep.simxStart('127.0.0.1', 19997, True, True, 5000, 5)  # Connect to V-REP
+        cls.client_id = vrep.simxStart('127.0.0.1', port, True, True, 5000, 5)  # Connect to V-REP
         return cls.client_id
 
     @classmethod

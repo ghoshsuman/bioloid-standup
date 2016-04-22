@@ -1,14 +1,11 @@
 import pickle
 
-from scipy.spatial import KDTree
 import numpy
+from scipy.spatial import KDTree
+
 import vrep
-import pylab
-from pybrain.rl.agents import LearningAgent
-from pybrain.rl.experiments import Experiment
-from pybrain.rl.learners import ActionValueTable, Q
-from pybrain_components import StandingUpSimulator, StandingUpTask
-from scripts.utils import Utils
+from pybrain_components import StandingUpSimulator
+from utils import Utils
 
 
 def main():
