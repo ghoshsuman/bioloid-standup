@@ -1,3 +1,4 @@
+import pickle
 import xlsxwriter
 from scipy.spatial.distance import euclidean
 
@@ -22,21 +23,31 @@ def main():
 
     for i in range(n):
         print('Iteration ' + str(i + 1))
+        print('Initial State: ')
+        # task.getObservation()
+        print(environment.getSensors())
+        print(task.getObservation()[0])
         for j, action in enumerate(Utils.standingUpActions):
             environment.performAction(action)
             state_vector = environment.getSensors()
             for k, s in enumerate(state_vector):
                 worksheets[j].write(i, k, s)
 
-            state_n = task.getObservation()
+            state_n = task.getObservation()[0]
+            state_distance = euclidean(task.kdtree.data[state_n], state_vector)
             goal_distance = euclidean(task.GOAL_STATE, state_vector)
-            worksheets[j].write(i, state_vector_length + 3, state_n[0])
-            worksheets[j].write(i, state_vector_length + 4, goal_distance)
+
+            print(state_vector)
+            print(task.kdtree.data[state_n])
+            print('---------------------')
+
+            worksheets[j].write(i, state_vector_length + 1, state_n)
+            worksheets[j].write(i, state_vector_length + 2, state_distance)
+            worksheets[j].write(i, state_vector_length + 3, goal_distance)
 
         environment.reset()
 
     res_worksheet = workbook.add_worksheet('Results')
-    stateNormalizer.save_bounds()
 
     row = 0
     for i in range(len(Utils.standingUpActions)):

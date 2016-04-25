@@ -1,35 +1,21 @@
 import pickle
-import vrep
-import pylab
-from pybrain_components import StandingUpTask, StandingUpSimulator
-from scripts.utils import Utils
+
+from StateNormalizer import StateNormalizer
 
 
 def main():
 
-    client_id = Utils.connectToVREP()
-    environment = StandingUpSimulator(client_id)
-    task = StandingUpTask(environment)
-    counter = 0
-    while counter < 5:
-        for action in Utils.standingUpActions:
-            observation = task.getObservation()
-            print(task.current_sensors)
-            a = Utils.vecToInt(action)
-            task.performAction(a)
-            task.getReward()
-        environment.reset()
-        if environment.norm.isStable:
-            counter += 1
-        else:
-            counter = 0
-            environment.norm.isStable = True
-        print('stable: ' + str(counter))
-        print('norm bounds: ')
-        print(environment.norm.lowerbound)
-        print(environment.norm.upperbound)
 
-    Utils.endVREP()
+    state_space = []
+    with open('data/state-space/state-space-all-0.pkl', 'rb') as file:
+        state_space = pickle.load(file)
+
+    sn = StateNormalizer()
+    for state in state_space:
+        sn.update_bounds(state)
+        print(sn)
+
+    sn.save_bounds('data/norm_bounds.pkl')
 
 if __name__ == '__main__':
     main()
