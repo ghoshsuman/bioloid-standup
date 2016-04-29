@@ -19,8 +19,8 @@ class StateNormalizer:
     def normalize(self, state_vector):
         normalized_state = (state_vector - self.lowerbound) / (self.upperbound - self.lowerbound)
         # Check that all value are in [0, 1] range
-        #assert (normalized_state >= 0).all() and (normalized_state <= 1).all(), \
-        #    'Current normalization bounded exceeded!'
+        assert (normalized_state >= 0).all() and (normalized_state <= 1).all(), \
+            'Current normalization bounded exceeded!'
 
         return normalized_state
 
@@ -30,8 +30,8 @@ class StateNormalizer:
     def extend_bounds(self):
         diff = self.upperbound - self.lowerbound
         ext = diff * 5 / 100
-        self.lowerbound -= ext / 2
-        self.upperbound += ext / 2
+        self.lowerbound -= ext
+        self.upperbound += ext
 
     def update_bounds(self, state_vector):
         if not self.isInitialised:

@@ -32,10 +32,9 @@ def main():
             state_vector = environment.getSensors()
             for k, s in enumerate(state_vector):
                 worksheets[j].write(i, k, s)
-
-            state_n = task.getObservation()[0]
+            state_n = task.update_current_state()
             state_distance = euclidean(task.kdtree.data[state_n], state_vector)
-            goal_distance = euclidean(task.GOAL_STATE, state_vector)
+            goal_distance = euclidean(task.get_goal_state_vector(), state_vector)
 
             print(state_vector)
             print(task.kdtree.data[state_n])

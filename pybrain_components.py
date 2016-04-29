@@ -1,3 +1,4 @@
+import logging
 import os
 import pickle
 
@@ -9,7 +10,7 @@ import vrep
 from NDSparseMatrix import NDSparseMatrix
 from StateNormalizer import StateNormalizer
 from bioloid import Bioloid
-from pybrain.rl.environments import Environment, Task
+from pybrain.rl.environments import Environment, Task, EpisodicTask
 from utils import Utils
 
 class StandingUpSimulator(Environment):
@@ -26,6 +27,7 @@ class StandingUpSimulator(Environment):
         self.bioloid = None
         self.reset()
         self.state_normalizer = StateNormalizer()
+        self.state_normalizer.extend_bounds()
 
     def reset(self):
         super(StandingUpSimulator, self).reset()
@@ -61,91 +63,108 @@ class StandingUpSimulator(Environment):
         print('Count: ' + str(count))
 
 
-class StandingUpTask(Task):
+class StandingUpTask(EpisodicTask):
 
     GOAL_REWARD = 100
     ENERGY_CONSUMPTION_REWARD = -0.5
-    FALLEN_REWARD = -100
+    FALLEN_REWARD = -10
     SELF_COLLISION_REWARD = -10
-    GOAL_DISTANCE_REWARD = 5
-    GOAL_STATE = [0.99249412,  0.01152511,  0.9999996 ,  0.26637849,  0.7365726 ,
-                  0.72537018,  0.26239846,  0.93522064,  0.61111627,  0.49702422,
-                  0.79671855,  0.42516445,  0.49819804,  0.49492229,  0.94970996,
-                  0.24974432,  0.49877833,  0.94491837,  0.25551248]
-    TOO_FAR_THRESHOLD = 5  # 0.15  # 0.24 Mean distance of points
+    TOO_FAR_REWARD = -100
+    GOAL_STATE = 5852
+    TOO_FAR_THRESHOLD = 0.4  # Mean/2 distance of points
+    GOAL_THRESHOLD = 0.1
 
     def __init__(self, environment):
         super(StandingUpTask, self).__init__(environment)
         self.kdtree = None
-        self.current_state = 0
-        self.current_action = -1
         self.finished = False
         self.t_table = NDSparseMatrix()
         self.t_table.load()
         self.load_state_space()
         self.current_sensors = self.kdtree.data[0]
-        self.too_far_state = self.getStateNumber() - 1
+        n = len(self.kdtree.data)
+        self.fallen_state = n
+        self.self_collided_state = n + 1
+        self.too_far_state = n + 2
+        self.goal_state = n + 3
+        self.end_state = n + 4
+        self.current_state = 0
+        self.update_current_state()
+        self.logger = logging.getLogger('learning_logger')
+        self.logger.setLevel(logging.DEBUG)
+        self.logger.addHandler(logging.FileHandler('data/learning.log'))
 
-    def load_state_space(self, filepath = 'data/state-space/state-space-all-0.pkl'):
+    def load_state_space(self, filepath='data/state-space/state-space-all-0.pkl'):
         with open(filepath, 'rb') as handle:
             data = pickle.load(handle)
         for i in range(len(data)):
             data[i] = self.env.state_normalizer.normalize(data[i])
         self.kdtree = KDTree(data)
 
-    def calcDistance(self, v1, v2):
-        d1 = euclidean(v1[0:3], v2[0:3])
-        d2 = euclidean(v1[3:6], v2[3:6])
-        d3 = euclidean(v1[6:], v2[6:])
-        return d1 * 10 + d2 * 10 + d3
+    def get_goal_state_vector(self):
+        return self.kdtree.data[self.GOAL_STATE]
 
     def getReward(self):
-        goal = self.env.norm.normalize(self.GOAL_STATE)
-        # distance = self.calcDistance(goal, self.current_sensors)
-        distance = euclidean(goal, self.current_sensors)
-        print('Goal distance: ' + str(distance))
+        goal = self.get_goal_state_vector()
+        if self.current_sensors is not None:
+            goal_distance = euclidean(goal, self.current_sensors)
+            print('Goal distance: ' + str(goal_distance))
+        else:
+            goal_distance = numpy.inf
         reward = self.ENERGY_CONSUMPTION_REWARD
-        if self.env.bioloid.isFallen():
-            print('Fallen!')
+        if self.current_state == self.fallen_state:
+            self.logger.info('Fallen!')
             reward = self.FALLEN_REWARD
             self.finish()
-        elif self.env.bioloid.isSelfCollided():
-            print('Collision!')
+        elif self.current_state == self.self_collided_state:
+            self.logger.info('Collision!')
             reward += self.SELF_COLLISION_REWARD
             self.finish()
         elif self.current_state == self.too_far_state:
-            print('Too Far!')
+            self.logger.info('Too Far!')
             reward = self.TOO_FAR_REWARD
             self.finish()
-        elif distance < 0.1:
-            print('Goal!')
-            reward += self.GOAL_REWARD
+        elif goal_distance < self.GOAL_THRESHOLD:
+            self.logger.info('Goal!')
+            reward = self.GOAL_REWARD
             self.finish()
         print('Reward: '+str(reward))
         return reward
 
     def performAction(self, action):
+        if isinstance(action, numpy.ndarray):
+            action = action[0]
         print('Action: '+str(action))
         self.env.performAction(Utils.intToVec(action))
+        self.update_current_state(action)
 
-    def getObservation(self):
-        sensors = self.env.getSensors()
-        dist, index = self.kdtree.query(sensors)
-
-        self.current_sensors = sensors
+    def update_current_state(self, action=None):
         previous_state = self.current_state
-        self.current_state = index
-
-        # Check if the actual state is too far from the one it was mapped
-        if dist > self.TOO_FAR_THRESHOLD:
+        dist = None
+        try:
+            sensors = self.env.getSensors()
+            dist, index = self.kdtree.query(sensors)
+            self.current_sensors = sensors
+            self.current_state = index
+            if dist > self.TOO_FAR_THRESHOLD:  # Check if the actual state is too far from the one it was mapped
+                self.current_state = self.too_far_state
+        except AssertionError:
             self.current_state = self.too_far_state
+            self.current_sensors = None
+            self.logger.debug('Normalization bounds excedeed: ' + str(self.env.bioloid.read_state()))
+
+        if self.env.bioloid.isFallen():  # Check if the bioloid is fallen
+            self.current_state = self.fallen_state
+        elif self.env.bioloid.isSelfCollided():  # Check if the bioloid is self-collided
+            self.current_state = self.self_collided_state
 
         # Store in the transition table the current transition
-        if self.current_action >= 0:
-            self.t_table.incrementValue((previous_state, self.current_action, self.current_state))
+        if action is not None:
+            self.t_table.incrementValue((previous_state, action, self.current_state))
+        print('{} {}'.format(self.current_state, dist))
+        return self.current_state
 
-        print(str(self.current_state) + '  ' + str(dist))
-
+    def getObservation(self):
         return [self.current_state]
 
     def finish(self):
@@ -160,7 +179,7 @@ class StandingUpTask(Task):
         return self.finished
 
     def getStateNumber(self):
-        return len(self.kdtree.data) + 1
+        return len(self.kdtree.data) + 5
 
     def getActionNumber(self):
         return 729
