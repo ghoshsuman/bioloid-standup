@@ -1,3 +1,4 @@
+import pickle
 from scipy.spatial.distance import euclidean
 
 import vrep
@@ -58,3 +59,13 @@ class Utils:
         d2 = euclidean(v1[3:6], v2[3:6])
         d3 = euclidean(v1[6:], v2[6:])
         return d1 * 5 + d2 * 5 + d3
+
+    @classmethod
+    def getNActions(cls):
+        return cls.N_ACTIONS
+
+    @classmethod
+    def getNStates(cls, filepath='data/state-space/state-space-all-0.pkl'):
+        with open(filepath, 'rb') as handle:
+            data = pickle.load(handle)
+        return len(data) + 5

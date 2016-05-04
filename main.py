@@ -1,19 +1,22 @@
 import pickle
 
 import numpy
+from scipy.spatial.distance import euclidean
 
 import vrep
-import pylab
 import os
 from pybrain.rl.agents import LearningAgent
 from pybrain.rl.experiments import Experiment, EpisodicExperiment
-from pybrain.rl.learners import ActionValueTable, Q
+from pybrain.rl.explorers import BoltzmannExplorer, EpsilonGreedyExplorer
+from pybrain.rl.learners import ActionValueTable, Q, QLambda
 from pybrain_components import StandingUpSimulator, StandingUpTask
+from utils import Utils
+from egreedy_boltzmann import EpsilonGreedyBoltzmannExplorer
 
-Q_TABLE_DIR = 'q-tables/'
+Q_TABLE_DIR = 'data/learning-tables/'
 
 
-def read_qtable(qtable_version = 1):
+def read_qtable(qtable_version = 0):
     filepath = os.path.join(Q_TABLE_DIR, 'q-table-' + str(qtable_version) + '.pkl')
     qtable = None
     if os.path.isfile(filepath):
@@ -29,58 +32,86 @@ def write_qtable(qtable, qtable_version = 1):
 
 
 def main():
-    vrep.simxFinish(-1)  # just in case, close all opened connections
-    client_id = vrep.simxStart('127.0.0.1', 19997, True, True, 5000, 5)  # Connect to V-REP
-    qtable_version = 1
-
-    if client_id < 0:
-        print('Failed connecting to remote API server')
-        return -1
-
-    print('Connected to remote API server')
-
-    pylab.gray()
-    pylab.ion()
+    client_id = Utils.connectToVREP()
+    qtable_version = 14
 
     # Define RL elements
     environment = StandingUpSimulator(client_id)
     task = StandingUpTask(environment)
 
     controller = ActionValueTable(task.getStateNumber(), task.getActionNumber())
-    controller.initialize(20.)
+    controller.initialize(10.)
 
     # If the q-table file exist load it
     qtable = read_qtable(qtable_version)
     if qtable is not None:
-        controller.params = qtable
+        print('qtable loaded')
+        controller._params = qtable
 
-    learner = Q(0.5, 0.8)
+    learner = Q(0.5, 0.9)
     agent = LearningAgent(controller, learner)
 
+    learner.explorer = EpsilonGreedyExplorer(0.15, 1)  # EpsilonGreedyBoltzmannExplorer()
     experiment = EpisodicExperiment(task, agent)
+
+    with open('data/trajectory.pkl', 'rb') as file:
+        trajectory_data = pickle.load(file)
+
+        for trajectory in trajectory_data:
+            for t in trajectory:
+                if t['action'] == -1:
+                    continue
+                agent.integrateObservation(t['state'])
+                action = Utils.vecToInt(t['action'])
+                agent.lastaction = action
+                agent.giveReward(t['reward'])
+            agent.learn()
+            agent.reset()
+
+    '''for _ in range(20):
+        for action in Utils.standingUpActions:
+            agent.integrateObservation(task.getObservation())
+            a = Utils.vecToInt(action)
+            agent.lastaction = a
+            task.performAction(a)
+            reward = task.getReward()
+            agent.giveReward(reward)
+        print('*****************')
+        agent.learn()
+        agent.reset()
+        task.reset()
+        print('mean: '+str(numpy.mean(controller.params)))
+        print('max: '+str(numpy.max(controller.params)))
+        print('min: '+str(numpy.min(controller.params)))
+
+    for action in Utils.standingUpActions:
+        state = task.getObservation()
+        a = Utils.vecToInt(action)
+        print('max action: {}'.format(controller.getMaxAction(state)))
+        print(controller.getActionValues(state)[a])
+        task.performAction(a)
+    '''
 
     i = 0
     try:
         while True:
             i += 1
-            print('Iteration n° ' + str(i))
-            experiment.doEpisodes(10)
+            print('Episode ' + str(i))
+            experiment.doEpisodes()
             agent.learn()
             agent.reset()
             print('mean: '+str(numpy.mean(controller.params)))
             print('max: '+str(numpy.max(controller.params)))
             print('min: '+str(numpy.min(controller.params)))
 
-            if i % 10 == 0:  # Every 100 episodes
+            if i % 500 == 0:  # Every 500 episodes
                 print('Save q-table')
                 qtable_version += 1
                 write_qtable(controller.params, qtable_version)
                 task.t_table.save(os.path.join(Q_TABLE_DIR, 't-table-'+str(qtable_version)+'.pkl'))
 
-            # pylab.pcolor(controller.params.reshape(task.getStateNumber(), task.getActionNumber()))
-            # pylab.draw()
     except (KeyboardInterrupt, SystemExit):
-        with open('standing-up-q.pkl', 'wb') as handle:
+        with open('data/standing-up-q.pkl', 'wb') as handle:
             pickle.dump(controller.params, handle)
         task.t_table.save()
 
