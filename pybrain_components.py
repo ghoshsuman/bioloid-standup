@@ -153,9 +153,9 @@ class StandingUpTask(EpisodicTask):
             self.current_sensors = None
             self.logger.debug('Normalization bounds excedeed: ' + str(self.env.bioloid.read_state()))
 
-        if self.env.bioloid.isFallen():  # Check if the bioloid is fallen
+        if self.env.bioloid.is_fallen():  # Check if the bioloid is fallen
             self.current_state = self.fallen_state
-        elif self.env.bioloid.isSelfCollided():  # Check if the bioloid is self-collided
+        elif self.env.bioloid.is_self_collided():  # Check if the bioloid is self-collided
             self.current_state = self.self_collided_state
 
         # Store in the transition table the current transition

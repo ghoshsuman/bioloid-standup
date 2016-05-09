@@ -14,7 +14,7 @@ def main():
     #print(environment.bioloid.read_state())
 
     trajectory_data = []
-    for i in range(25):
+    for i in range(50):
         print('Iteration {}'.format(i))
         trajectory = []
         for action in Utils.standingUpActions:

@@ -7,7 +7,8 @@ import vrep
 class Utils:
 
     N_ACTIONS = 729
-    NULL_ACTION = 364  # Action in which to movement is done -> [0, 0, 0, 0, 0, 0]
+    NULL_ACTION = 364  # Action in which no movement is done -> [0, 0, 0, 0, 0, 0]
+    NULL_ACTION_VEC = [0, 0, 0, 0, 0, 0]  # Action in which no movement is done
 
     standingUpActions = [[0, 1, 0, 1, -1, 0],
                          [0, 1, 0, 1, -1, 0],

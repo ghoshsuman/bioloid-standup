@@ -16,7 +16,7 @@ def main():
     stateNormalizer = StateNormalizer()
     n = int(input('Number of iterations: '))
 
-    workbook = xlsxwriter.Workbook('data/trajectory-trials.xls')
+    workbook = xlsxwriter.Workbook('data/reports/trajectory-trials.xls')
     worksheets = []
     for i in range(len(Utils.standingUpActions)):
         worksheets.append(workbook.add_worksheet('t'+str(i+1)))

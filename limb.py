@@ -42,6 +42,9 @@ class Limb:
             positions.append(position)
         return positions
 
+    def set_joints_position(self, client_id, positions):
+        for handle, pos in zip(self.handlesList, positions):
+            vrep.simxSetJointPosition(client_id, handle, pos, self.opmode)
 
 class Arm(Limb):
 
@@ -91,3 +94,11 @@ class Leg(Limb):
         for joint in self.used_joints:
             new_pos.append(positions[self.get_joint_index(joint)])
         return new_pos
+
+    def set_joints_position(self, client_id, positions):
+        new_pos = [0] * len(self.handlesList)
+        for joint, pos in zip(self.used_joints, positions):
+            index = self.get_joint_index(joint)
+            new_pos[index] = pos
+        super(Leg, self).set_joints_position(client_id, new_pos)
+

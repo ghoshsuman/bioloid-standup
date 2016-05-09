@@ -28,8 +28,8 @@ def main():
                 # environment = StandingUpSimulator(client_id, 'data/models/bioloid-t{}.ttt'.format(t))
                 environment.performAction(Utils.intToVec(action))
                 bioloid = environment.bioloid
-                row = {'action': action, 'state_vector': bioloid.read_state(), 'is-fallen': bioloid.isFallen(),
-                       'self-collided': bioloid.isSelfCollided(), 'trajectory-step': t}
+                row = {'action': action, 'state_vector': bioloid.read_state(), 'is-fallen': bioloid.is_fallen(),
+                       'self-collided': bioloid.is_self_collided(), 'trajectory-step': t}
                 step_data.append(row)
             with open('data/state-space-t{}-{}.pkl'.format(t, i), 'wb') as file:
                 pickle.dump(step_data, file)

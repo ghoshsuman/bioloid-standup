@@ -19,8 +19,8 @@ def main():
         a = Utils.vecToInt(action)
         task.performAction(a)
         task.getReward()
-        print('self-collided: '+ str(environment.bioloid.isFallen()))
-        print('is-fallen: '+ str(environment.bioloid.isFallen()))
+        print('self-collided: ' + str(environment.bioloid.is_fallen()))
+        print('is-fallen: ' + str(environment.bioloid.is_fallen()))
 
     environment.reset()
 
