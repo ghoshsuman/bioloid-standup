@@ -35,6 +35,11 @@ class Bioloid:
         return_code, q2 = vrep.simxGetFloatSignal(self.client_id, 'q2', self.opmode)
         return_code, q3 = vrep.simxGetFloatSignal(self.client_id, 'q3', self.opmode)
         return_code, q4 = vrep.simxGetFloatSignal(self.client_id, 'q4', self.opmode)
+        if q1 < 0:
+            q1 = -q1
+            q2 = -q2
+            q3 = -q3
+            q4 = -q4
         state_vector = [com_x, com_y, com_z, q1, q2, q3, q4]
         state_vector += self.leftArm.get_joints_position(self.client_id)
         state_vector += self.rightArm.get_joints_position(self.client_id)

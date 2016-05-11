@@ -1,3 +1,4 @@
+import pickle
 import xlsxwriter
 
 import vrep
@@ -33,6 +34,9 @@ def main():
         env.performAction(Utils.NULL_ACTION_VEC)
         row += 1
         write_row(worksheet, row, env.bioloid.read_state())
+
+    with open('data/trajectory-full-state.pkl', 'wb') as file:
+        pickle.dump(trajectory_states, file)
 
     Utils.endVREP()
     workbook.close()

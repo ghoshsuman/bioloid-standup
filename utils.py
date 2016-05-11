@@ -30,7 +30,6 @@ class Utils:
     @classmethod
     def connectToVREP(cls, port=19997):
         # vrep.simxFinish(-1)  # just in case, close all opened connections
-        print('Port {}'.format(port))
         cls.client_id = vrep.simxStart('127.0.0.1', port, True, True, 5000, 5)  # Connect to V-REP
         assert cls.client_id >= 0, 'Failed connecting to remote API server'
         return cls.client_id

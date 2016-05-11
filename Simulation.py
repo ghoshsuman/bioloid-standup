@@ -8,6 +8,8 @@ from utils import Utils
 
 class Simulation(threading.Thread):
 
+    BATCH_SIZE = 1
+
     def __init__(self, master, port):
         threading.Thread.__init__(self)
         self.daemon = True
@@ -29,7 +31,7 @@ class Simulation(threading.Thread):
                 # wait for barrier
 
                 while not self.task.isFinished():
-                    self.performStep()
+                    self.perform_step()
 
                 self.task.reset()
 
@@ -44,7 +46,7 @@ class Simulation(threading.Thread):
             # disconnect with V-REP server
             vrep.simxFinish(self.client_id)
 
-    def performStep(self):
+    def perform_step(self):
         observation = self.task.getObservation()
         action = self.master.get_action(observation)
         self.task.performAction(action)
