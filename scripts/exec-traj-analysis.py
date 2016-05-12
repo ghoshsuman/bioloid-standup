@@ -1,19 +1,25 @@
 import pickle
+
+import numpy
 import xlsxwriter
 from scipy.spatial.distance import euclidean
 
 from StateNormalizer import StateNormalizer
-from pybrain_components import StandingUpSimulator, StandingUpTask
+from pybrain_components import StandingUpEnvironment, StandingUpTask
 from utils import Utils
 
 
 def main():
 
     client_id = Utils.connectToVREP()
-    environment = StandingUpSimulator(client_id)
+    environment = StandingUpEnvironment(client_id)
     task = StandingUpTask(environment)
     state_vector_length = len(environment.bioloid.read_state())
-    stateNormalizer = StateNormalizer()
+    delta = task.state_mapper.sd.delta
+    print(delta)
+
+    print(numpy.sqrt(numpy.sum(delta ** 2)) / 2)
+
     n = int(input('Number of iterations: '))
 
     workbook = xlsxwriter.Workbook('data/reports/trajectory-trials.xls')
@@ -25,19 +31,22 @@ def main():
         print('Iteration ' + str(i + 1))
         print('Initial State: ')
         # task.getObservation()
-        print(environment.getSensors())
+        print(task.state_mapper.sd.discretize(environment.getSensors()))
         print(task.getObservation()[0])
+
         for j, action in enumerate(Utils.standingUpActions):
             environment.performAction(action)
             state_vector = environment.getSensors()
-            for k, s in enumerate(state_vector):
+            discretized_state = task.state_mapper.sd.discretize(state_vector)
+            for k, s in enumerate(discretized_state):
                 worksheets[j].write(i, k, s)
             state_n = task.update_current_state()
-            state_distance = euclidean(task.kdtree.data[state_n], state_vector)
-            goal_distance = euclidean(task.get_goal_state_vector(), state_vector)
 
-            print(state_vector)
-            print(task.kdtree.data[state_n])
+            state_distance = euclidean(task.state_mapper.state_space[state_n], discretized_state)
+            goal_distance = task.state_mapper.get_goal_distance(discretized_state)
+
+            print(discretized_state)
+            print(task.state_mapper.state_space[state_n])
             print('---------------------')
 
             worksheets[j].write(i, state_vector_length + 1, state_n)
@@ -59,20 +68,9 @@ def main():
             col_name = chr(ord('A') + j)
             data_range = sheet_name+'.'+col_name+'1:'+col_name+str(n)
             # TODO: check why range is made lowercase :/
-            res_worksheet.write(row, 2 + j, '=AVERAGE('+data_range+')')
-            res_worksheet.write(row + 1, 2 + j, '=VAR.P('+data_range+')')
+            res_worksheet.write_formula(row, 2 + j, '=AVERAGE('+data_range+')')
+            res_worksheet.write_formula(row + 1, 2 + j, '=VAR.P('+data_range+')')
         row += 2
-        '''
-        for i in range(len(Utils.standingUpActions)):
-        worksheets[i].write(n + 2, 1,   'mean')
-        worksheets[i].write(n + 3, 1, 'var')
-        for j in range(state_vector_length):
-            col_name = chr(ord('A') + j)
-            data_range = col_name+'1:'+col_name+str(n)
-            # print(data_range)
-            worksheets[i].write(n + 2, 2 + j, '=AVERAGE('+data_range+')')
-            worksheets[i].write(n + 3, 2 + j, '=VAR.P('+data_range+')')
-        '''
 
     workbook.close()
 

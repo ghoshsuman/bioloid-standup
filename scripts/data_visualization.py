@@ -4,7 +4,7 @@ import pickle
 
 from sklearn.decomposition import PCA
 
-from pybrain_components import StandingUpSimulator
+from pybrain_components import StandingUpEnvironment
 
 N_ACTIONS = 729
 

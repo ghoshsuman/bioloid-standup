@@ -8,18 +8,19 @@ from scipy.spatial.distance import euclidean
 
 import vrep
 from NDSparseMatrix import NDSparseMatrix
+from StateMapper import StateMapper
 from StateNormalizer import StateNormalizer
 from bioloid import Bioloid
 from pybrain.rl.environments import Environment, Task, EpisodicTask
 from utils import Utils
 
-class StandingUpSimulator(Environment):
+class StandingUpEnvironment(Environment):
     opmode = vrep.simx_opmode_blocking
     STATIONARY_THRESHOLD = 0.01
     MAX_ITERATIONS_PER_ACTION = 20
 
     def __init__(self, client_id, model_path='data/models/bioloid.ttt'):
-        super(StandingUpSimulator, self).__init__()
+        super(StandingUpEnvironment, self).__init__()
         self.model_path = os.path.abspath(model_path)
         self.discreteActions = True
         self.discreteStates = True
@@ -30,7 +31,7 @@ class StandingUpSimulator(Environment):
         self.state_normalizer.extend_bounds()
 
     def reset(self):
-        super(StandingUpSimulator, self).reset()
+        super(StandingUpEnvironment, self).reset()
         # print('*** Reset ***')
         vrep.simxStopSimulation(self.client_id, self.opmode)
         vrep.simxCloseScene(self.client_id, self.opmode)
@@ -42,7 +43,7 @@ class StandingUpSimulator(Environment):
     def getSensors(self):
         state_vector = self.bioloid.read_state()
         # print('not norm: '+ str(state_vector))
-        state_vector = self.state_normalizer.normalize(state_vector)
+        # state_vector = self.state_normalizer.normalize(state_vector)
         # print('norm: '+ str(state_vector))
         return state_vector
 
@@ -70,61 +71,35 @@ class StandingUpTask(EpisodicTask):
     FALLEN_REWARD = -10
     SELF_COLLISION_REWARD = -10
     TOO_FAR_REWARD = -100
-    GOAL_STATE = 5852
-    TOO_FAR_THRESHOLD = 0.4  # Mean/2 distance of points
-    GOAL_THRESHOLD = 0.1
 
-    def __init__(self, environment):
+    def __init__(self, environment, log_file_path='data/learning.log'):
         super(StandingUpTask, self).__init__(environment)
-        self.kdtree = None
         self.finished = False
         self.t_table = NDSparseMatrix()
         self.t_table.load()
-        self.load_state_space()
-        self.current_sensors = self.kdtree.data[0]
-        n = len(self.kdtree.data)
-        self.fallen_state = n
-        self.self_collided_state = n + 1
-        self.too_far_state = n + 2
-        self.goal_state = n + 3
-        self.end_state = n + 4
-        self.current_state = 0
+        self.state_mapper = StateMapper(self.env.bioloid)
+        self.current_sensors = self.current_state = None
         self.update_current_state()
-        self.logger = logging.getLogger('learning_logger')
+        self.logger = logging.getLogger(log_file_path)
         self.logger.setLevel(logging.DEBUG)
-        self.logger.addHandler(logging.FileHandler('data/learning.log'))
-
-    def load_state_space(self, filepath='data/state-space/state-space-all-0.pkl'):
-        with open(filepath, 'rb') as handle:
-            data = pickle.load(handle)
-        for i in range(len(data)):
-            data[i] = self.env.state_normalizer.normalize(data[i])
-        self.kdtree = KDTree(data)
-
-    def get_goal_state_vector(self):
-        return self.kdtree.data[self.GOAL_STATE]
+        self.logger.addHandler(logging.FileHandler(log_file_path))
 
     def getReward(self):
-        goal = self.get_goal_state_vector()
-        if self.current_sensors is not None:
-            goal_distance = euclidean(goal, self.current_sensors)
-            print('Goal distance: ' + str(goal_distance))
-        else:
-            goal_distance = numpy.inf
+
         reward = self.ENERGY_CONSUMPTION_REWARD
-        if self.current_state == self.fallen_state:
+        if self.current_state == self.state_mapper.fallen_state:
             self.logger.info('Fallen!')
             reward = self.FALLEN_REWARD
             self.finish()
-        elif self.current_state == self.self_collided_state:
+        elif self.current_state == self.state_mapper.self_collided_state:
             self.logger.info('Collision!')
-            reward += self.SELF_COLLISION_REWARD
+            reward = self.SELF_COLLISION_REWARD
             self.finish()
-        elif self.current_state == self.too_far_state:
+        elif self.current_state == self.state_mapper.too_far_state:
             self.logger.info('Too Far!')
             reward = self.TOO_FAR_REWARD
             self.finish()
-        elif goal_distance < self.GOAL_THRESHOLD:
+        elif self.current_state == self.state_mapper.goal_state:
             self.logger.info('Goal!')
             reward = self.GOAL_REWARD
             self.finish()
@@ -140,28 +115,13 @@ class StandingUpTask(EpisodicTask):
 
     def update_current_state(self, action=None):
         previous_state = self.current_state
-        dist = None
-        try:
-            sensors = self.env.getSensors()
-            dist, index = self.kdtree.query(sensors)
-            self.current_sensors = sensors
-            self.current_state = index
-            if dist > self.TOO_FAR_THRESHOLD:  # Check if the actual state is too far from the one it was mapped
-                self.current_state = self.too_far_state
-        except AssertionError:
-            self.current_state = self.too_far_state
-            self.current_sensors = None
-            self.logger.debug('Normalization bounds excedeed: ' + str(self.env.bioloid.read_state()))
-
-        if self.env.bioloid.is_fallen():  # Check if the bioloid is fallen
-            self.current_state = self.fallen_state
-        elif self.env.bioloid.is_self_collided():  # Check if the bioloid is self-collided
-            self.current_state = self.self_collided_state
+        sensors = self.env.getSensors()
+        self.current_sensors = sensors
+        self.current_state = self.state_mapper.map(sensors)
 
         # Store in the transition table the current transition
         if action is not None:
             self.t_table.incrementValue((previous_state, action, self.current_state))
-        print('{} {}'.format(self.current_state, dist))
         return self.current_state
 
     def getObservation(self):
@@ -169,17 +129,17 @@ class StandingUpTask(EpisodicTask):
 
     def finish(self):
         self.finished = True
-        self.env.reset()
 
     def reset(self):
-        self.current_state = 0
         self.finished = False
+        self.env.reset()
+        self.update_current_state()
 
     def isFinished(self):
         return self.finished
 
-    def getStateNumber(self):
-        return len(self.kdtree.data) + 5
+    def get_state_space_size(self):
+        return self.state_mapper.get_state_space_size()
 
-    def getActionNumber(self):
+    def get_action_space_size(self):
         return 729

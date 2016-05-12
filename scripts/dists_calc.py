@@ -9,7 +9,7 @@ from scipy.stats import probplot
 import statsmodels.api as sm
 
 from StateNormalizer import StateNormalizer
-from pybrain_components import StandingUpSimulator
+from pybrain_components import StandingUpEnvironment
 from utils import Utils
 
 

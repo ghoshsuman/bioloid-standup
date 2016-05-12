@@ -2,13 +2,13 @@ import threading
 import traceback
 
 import vrep
-from pybrain_components import StandingUpSimulator, StandingUpTask
+from pybrain_components import StandingUpEnvironment, StandingUpTask
 from utils import Utils
 
 
 class Simulation(threading.Thread):
 
-    BATCH_SIZE = 1
+    BATCH_SIZE = 10
 
     def __init__(self, master, port):
         threading.Thread.__init__(self)
@@ -18,22 +18,24 @@ class Simulation(threading.Thread):
         self.environment = None
         self.task = None
         self.port = port
-        self.trace = []
+        self.current_trace = []
+        self.traces = []
 
     def run(self):
         try:
             # connect to V-REP server
             self.client_id = Utils.connectToVREP(self.port)
-            self.environment = StandingUpSimulator(self.client_id)
-            self.task = StandingUpTask(self.environment)
+            self.environment = StandingUpEnvironment(self.client_id)
+            self.task = StandingUpTask(self.environment, 'data/learning-tables/log_{}.log'.format(self.port))
 
             while True:
                 # wait for barrier
-
-                while not self.task.isFinished():
-                    self.perform_step()
-
-                self.task.reset()
+                for _ in range(self.BATCH_SIZE):
+                    self.current_trace = []
+                    while not self.task.isFinished():
+                        self.perform_step()
+                    self.traces.append(self.current_trace)
+                    self.task.reset()
 
                 self.master.barrier.wait()  # wait for the end of other simulations
                 self.master.barrier.wait()  # wait for q matrix update
@@ -51,5 +53,5 @@ class Simulation(threading.Thread):
         action = self.master.get_action(observation)
         self.task.performAction(action)
         reward = self.task.getReward()
-        self.trace.append([observation, action, reward])
+        self.current_trace.append([observation, action, reward])
 

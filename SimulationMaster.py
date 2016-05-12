@@ -58,12 +58,19 @@ class SimulationMaster:
             Updates the q table with the new simulators observations
         """
         for sim in self.simulators:
-            for obs in sim.trace:
-                print(obs)
-                self.add_observation(obs)
-            self.agent.learn()
-            self.agent.reset()
-            sim.trace.clear()
+            for trace in sim.traces:
+                for obs in trace:
+                    self.add_observation(obs)
+                self.agent.learn()
+                self.agent.reset()
+            sim.traces.clear()
+
+    def save_q_table(self, qtable_version = 0):
+        """
+            Saves the q table on file in the data/learning-tables folder
+        """
+        with open('data/learning-tables/q-table-{}.pkl'.format(qtable_version), 'wb') as file:
+            pickle.dump(self.controller.params, file)
 
     def run(self):
 
@@ -75,4 +82,5 @@ class SimulationMaster:
             self.barrier.wait()  # wait until all simulations are done
             self.update_q_table()
             self.barrier.wait()  # Free simulations threads and start a new cycle
+            self.save_q_table()
 

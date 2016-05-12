@@ -9,7 +9,7 @@ from pybrain.rl.agents import LearningAgent
 from pybrain.rl.experiments import Experiment, EpisodicExperiment
 from pybrain.rl.explorers import BoltzmannExplorer, EpsilonGreedyExplorer
 from pybrain.rl.learners import ActionValueTable, Q, QLambda
-from pybrain_components import StandingUpSimulator, StandingUpTask
+from pybrain_components import StandingUpEnvironment, StandingUpTask
 from utils import Utils
 from egreedy_boltzmann import EpsilonGreedyBoltzmannExplorer
 
@@ -36,10 +36,10 @@ def main():
     qtable_version = 14
 
     # Define RL elements
-    environment = StandingUpSimulator(client_id)
+    environment = StandingUpEnvironment(client_id)
     task = StandingUpTask(environment)
 
-    controller = ActionValueTable(task.getStateNumber(), task.getActionNumber())
+    controller = ActionValueTable(task.get_state_space_size(), task.get_action_space_size())
     controller.initialize(10.)
 
     # If the q-table file exist load it

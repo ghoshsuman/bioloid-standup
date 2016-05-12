@@ -4,7 +4,7 @@ import vrep
 from pybrain.rl.agents import LearningAgent
 from pybrain.rl.experiments import Experiment, EpisodicExperiment
 from pybrain.rl.learners import ActionValueTable, Q
-from pybrain_components import StandingUpTask, StandingUpSimulator
+from pybrain_components import StandingUpTask, StandingUpEnvironment
 
 
 def main():
@@ -18,11 +18,11 @@ def main():
     print('Connected to remote API server')
 
     # Define RL elements
-    environment = StandingUpSimulator(client_id)
+    environment = StandingUpEnvironment(client_id)
 
     task = StandingUpTask(environment)
 
-    controller = ActionValueTable(task.getStateNumber(), task.getActionNumber())
+    controller = ActionValueTable(task.get_state_space_size(), task.get_action_space_size())
     controller.initialize(1.)
 
     file = open('standing-up-q.pkl', 'rb')

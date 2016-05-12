@@ -1,6 +1,6 @@
 import pickle
 
-from pybrain_components import StandingUpSimulator
+from pybrain_components import StandingUpEnvironment
 from utils import Utils
 
 
@@ -8,7 +8,7 @@ def main():
     client_id = Utils.connectToVREP()
     data = []
 
-    environment = StandingUpSimulator(client_id)
+    environment = StandingUpEnvironment(client_id)
 
     for i in range(10):
         print('Iteration {}'.format(i))

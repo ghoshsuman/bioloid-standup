@@ -2,7 +2,7 @@ import pickle
 
 import utils
 from StateNormalizer import StateNormalizer
-from pybrain_components import StandingUpSimulator
+from pybrain_components import StandingUpEnvironment
 from utils import Utils
 
 
@@ -14,7 +14,7 @@ def main():
 
     # First add the initial state
     client_id = Utils.connectToVREP()
-    env = StandingUpSimulator(client_id)
+    env = StandingUpEnvironment(client_id)
     states_space.append(env.bioloid.read_state())
     Utils.endVREP()
 

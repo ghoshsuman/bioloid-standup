@@ -4,7 +4,7 @@ import numpy
 from scipy.spatial import KDTree
 
 import vrep
-from pybrain_components import StandingUpSimulator
+from pybrain_components import StandingUpEnvironment
 from utils import Utils
 
 
@@ -38,7 +38,7 @@ def main():
     print('Connected to remote API server')
 
     # Define RL elements
-    environment = StandingUpSimulator(client_id)
+    environment = StandingUpEnvironment(client_id)
 
     for index, targetAction in enumerate(staningUpActions):
         for a in range(N_ACTIONS):

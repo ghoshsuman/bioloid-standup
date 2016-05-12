@@ -1,13 +1,13 @@
 import pickle
 
-from pybrain_components import StandingUpSimulator, StandingUpTask
+from pybrain_components import StandingUpEnvironment, StandingUpTask
 from utils import Utils
 
 
 def main():
 
     client_id = Utils.connectToVREP()
-    environment = StandingUpSimulator(client_id)
+    environment = StandingUpEnvironment(client_id)
     task = StandingUpTask(environment)
 
     #print('Initial State: ')

@@ -3,7 +3,7 @@ import xlsxwriter
 
 import vrep
 from utils import Utils
-from pybrain_components import StandingUpSimulator
+from pybrain_components import StandingUpEnvironment
 
 
 def write_row(worksheet, row, values):
@@ -14,7 +14,7 @@ def write_row(worksheet, row, values):
 def main():
     client_id = Utils.connectToVREP()
 
-    env = StandingUpSimulator(client_id)
+    env = StandingUpEnvironment(client_id)
     workbook = xlsxwriter.Workbook('data/reports/teleport-test.xls')
     worksheet = workbook.add_worksheet('Sheet 1')
 
