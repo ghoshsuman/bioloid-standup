@@ -8,7 +8,7 @@ from utils import Utils
 
 class Simulation(threading.Thread):
 
-    BATCH_SIZE = 10
+    BATCH_SIZE = 5
 
     def __init__(self, master, port):
         threading.Thread.__init__(self)
@@ -55,3 +55,5 @@ class Simulation(threading.Thread):
         reward = self.task.getReward()
         self.current_trace.append([observation, action, reward])
 
+    def save_t_table(self):
+        self.task.t_table.save('data/learning-tables/t-table-{}.pkl'.format(self.port))

@@ -1,10 +1,14 @@
+import logging
 from threading import Barrier
 
 import pickle
 
 import time
 
+import numpy
+
 from Simulation import Simulation
+from StateMapper import StateMapper
 from pybrain.rl.agents import LearningAgent
 from pybrain.rl.explorers import EpsilonGreedyExplorer
 from pybrain.rl.learners import ActionValueTable, Q
@@ -13,14 +17,18 @@ from utils import Utils
 
 class SimulationMaster:
 
-    def __init__(self, n_threads=4, initial_port = 19997, q_table_version=0):
+    def __init__(self, n_threads=4, initial_port=19997, q_table_version=0):
         self.barrier = Barrier(n_threads + 1)
         self.q_table_version = q_table_version
-        self.controller = ActionValueTable(Utils.getNStates(), Utils.getNActions())
-        self.learner = Q()
+        state_mapper = StateMapper()
+        self.controller = ActionValueTable(state_mapper.get_state_space_size(), Utils.N_ACTIONS)
+        self.learner = Q(0.5, 0.9)
         self.agent = LearningAgent(self.controller, self.learner)
         self.simulators = []
-        self.explorer = self.learner.explorer = EpsilonGreedyExplorer(0.2)
+        self.explorer = self.learner.explorer = EpsilonGreedyExplorer(0.2, 0.998)
+        self.logger = logging.getLogger('master_logger')
+        self.logger.setLevel(logging.DEBUG)
+        self.logger.addHandler(logging.FileHandler('data/learning-tables/master.log'))
 
         for i in range(n_threads):
             self.simulators.append(Simulation(self, initial_port + i))
@@ -63,14 +71,25 @@ class SimulationMaster:
                     self.add_observation(obs)
                 self.agent.learn()
                 self.agent.reset()
-            sim.traces.clear()
 
-    def save_q_table(self, qtable_version = 0):
+            sim.traces.clear()
+        self.explorer.decrement_epsilon()
+        self.logger.info('new epsilon: {}'.format(self.explorer.epsilon))
+
+    def save_q_table(self):
         """
             Saves the q table on file in the data/learning-tables folder
         """
-        with open('data/learning-tables/q-table-{}.pkl'.format(qtable_version), 'wb') as file:
+        with open('data/learning-tables/q-table-{}.pkl'.format(self.q_table_version), 'wb') as file:
             pickle.dump(self.controller.params, file)
+        self.q_table_version += 1
+
+    def save_t_table(self):
+        """
+            Saves t tables, one for each thread
+        """
+        for sim in self.simulators:
+            sim.save_t_table()
 
     def run(self):
 
@@ -81,6 +100,7 @@ class SimulationMaster:
         while True:
             self.barrier.wait()  # wait until all simulations are done
             self.update_q_table()
+            self.save_t_table()
             self.barrier.wait()  # Free simulations threads and start a new cycle
             self.save_q_table()
 

@@ -9,8 +9,8 @@ from StateDiscretizer import StateDiscretizer
 class StateMapper:
 
     GOAL_STATE = 757
-    TOO_FAR_THRESHOLD = 5  # Mean/2 distance of points
-    GOAL_THRESHOLD = 0.1
+    TOO_FAR_THRESHOLD = 0.2
+    GOAL_THRESHOLD = 0.5
 
     def __init__(self, bioloid=None):
         self.sd = StateDiscretizer()
@@ -24,8 +24,8 @@ class StateMapper:
         dist, index = self.kdtree.query(discretized_state)
         current_state = index
         goal_distance = self.get_goal_distance(discretized_state)
-        # if goal_distance < self.GOAL_THRESHOLD:
-        #    current_state = self.goal_state
+        if goal_distance < self.GOAL_THRESHOLD:
+            current_state = self.goal_state
 
         if dist > self.TOO_FAR_THRESHOLD:  # Check if the actual state is too far from the one it was mapped
             current_state = self.too_far_state
@@ -35,13 +35,13 @@ class StateMapper:
                 current_state = self.fallen_state
             elif self.bioloid.is_self_collided():  # Check if the bioloid is self-collided
                 current_state = self.self_collided_state
-        print('current state: {} dist: {}'.format(current_state, dist))
+        print('state: {} dist: {}'.format(current_state, dist))
         return current_state
 
     def get_goal_distance(self, state):
         goal = self.get_goal_state_vector()
         goal_distance = euclidean(goal, state)
-        print('Goal distance: ' + str(goal_distance))
+        # print('Goal distance: ' + str(goal_distance))
         return goal_distance
 
     def get_goal_state_vector(self):

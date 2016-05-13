@@ -27,8 +27,6 @@ class StandingUpEnvironment(Environment):
         self.client_id = client_id
         self.bioloid = None
         self.reset()
-        self.state_normalizer = StateNormalizer()
-        self.state_normalizer.extend_bounds()
 
     def reset(self):
         super(StandingUpEnvironment, self).reset()
@@ -42,9 +40,6 @@ class StandingUpEnvironment(Environment):
 
     def getSensors(self):
         state_vector = self.bioloid.read_state()
-        # print('not norm: '+ str(state_vector))
-        # state_vector = self.state_normalizer.normalize(state_vector)
-        # print('norm: '+ str(state_vector))
         return state_vector
 
     def performAction(self, action):
@@ -61,15 +56,15 @@ class StandingUpEnvironment(Environment):
             # print('dist: ' + str(dist))
             old_state = new_state
             count += 1
-        print('Count: ' + str(count))
+        # print('Count: ' + str(count))
 
 
 class StandingUpTask(EpisodicTask):
 
     GOAL_REWARD = 100
-    ENERGY_CONSUMPTION_REWARD = -0.5
-    FALLEN_REWARD = -10
-    SELF_COLLISION_REWARD = -10
+    ENERGY_CONSUMPTION_REWARD = -1
+    FALLEN_REWARD = -100
+    SELF_COLLISION_REWARD = -100
     TOO_FAR_REWARD = -100
 
     def __init__(self, environment, log_file_path='data/learning.log'):
@@ -85,7 +80,6 @@ class StandingUpTask(EpisodicTask):
         self.logger.addHandler(logging.FileHandler(log_file_path))
 
     def getReward(self):
-
         reward = self.ENERGY_CONSUMPTION_REWARD
         if self.current_state == self.state_mapper.fallen_state:
             self.logger.info('Fallen!')
@@ -103,7 +97,7 @@ class StandingUpTask(EpisodicTask):
             self.logger.info('Goal!')
             reward = self.GOAL_REWARD
             self.finish()
-        print('Reward: '+str(reward))
+        # print('Reward: '+str(reward))
         return reward
 
     def performAction(self, action):
