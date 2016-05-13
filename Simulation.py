@@ -8,7 +8,7 @@ from utils import Utils
 
 class Simulation(threading.Thread):
 
-    BATCH_SIZE = 5
+    BATCH_SIZE = 20
 
     def __init__(self, master, port):
         threading.Thread.__init__(self)
