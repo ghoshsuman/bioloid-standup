@@ -30,15 +30,15 @@ class Bioloid:
         return_code1, com_x = vrep.simxGetFloatSignal(self.client_id, 'COM_x', self.opmode)
         return_code2, com_y = vrep.simxGetFloatSignal(self.client_id, 'COM_y', self.opmode)
         return_code3, com_z = vrep.simxGetFloatSignal(self.client_id, 'COM_z', self.opmode)
-        if return_code1 != 0 or return_code2 != 0 or return_code3 != 0:
-                raise RuntimeError('Read state failed!')
+        # if return_code1 != 0 or return_code2 != 0 or return_code3 != 0:
+                # raise RuntimeError('Read state failed!')
         # Retrieve quaternion values
         return_code1, q1 = vrep.simxGetFloatSignal(self.client_id, 'q1', self.opmode)
         return_code2, q2 = vrep.simxGetFloatSignal(self.client_id, 'q2', self.opmode)
         return_code3, q3 = vrep.simxGetFloatSignal(self.client_id, 'q3', self.opmode)
         return_code4, q4 = vrep.simxGetFloatSignal(self.client_id, 'q4', self.opmode)
-        if return_code1 != 0 or return_code2 != 0 or return_code3 != 0 or return_code4 != 0:
-                raise RuntimeError('Read state failed!')
+        # if return_code1 != 0 or return_code2 != 0 or return_code3 != 0 or return_code4 != 0:
+                # raise RuntimeError('Read state failed!')
         if q1 < 0:
             q1 = -q1
             q2 = -q2
