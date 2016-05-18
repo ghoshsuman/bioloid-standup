@@ -24,14 +24,14 @@ class SimulationMaster:
         self.controller = ActionValueTable(state_mapper.get_state_space_size(), Utils.N_ACTIONS)
         self.learner = Q(0.5, 0.9)
         self.agent = LearningAgent(self.controller, self.learner)
-        self.simulators = []
+        self.simulations = []
         self.explorer = self.learner.explorer = EpsilonGreedyExplorer(0.2, 0.998)
         self.logger = logging.getLogger('master_logger')
         self.logger.setLevel(logging.DEBUG)
         self.logger.addHandler(logging.FileHandler('data/learning-tables/master.log'))
 
         for i in range(n_threads):
-            self.simulators.append(Simulation(self, initial_port + i))
+            self.simulations.append(Simulation(self, initial_port + i))
 
     def initialize_q_table(self):
         self.controller.initialize(10.)
@@ -39,13 +39,14 @@ class SimulationMaster:
         with open('data/trajectory.pkl', 'rb') as file:
             trajectory_data = pickle.load(file)
 
-        for trajectory in trajectory_data:
-            for t in trajectory:
-                if t['action'] == -1:
-                    continue
-                self.add_observation([t['state'], Utils.vecToInt(t['action']), t['reward']])
-            self.agent.learn()
-            self.agent.reset()
+        for i in range(5):
+            for trajectory in trajectory_data:
+                for t in trajectory:
+                    if t['action'] == -1:
+                        continue
+                    self.add_observation([t['state'], Utils.vecToInt(t['action']), t['reward']])
+                self.agent.learn()
+                self.agent.reset()
 
     def get_action(self, observation):
         action = self.controller.activate(observation)
@@ -65,7 +66,7 @@ class SimulationMaster:
         """
             Updates the q table with the new simulators observations
         """
-        for sim in self.simulators:
+        for sim in self.simulations:
             for trace in sim.traces:
                 for obs in trace:
                     self.add_observation(obs)
@@ -88,13 +89,13 @@ class SimulationMaster:
         """
             Saves t tables, one for each thread
         """
-        for sim in self.simulators:
+        for sim in self.simulations:
             sim.save_t_table()
 
     def run(self):
 
         self.initialize_q_table()
-        for sim in self.simulators:
+        for sim in self.simulations:
             sim.start()
 
         while True:
@@ -104,3 +105,10 @@ class SimulationMaster:
             self.barrier.wait()  # Free simulations threads and start a new cycle
             self.save_q_table()
 
+    def restart_simulation(self, simulation):
+        self.simulations.remove(simulation)
+        new_simulation = Simulation(self, simulation.port)
+        self.simulations.append(new_simulation)
+        new_simulation.start()
+        self.logger.info('Restarting simulation with port {}'.format(simulation.port))
+        del simulation

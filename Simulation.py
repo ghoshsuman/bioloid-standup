@@ -34,19 +34,21 @@ class Simulation(threading.Thread):
                     self.current_trace = []
                     while not self.task.isFinished():
                         self.perform_step()
-                    self.traces.append(self.current_trace)
                     self.task.reset()
+                    self.traces.append(self.current_trace)
 
                 self.master.barrier.wait()  # wait for the end of other simulations
                 self.master.barrier.wait()  # wait for q matrix update
 
-        except Exception as e:
-            print('[Simulation %s] %s' % (self.port, e.args[0]))
+        except (RuntimeError, AssertionError) as e:
+            self.master.logger.error('[Simulation %s] %s' % (self.port, e.args[0]))
             traceback.print_exc()
-
-        finally:
-            # disconnect with V-REP server
-            vrep.simxFinish(self.client_id)
+            vrep.simxFinish(self.client_id)  # disconnect with V-REP server
+            self.current_trace = []
+            self.traces = []
+            self.master.barrier.wait()  # wait for the end of other simulations
+            self.master.barrier.wait()  # wait for q matrix update
+            self.master.restart_simulation(self)
 
     def perform_step(self):
         observation = self.task.getObservation()

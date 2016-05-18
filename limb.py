@@ -30,7 +30,9 @@ class Limb:
             handle = self.handlesList[i]
             return_code, position = vrep.simxGetJointPosition(client_id, handle, self.opmode)
             new_position = position + 30 * math.pi / 180 * values[i]
-            vrep.simxSetJointTargetPosition(client_id, handle, new_position, self.opmode)
+            return_code2 = vrep.simxSetJointTargetPosition(client_id, handle, new_position, self.opmode)
+            if return_code != 0 or return_code2 != 0:
+                raise RuntimeError('Move joint {} failed!'.format(handle))
 
     def get_joint_index(self, name):
         return self.handlesList.index(self.handlesDict[name])
@@ -40,6 +42,8 @@ class Limb:
         for handle in self.handlesList:
             return_code, position = vrep.simxGetJointPosition(client_id, handle, self.opmode)
             positions.append(position)
+            if return_code != 0:
+                raise RuntimeError('Get position of joint {} failed!'.format(handle))
         return positions
 
     def set_joints_position(self, client_id, positions):

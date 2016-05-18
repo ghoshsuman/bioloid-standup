@@ -1,7 +1,5 @@
 import pickle
-
-import subprocess
-
+import vrep
 from SimulationMaster import SimulationMaster
 
 
@@ -19,6 +17,7 @@ def main():
             pickle.dump(master.save_q_table(), handle)
         master.save_t_table()
         master.save_t_table()
+        vrep.simxFinish(-1)
 
 
 if __name__ == '__main__':
