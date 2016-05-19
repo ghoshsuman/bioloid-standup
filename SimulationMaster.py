@@ -29,6 +29,8 @@ class SimulationMaster:
         self.logger = logging.getLogger('master_logger')
         self.logger.setLevel(logging.DEBUG)
         self.logger.addHandler(logging.FileHandler('data/learning-tables/master.log'))
+        self.failed_simulations = []
+        self.n_episodes = 0
 
         for i in range(n_threads):
             self.simulations.append(Simulation(self, initial_port + i))
@@ -72,10 +74,12 @@ class SimulationMaster:
                     self.add_observation(obs)
                 self.agent.learn()
                 self.agent.reset()
+                self.n_episodes +=1
 
             sim.traces.clear()
         self.explorer.decrement_epsilon()
         self.logger.info('new epsilon: {}'.format(self.explorer.epsilon))
+        self.logger.info('n episodes: {}'.format(self.n_episodes))
 
     def save_q_table(self):
         """
@@ -103,12 +107,15 @@ class SimulationMaster:
             self.update_q_table()
             self.save_t_table()
             self.barrier.wait()  # Free simulations threads and start a new cycle
+            while self.failed_simulations:
+                sim = self.failed_simulations.pop()
+                self.restart_simulation(sim)
             self.save_q_table()
 
     def restart_simulation(self, simulation):
+        self.logger.info('Restarting simulation with port {}'.format(simulation.port))
         self.simulations.remove(simulation)
         new_simulation = Simulation(self, simulation.port)
         self.simulations.append(new_simulation)
         new_simulation.start()
-        self.logger.info('Restarting simulation with port {}'.format(simulation.port))
         del simulation

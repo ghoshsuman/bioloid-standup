@@ -23,10 +23,12 @@ class Simulation(threading.Thread):
 
     def run(self):
         try:
+            print('current thread {} '.format(threading.current_thread()))
             # connect to V-REP server
             self.client_id = Utils.connectToVREP(self.port)
             self.environment = StandingUpEnvironment(self.client_id)
             self.task = StandingUpTask(self.environment, 'data/learning-tables/log_{}.log'.format(self.port))
+
 
             while True:
                 # wait for barrier
@@ -41,14 +43,14 @@ class Simulation(threading.Thread):
                 self.master.barrier.wait()  # wait for q matrix update
 
         except (RuntimeError, AssertionError) as e:
+            print('exception current thread {} '.format(threading.current_thread()))
             self.master.logger.error('[Simulation %s] %s' % (self.port, e.args[0]))
             traceback.print_exc()
             vrep.simxFinish(self.client_id)  # disconnect with V-REP server
             self.current_trace = []
-            self.traces = []
+            self.master.failed_simulations.append(self)
             self.master.barrier.wait()  # wait for the end of other simulations
             self.master.barrier.wait()  # wait for q matrix update
-            self.master.restart_simulation(self)
 
     def perform_step(self):
         observation = self.task.getObservation()
@@ -58,4 +60,5 @@ class Simulation(threading.Thread):
         self.current_trace.append([observation, action, reward])
 
     def save_t_table(self):
-        self.task.t_table.save('data/learning-tables/t-table-{}.pkl'.format(self.port))
+        if self.task is not None:
+            self.task.t_table.save('data/learning-tables/t-table-{}.pkl'.format(self.port))
