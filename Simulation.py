@@ -1,5 +1,10 @@
+import os
 import threading
 import traceback
+
+import subprocess
+
+import time
 
 import vrep
 from pybrain_components import StandingUpEnvironment, StandingUpTask
@@ -7,7 +12,6 @@ from utils import Utils
 
 
 class Simulation(threading.Thread):
-
     BATCH_SIZE = 20
 
     def __init__(self, master, port):
@@ -23,12 +27,15 @@ class Simulation(threading.Thread):
 
     def run(self):
         try:
-            print('current thread {} '.format(threading.current_thread()))
+            vrep_path = os.path.abspath('V-REP_PRO_EDU_V3_3_0_64_Linux/')
+            proc = subprocess.Popen(
+                'cd {} &&  xvfb-run --auto-servernum --server-num=1 ./vrep.sh -h -gREMOTEAPISERVERSERVICE_{}_FALSE_TRUE'.format(
+                    vrep_path, self.port), shell=True)
+            time.sleep(5)
             # connect to V-REP server
             self.client_id = Utils.connectToVREP(self.port)
             self.environment = StandingUpEnvironment(self.client_id)
             self.task = StandingUpTask(self.environment, 'data/learning-tables/log_{}.log'.format(self.port))
-
 
             while True:
                 # wait for barrier
@@ -43,12 +50,13 @@ class Simulation(threading.Thread):
                 self.master.barrier.wait()  # wait for q matrix update
 
         except (RuntimeError, AssertionError) as e:
-            print('exception current thread {} '.format(threading.current_thread()))
             self.master.logger.error('[Simulation %s] %s' % (self.port, e.args[0]))
             traceback.print_exc()
             vrep.simxFinish(self.client_id)  # disconnect with V-REP server
             self.current_trace = []
             self.master.failed_simulations.append(self)
+        finally:
+            proc.kill()
             self.master.barrier.wait()  # wait for the end of other simulations
             self.master.barrier.wait()  # wait for q matrix update
 
