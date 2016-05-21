@@ -61,7 +61,7 @@ class StandingUpEnvironment(Environment):
 
 class StandingUpTask(EpisodicTask):
 
-    GOAL_REWARD = 100
+    GOAL_REWARD = 1000
     ENERGY_CONSUMPTION_REWARD = -1
     FALLEN_REWARD = -100
     SELF_COLLISION_REWARD = -100

@@ -9,6 +9,7 @@ from StateDiscretizer import StateDiscretizer
 class StateMapper:
 
     GOAL_STATE = 757
+    INITIAL_STATE = 9740
     TOO_FAR_THRESHOLD = 0.2
     GOAL_THRESHOLD = 0.5
 

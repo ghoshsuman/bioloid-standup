@@ -1,4 +1,5 @@
 import logging
+import os
 from threading import Barrier
 
 import pickle
@@ -37,6 +38,7 @@ class SimulationMaster:
 
     def initialize_q_table(self):
         self.controller.initialize(10.)
+        self.load_q_table()
 
         with open('data/trajectory.pkl', 'rb') as file:
             trajectory_data = pickle.load(file)
@@ -77,9 +79,21 @@ class SimulationMaster:
                 self.n_episodes +=1
 
             sim.traces.clear()
-        self.explorer.decrement_epsilon()
+        if self.explorer.epsilon > 0.1:
+            self.explorer.decrement_epsilon()
         self.logger.info('new epsilon: {}'.format(self.explorer.epsilon))
         self.logger.info('n episodes: {}'.format(self.n_episodes))
+
+    def load_q_table(self):
+        """
+            Load the q table from file if it exists
+        :param q_table_version:
+        """
+        file_path = 'data/learning-table/q-table-{}.pkl'.format(self.q_table_version)
+        if os.path.exists(file_path):
+            with open(file_path, 'rb') as file:
+                self.controller._params = pickle.load(file)
+            self.q_table_version += 1
 
     def save_q_table(self):
         """

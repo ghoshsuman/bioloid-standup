@@ -8,7 +8,7 @@ def main():
         n_threads = 8
         initial_port = 8000
 
-        master = SimulationMaster(n_threads, initial_port)
+        master = SimulationMaster(n_threads, initial_port, 227)
 
         master.run()
 
