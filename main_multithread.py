@@ -5,10 +5,12 @@ from SimulationMaster import SimulationMaster
 
 def main():
     try:
-        n_threads = 6
+        n_threads = 2
         initial_port = 8000
+        q_table_version = 227
+        batch_size = 5
 
-        master = SimulationMaster(n_threads, initial_port, 313)
+        master = SimulationMaster(n_threads, initial_port, q_table_version, batch_size)
 
         master.run()
 

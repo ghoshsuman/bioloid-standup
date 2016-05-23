@@ -14,9 +14,9 @@ from utils import Utils
 
 
 class Simulation(threading.Thread):
-    BATCH_SIZE = 20
+    DEFAULT_BATCH_SIZE = 20
 
-    def __init__(self, master, port):
+    def __init__(self, master, port, batch_size=DEFAULT_BATCH_SIZE):
         threading.Thread.__init__(self)
         self.daemon = True
         self.master = master
@@ -24,8 +24,16 @@ class Simulation(threading.Thread):
         self.environment = None
         self.task = None
         self.port = port
+        self.batch_size = batch_size
         self.current_trace = []
         self.traces = []
+        self._stop = threading.Event()
+
+    def stop(self):
+        self._stop.set()
+
+    def stopped(self):
+        return self._stop.isSet()
 
     def run(self):
         try:
@@ -40,14 +48,14 @@ class Simulation(threading.Thread):
             self.task = StandingUpTask(self.environment, 'data/learning-tables/log_{}.log'.format(self.port))
             self.load_t_table()
 
-            while True:
+            while not self.stopped():
                 # wait for barrier
-                for _ in range(self.BATCH_SIZE):
+                for _ in range(self.batch_size):
                     self.current_trace = []
                     while not self.task.isFinished():
                         self.perform_step()
-                    self.task.reset()
                     self.traces.append(self.current_trace)
+                    self.task.reset()
 
                 self.master.barrier.wait()  # wait for the end of other simulations
                 self.master.barrier.wait()  # wait for q matrix update
@@ -58,15 +66,18 @@ class Simulation(threading.Thread):
             vrep.simxFinish(self.client_id)  # disconnect with V-REP server
             self.current_trace = []
             self.master.failed_simulations.append(self)
+            self.master.barrier.wait()
+            self.master.barrier.wait()
         except:
             self.master.logger.error('[Simulation %s] Unexpected error: %s' % (self.port, sys.exc_info()[0]))
             traceback.print_exc()
             self.current_trace = []
             self.master.failed_simulations.append(self)
+            self.master.barrier.wait()
+            self.master.barrier.wait()
         finally:
             proc.kill()
-            self.master.barrier.wait()  # wait for the end of other simulations
-            self.master.barrier.wait()  # wait for q matrix update
+            self.task.logger.info('[Simulation %s] Ended' % self.port)
 
     def perform_step(self):
         observation = self.task.getObservation()

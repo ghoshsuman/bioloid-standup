@@ -1,12 +1,8 @@
 import logging
 import os
-from threading import Barrier
+from threading import Barrier, BrokenBarrierError
 
 import pickle
-
-import time
-
-import numpy
 
 from Simulation import Simulation
 from StateMapper import StateMapper
@@ -18,23 +14,32 @@ from utils import Utils
 
 class SimulationMaster:
 
-    def __init__(self, n_threads=4, initial_port=19997, q_table_version=0):
-        self.barrier = Barrier(n_threads + 1)
+    def __init__(self, n_threads=4, initial_port=19997, q_table_version=0, batch_size = None):
+        self.barrier = Barrier(n_threads + 1, timeout=720)
+        self.n_threads = n_threads
+        self.initial_port = initial_port
         self.q_table_version = q_table_version
+        self.batch_size = batch_size
         state_mapper = StateMapper()
         self.controller = ActionValueTable(state_mapper.get_state_space_size(), Utils.N_ACTIONS)
         self.learner = Q(0.5, 0.9)
         self.agent = LearningAgent(self.controller, self.learner)
-        self.simulations = []
+        self.simulations = None
         self.explorer = self.learner.explorer = EpsilonGreedyExplorer(0.2, 0.998)
         self.logger = logging.getLogger('master_logger')
         self.logger.setLevel(logging.DEBUG)
         self.logger.addHandler(logging.FileHandler('data/learning-tables/master.log'))
         self.failed_simulations = []
         self.n_episodes = 0
+        self.initialize_simulations()
 
-        for i in range(n_threads):
-            self.simulations.append(Simulation(self, initial_port + i))
+    def initialize_simulations(self):
+        self.simulations = []
+        for i in range(self.n_threads):
+            if self.batch_size is not None:
+                self.simulations.append(Simulation(self, self.initial_port + i, self.batch_size))
+            else:
+                self.simulations.append(Simulation(self, self.initial_port + i))
 
     def initialize_q_table(self):
         self.controller.initialize(10.)
@@ -89,7 +94,7 @@ class SimulationMaster:
             Load the q table from file if it exists
         :param q_table_version:
         """
-        file_path = 'data/learning-table/q-table-{}.pkl'.format(self.q_table_version)
+        file_path = 'data/learning-tables/q-table-{}.pkl'.format(self.q_table_version)
         if os.path.exists(file_path):
             with open(file_path, 'rb') as file:
                 self.controller._params = pickle.load(file)
@@ -117,14 +122,27 @@ class SimulationMaster:
             sim.start()
 
         while True:
-            self.barrier.wait()  # wait until all simulations are done
-            self.update_q_table()
-            self.save_t_table()
-            self.barrier.wait()  # Free simulations threads and start a new cycle
-            while self.failed_simulations:
-                sim = self.failed_simulations.pop()
-                self.restart_simulation(sim)
-            self.save_q_table()
+            try:
+                self.barrier.wait()  # wait until all simulations are done
+                self.update_q_table()
+                self.save_t_table()
+                self.barrier.wait()  # Free simulations threads and start a new cycle
+                self.save_q_table()
+                while self.failed_simulations:
+                    sim = self.failed_simulations.pop()
+                    self.restart_simulation(sim)
+            except BrokenBarrierError as e:
+                self.logger.error('Broken Barrier Error Occurred')
+                for sim in self.simulations:
+                    sim.stop()
+                for sim in self.simulations:
+                    sim.join()
+                del self.simulations
+                self.initialize_simulations()
+                self.barrier.reset()
+                self.failed_simulations.clear()
+                for sim in self.simulations:
+                    sim.start()
 
     def restart_simulation(self, simulation):
         self.logger.info('Restarting simulation with port {}'.format(simulation.port))
