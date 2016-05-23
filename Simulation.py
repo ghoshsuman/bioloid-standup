@@ -6,6 +6,8 @@ import subprocess
 
 import time
 
+import sys
+
 import vrep
 from pybrain_components import StandingUpEnvironment, StandingUpTask
 from utils import Utils
@@ -36,6 +38,7 @@ class Simulation(threading.Thread):
             self.client_id = Utils.connectToVREP(self.port)
             self.environment = StandingUpEnvironment(self.client_id)
             self.task = StandingUpTask(self.environment, 'data/learning-tables/log_{}.log'.format(self.port))
+            self.load_t_table()
 
             while True:
                 # wait for barrier
@@ -55,6 +58,11 @@ class Simulation(threading.Thread):
             vrep.simxFinish(self.client_id)  # disconnect with V-REP server
             self.current_trace = []
             self.master.failed_simulations.append(self)
+        except:
+            self.master.logger.error('[Simulation %s] Unexpected error: %s' % (self.port, sys.exc_info()[0]))
+            traceback.print_exc()
+            self.current_trace = []
+            self.master.failed_simulations.append(self)
         finally:
             proc.kill()
             self.master.barrier.wait()  # wait for the end of other simulations
@@ -70,3 +78,8 @@ class Simulation(threading.Thread):
     def save_t_table(self):
         if self.task is not None:
             self.task.t_table.save('data/learning-tables/t-table-{}.pkl'.format(self.port))
+
+    def load_t_table(self):
+        path = 'data/learning-tables/t-table-{}.pkl'.format(self.port)
+        if self.task is not None and os.path.exists(path):
+            self.task.t_table.load(path)

@@ -5,10 +5,10 @@ from SimulationMaster import SimulationMaster
 
 def main():
     try:
-        n_threads = 8
+        n_threads = 6
         initial_port = 8000
 
-        master = SimulationMaster(n_threads, initial_port, 227)
+        master = SimulationMaster(n_threads, initial_port, 313)
 
         master.run()
 
