@@ -45,11 +45,14 @@ class SimulationMaster:
         self.controller.initialize(10.)
         self.load_q_table()
 
+        for i in range(5):
+            self.learn_trajectory()
+
+    def learn_trajectory(self):
         with open('data/trajectory.pkl', 'rb') as file:
             trajectory_data = pickle.load(file)
 
-        for i in range(5):
-            for trajectory in trajectory_data:
+        for trajectory in trajectory_data:
                 for t in trajectory:
                     if t['action'] == -1:
                         continue
