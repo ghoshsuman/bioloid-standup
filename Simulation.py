@@ -27,13 +27,13 @@ class Simulation(threading.Thread):
         self.batch_size = batch_size
         self.current_trace = []
         self.traces = []
-        self._stop = threading.Event()
+        self._stop_event = threading.Event()
 
     def stop(self):
-        self._stop.set()
+        self._stop_event.set()
 
     def stopped(self):
-        return self._stop.isSet()
+        return self._stop_event.isSet()
 
     def run(self):
         try:
