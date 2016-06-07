@@ -15,10 +15,7 @@ def main():
     environment = StandingUpEnvironment(client_id)
     task = StandingUpTask(environment)
     state_vector_length = len(environment.bioloid.read_state())
-    delta = task.state_mapper.sd.delta
-    print(delta)
 
-    print(numpy.sqrt(numpy.sum(delta ** 2)) / 2)
 
     n = int(input('Number of iterations: '))
 
@@ -42,11 +39,13 @@ def main():
                 worksheets[j].write(i, k, s)
             state_n = task.update_current_state()
 
-            state_distance = euclidean(task.state_mapper.state_space[state_n], discretized_state)
+            if state_n != task.state_mapper.goal_state:
+                state_distance = euclidean(task.state_mapper.state_space[state_n], discretized_state)
+            else:
+                state_distance = 0
             goal_distance = task.state_mapper.get_goal_distance(discretized_state)
 
             print(discretized_state)
-            print(task.state_mapper.state_space[state_n])
             print('---------------------')
 
             worksheets[j].write(i, state_vector_length + 1, state_n)

@@ -31,6 +31,21 @@ def main():
 
     dtmc.save('dtmc-sm{}'.format(temperature), BASE_DIR)
 
+    print('Computing deterministic policy...')
+
+    dtmc_generator.temp = 0
+    dtmc_generator.compute_policy()
+
+    print('Computing deterministic dtmc...')
+
+    dtmc = dtmc_generator.compute_dtmc()
+
+    print('Saving files...')
+
+    dtmc.save('dtmc-det', BASE_DIR)
+
+
+
 
 if __name__ == '__main__':
     main()

@@ -1,5 +1,6 @@
 import pickle
 
+import numpy
 import pylab
 import matplotlib.pyplot as plt
 
@@ -11,7 +12,7 @@ def main():
     pylab.gray()
     pylab.ion()
 
-    with open('data/learning-tables/learning-20-may/q-table-227.pkl', 'rb') as file:
+    with open('data/learning-tables/learning-25-may-taclab/q-table-439.pkl', 'rb') as file:
         qtable = pickle.load(file)
         M = qtable.reshape(len(qtable) // Utils.N_ACTIONS, Utils.N_ACTIONS)
         print(M.shape)
@@ -34,8 +35,7 @@ def main():
         for i in range(M.shape[0]):
             for j in range(M.shape[1]):
                 if M[i, j] > 10:
-                    print('{} {}'.format(i, j))
-                    print(M[i, j])
+                    print('{} {} {}'.format(i, j, M[i, j]))
                     x_pos.append(j)
                     y_pos.append(i)
                 elif M[i, j] == 10:

@@ -56,12 +56,15 @@ class DTMCGenerator:
         policy = numpy.zeros((n_states, n_actions + 1), dtype=float)
 
         for state in range(n_states):
-            good_actions = []
+            actions = []
             for action in range(n_actions):
                 if self.Q[state, action] != 10:  # and Q[state, action] >= 0:
-                    good_actions.append((action, self.Q[state, action]))
-            if len(good_actions) > 0:
-                values = self.softmax(good_actions, self.temp)
+                    actions.append((action, self.Q[state, action]))
+            if len(actions) > 0:
+                if self.temp > 0:
+                    values = self.softmax(actions, self.temp)
+                else:
+                    values = self.deterministic(actions)
                 for i in range(len(values)):
                     policy[state, values[i][0]] = values[i][1]
             else:
@@ -127,3 +130,18 @@ class DTMCGenerator:
         for i, value in enumerate(values):
             values[i] = (items[i][0], values[i] / den)
         return values
+
+    @staticmethod
+    def deterministic(items):
+        values = []
+        max = 0
+        for i in range(len(items)):
+            if items[i][1] > items[max][1]:
+                max = i
+        for i in range(len(items)):
+            if i == max:
+                values.append((items[i][0], 1))
+            else:
+                values.append((items[i][0], 0))
+        return values
+
