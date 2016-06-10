@@ -29,12 +29,12 @@ class EpsilonGreedyBoltzmannExplorer(DiscreteExplorer):
         """
         assert self.module
         if random.random() < self.epsilon:
-            print('< epsilon')
             values = self.module.getActionValues(self._state)
             action = drawGibbs(values, self.tau)
             outbuf[:] = array([action])
         else:
             outbuf[:] = inbuf
 
+    def apply_decay(self):
         self.tau *= self.tau_decay
         self.epsilon *= self.epsilon_decay

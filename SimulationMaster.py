@@ -14,23 +14,32 @@ from utils import Utils
 
 class SimulationMaster:
 
-    def __init__(self, n_threads=4, initial_port=19997, q_table_version=0, batch_size = None):
+    def __init__(self, n_threads=4, initial_port=19997, q_table_version=0,
+                 batch_size=None, learner=None, explorer=None):
         self.barrier = Barrier(n_threads + 1, timeout=720)
         self.n_threads = n_threads
         self.initial_port = initial_port
         self.q_table_version = q_table_version
         self.batch_size = batch_size
-        state_mapper = StateMapper()
-        self.controller = ActionValueTable(state_mapper.get_state_space_size(), Utils.N_ACTIONS)
-        self.learner = Q(0.5, 0.9)
+
+        self.controller = ActionValueTable(Utils.state_mapper().get_state_space_size(), Utils.N_ACTIONS)
+        if learner is None:
+            self.learner = Q(0.5, 0.9)
+        else:
+            self.learner = learner
+
+        if explorer is None:
+            self.explorer = self.learner.explorer = EpsilonGreedyExplorer(0.2, 0.998)
+        else:
+            self.explorer = self.learner.explorer = explorer
         self.agent = LearningAgent(self.controller, self.learner)
-        self.simulations = None
-        self.explorer = self.learner.explorer = EpsilonGreedyExplorer(0.2, 0.998)
+        # Logger initialization
         self.logger = logging.getLogger('master_logger')
         self.logger.setLevel(logging.DEBUG)
         self.logger.addHandler(logging.FileHandler('data/learning-tables/master.log'))
         self.failed_simulations = []
         self.n_episodes = 0
+        self.simulations = []
         self.initialize_simulations()
 
     def initialize_simulations(self):
@@ -88,7 +97,7 @@ class SimulationMaster:
 
             sim.traces.clear()
         if self.explorer.epsilon > 0.1:
-            self.explorer.decrement_epsilon()
+            self.explorer.apply_decay()
         self.logger.info('new epsilon: {}'.format(self.explorer.epsilon))
         self.logger.info('n episodes: {}'.format(self.n_episodes))
 

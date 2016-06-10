@@ -2,6 +2,7 @@ import pickle
 from scipy.spatial.distance import euclidean
 
 import vrep
+from StateMapper import StateMapper
 
 
 class Utils:
@@ -26,6 +27,13 @@ class Utils:
                          ]
 
     client_id = -1
+    __state_mapper = None
+
+    @classmethod
+    def state_mapper(cls):
+        if cls.__state_mapper is None:
+            cls.__state_mapper = StateMapper()
+        return cls.__state_mapper
 
     @classmethod
     def connectToVREP(cls, port=19997):
