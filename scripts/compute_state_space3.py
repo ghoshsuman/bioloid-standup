@@ -19,17 +19,13 @@ class StateSpaceGenerationTask(threading.Thread):
         self.port = port
 
     def run(self):
-        vrep_path = os.path.abspath('V-REP_PRO_EDU_V3_3_0_64_Linux/')
-        proc = subprocess.Popen(
-            'cd {} &&  xvfb-run --auto-servernum --server-num=1 ./vrep.sh -h -gREMOTEAPISERVERSERVICE_{}_FALSE_TRUE'.format(
-                vrep_path, self.port), shell=True)
+        Utils.exec_vrep(self.port)
         time.sleep(10)
         # connect to V-REP server
         try:
             client_id = Utils.connectToVREP(self.port)
             env = StandingUpEnvironment(client_id)
 
-            data = []
             trajectory_states = []
 
             print('Executing trajectory...')
@@ -43,6 +39,7 @@ class StateSpaceGenerationTask(threading.Thread):
             print('Calculating new states...')
             for t, traj_state in enumerate(trajectory_states):
                 print('Step {}'.format(t))
+                data = []
                 for action in range(Utils.N_ACTIONS):
                     print('Action {}'.format(action))
                     env.bioloid.set_full_state(traj_state)

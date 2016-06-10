@@ -72,6 +72,14 @@ class DTMCGenerator:
         self.policy = policy
         return policy
 
+    def get_possible_actions(self, state):
+        n_states, n_actions = self.Q.shape
+        possible_actions = []
+        for action in range(n_actions + 1):
+            if self.policy[state, action] > 0:
+                possible_actions.append(action)
+        return possible_actions
+
     def compute_dtmc(self):
         n_states, n_actions = self.Q.shape
         dtmc = DTMC()

@@ -1,11 +1,13 @@
+import os
 import pickle
+import subprocess
+
 from scipy.spatial.distance import euclidean
 
 import vrep
 
 
 class Utils:
-
     N_ACTIONS = 729
     NULL_ACTION = 364  # Action in which no movement is done -> [0, 0, 0, 0, 0, 0]
     NULL_ACTION_VEC = [0, 0, 0, 0, 0, 0]  # Action in which no movement is done
@@ -26,6 +28,14 @@ class Utils:
                          ]
 
     client_id = -1
+    vrep_path = os.path.abspath('V-REP_PRO_EDU_V3_3_0_64_Linux/')
+
+    @classmethod
+    def exec_vrep(cls, port):
+        proc = subprocess.Popen(
+            'cd {} &&  xvfb-run --auto-servernum --server-num=1 ./vrep.sh -h -gREMOTEAPISERVERSERVICE_{}_FALSE_TRUE'
+            .format(cls.vrep_path, port), shell=True)
+        return proc
 
     @classmethod
     def connectToVREP(cls, port=19997):
@@ -51,7 +61,7 @@ class Utils:
         for i in range(vecLength):
             v = action % 3
             action //= 3
-            a.append(v-1)
+            a.append(v - 1)
         return a
 
     @classmethod
