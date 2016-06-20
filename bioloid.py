@@ -97,5 +97,13 @@ class Bioloid:
         self.rightLeg.set_joints_position(self.client_id, joints_vector[9:])
 
         for h, s in zip(self.handles, state['objects']):
-            vrep.simxSetObjectPosition(self.client_id, h, -1, s[0], self.opmode)
-            vrep.simxSetObjectOrientation(self.client_id, h, -1, s[1], self.opmode)
+            return_code1 = vrep.simxSetObjectPosition(self.client_id, h, -1, s[0], self.opmode)
+            return_code2 = vrep.simxSetObjectOrientation(self.client_id, h, -1, s[1], self.opmode)
+            if return_code1 != 0 or return_code2 != 0:
+                raise RuntimeError('Set full state of handle {} failed!'.format(h))
+
+        return_code1 = vrep.simxSetIntegerSignal(self.client_id, 'is-fallen', 0, self.opmode)
+        return_code2 = vrep.simxSetIntegerSignal(self.client_id, 'is-self-collided', 0, self.opmode)
+        if return_code1 != 0 or return_code2:
+                raise RuntimeError('Reset state flags to 0 failed!')
+        vrep.simxSynchronousTrigger(self.client_id)
