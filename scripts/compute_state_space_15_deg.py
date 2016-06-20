@@ -19,7 +19,7 @@ class StateSpaceGenerationTask(threading.Thread):
         self.port = port
 
     def run(self):
-        Utils.exec_vrep(self.port)
+        proc = Utils.exec_vrep(self.port)
         time.sleep(10)
         # connect to V-REP server
         try:
