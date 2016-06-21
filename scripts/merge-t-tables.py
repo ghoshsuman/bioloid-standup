@@ -6,7 +6,7 @@ import pickle
 
 def main():
 
-    base_dir = 'data/learning-tables/learning-25-may-taclab'
+    base_dir = 'data/learning-tables/learning-21-june-taclab'
 
     ttable = {}
 

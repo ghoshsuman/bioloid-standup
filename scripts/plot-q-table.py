@@ -12,7 +12,7 @@ def main():
     pylab.gray()
     pylab.ion()
 
-    with open('data/learning-tables/learning-25-may-taclab/q-table-439.pkl', 'rb') as file:
+    with open('data/learning-tables/learning-8-june-taclab/q-table-881.pkl', 'rb') as file:
         qtable = pickle.load(file)
         M = qtable.reshape(len(qtable) // Utils.N_ACTIONS, Utils.N_ACTIONS)
         print(M.shape)

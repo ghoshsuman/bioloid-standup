@@ -72,6 +72,14 @@ class DTMCGenerator:
         self.policy = policy
         return policy
 
+    def save_policy(self, file_name='policy.pkl', base_dir='data/'):
+        with open(os.path.join(base_dir, file_name), 'wb') as file:
+            pickle.dump(self.policy, file)
+
+    def load_policy(self, file_name='policy.pkl', base_dir='data/'):
+         with open(os.path.join(base_dir, file_name), 'rb') as file:
+             self.policy = pickle.load(file)
+
     def get_possible_actions(self, state):
         n_states, n_actions = self.Q.shape
         possible_actions = []
