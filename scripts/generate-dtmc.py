@@ -9,9 +9,9 @@ from dtmc import DTMC, DTMCGenerator
 
 safe_shutdown_action = Utils.N_ACTIONS
 state_mapper = StateMapper()
-BASE_DIR = 'data/learning-tables/learning-21-june-taclab/'
-Q_TABLE_VERSION = 996
-temperature = 2.5
+BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
+Q_TABLE_VERSION = 881
+temperature = 2
 
 def main():
     print('Loading data...')

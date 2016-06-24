@@ -8,8 +8,8 @@ import stormpy
 import stormpy.logic
 from dtmc import DTMCGenerator, DTMC, state_mapper
 
-BASE_DIR = 'data/learning-tables/learning-21-june-taclab/'
-Q_TABLE_VERSION = 996
+BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
+Q_TABLE_VERSION = 881
 temperature = 2
 
 
@@ -18,7 +18,7 @@ class ModelRepairer:
     epsilon = 10 ** -8
     delta = 0.01
 
-    def __init__(self, dtmc_generator, _lambda=0.03):
+    def __init__(self, dtmc_generator, _lambda=0.05):
         self.formula = stormpy.parse_formulas("P=? [ F (\"far\"  | \"collided\" | \"fallen\")]")
         self.dtmc_generator = dtmc_generator
         self._lambda = _lambda
@@ -35,6 +35,7 @@ class ModelRepairer:
                 self.local_repair(unsafe_reachability_prob):
             dtmc = self.dtmc_generator.compute_dtmc()
             dtmc.save(file_name, base_dir)
+            self.dtmc_generator.save_policy('sm{}-rep-policy-temp.pkl'.format(temperature), BASE_DIR)
             model = stormpy.parse_explicit_model(os.path.join(base_dir, file_name + '.tra'),
                                                  os.path.join(base_dir, file_name + '.lab'))
             unsafe_reachability_prob = stormpy.model_checking_all(model, self.formula[0])
