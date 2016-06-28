@@ -123,6 +123,8 @@ class DTMCGenerator:
         trans_prob_dict = {}
 
         for key, value in ttable.items():
+            if value < 10:
+                continue
             new_key = (key[0], key[1])
             v = trans_prob_dict.get(new_key, [])
             v.append((key[2], value))
@@ -133,17 +135,17 @@ class DTMCGenerator:
             for a, v in successors:
                 total += v
 
-            val = int(numpy.exp(- total / (50 * len(successors))) * 10)
-            total += val
-            index = -1
-            # Check if the far state is already in the successors vector
-            for i, succ in enumerate(successors):
-                if succ[0] == state_mapper.too_far_state:
-                    index = i
-            if index < 0:
-                successors.append((state_mapper.too_far_state, val))
-            else:
-                successors[index] = (successors[index][0], successors[index][1] + val)
+            # val = int(numpy.exp(- total / (50 * len(successors))) * 10)
+            # total += val
+            # index = -1
+            # # Check if the far state is already in the successors vector
+            # for i, succ in enumerate(successors):
+            #     if succ[0] == state_mapper.too_far_state:
+            #         index = i
+            # if index < 0:
+            #     successors.append((state_mapper.too_far_state, val))
+            # else:
+            #     successors[index] = (successors[index][0], successors[index][1] + val)
 
             for i, succ in enumerate(successors):
                 successors[i] = (succ[0], succ[1] / total)

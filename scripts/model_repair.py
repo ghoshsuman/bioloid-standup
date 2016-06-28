@@ -10,7 +10,7 @@ from dtmc import DTMCGenerator, DTMC, state_mapper
 
 BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
 Q_TABLE_VERSION = 881
-temperature = 2
+temperature = 5
 
 
 class ModelRepairer:
@@ -121,16 +121,17 @@ class ModelRepairer:
 
 
 def main():
+    print('Repairing {} with temperature {}'.format(BASE_DIR, temperature))
     ttable_path = os.path.join(BASE_DIR, 't-table.pkl')
     qtable_path = os.path.join(BASE_DIR, 'q-table-{}.pkl'.format(Q_TABLE_VERSION))
-    file_name = 'dtmc-sm{}'.format(temperature)
+    file_name = 'dtmc-sm{}-tr'.format(temperature)
     dtmc_generator = DTMCGenerator(ttable_path, qtable_path, temperature)
     dtmc_generator.compute_policy()
-    dtmc_generator.save_policy('sm{}-policy.pkl'.format(temperature), 'data/repair')
+    dtmc_generator.save_policy('sm{}-policy-tr.pkl'.format(temperature), 'data/repair')
     model_repairer = ModelRepairer(dtmc_generator)
     dtmc = model_repairer.repair(file_name, 'data/repair')
     dtmc.save(file_name + '-rep', BASE_DIR)
-    dtmc_generator.save_policy('sm{}-rep-policy.pkl'.format(temperature), BASE_DIR)
+    dtmc_generator.save_policy('sm{}-rep-policy-tr.pkl'.format(temperature), BASE_DIR)
 
 
 if __name__ == '__main__':

@@ -11,7 +11,7 @@ safe_shutdown_action = Utils.N_ACTIONS
 state_mapper = StateMapper()
 BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
 Q_TABLE_VERSION = 881
-temperature = 2
+temperature = 5
 
 def main():
     print('Loading data...')
@@ -29,7 +29,7 @@ def main():
 
     print('Saving files...')
 
-    dtmc.save('dtmc-sm{}'.format(temperature), BASE_DIR)
+    dtmc.save('dtmc-sm{}-rep'.format(temperature), BASE_DIR)
 
     dtmc_generator.save_policy('sm{}-policy.pkl'.format(temperature), base_dir=BASE_DIR)
 

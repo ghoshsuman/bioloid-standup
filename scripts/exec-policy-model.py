@@ -4,9 +4,9 @@ import numpy
 from StateMapper import StateMapper
 from dtmc import DTMCGenerator
 
-BASE_DIR = 'data/learning-tables/learning-21-june-taclab/'
-POLICY_PREFIX = 'sm2-rep'
-Q_TABLE_VERSION = 996
+BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
+POLICY_PREFIX = 'sm5-rep'
+Q_TABLE_VERSION = 881
 
 
 def select_action(policy, state, method='argmax'):

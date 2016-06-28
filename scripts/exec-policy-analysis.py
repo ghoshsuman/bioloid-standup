@@ -37,6 +37,7 @@ class PolicyExecutor(threading.Thread):
             task = StandingUpTask(env)
             counter = 0
             while counter < MAX_ITERATIONS:
+
                 state = task.getObservation()[0]
                 action = select_action(self.policy, state, 'prob')
                 # print('State {} Action {} Prob {}'.format(state, action, self.policy[state][action]))
@@ -52,6 +53,7 @@ class PolicyExecutor(threading.Thread):
                     else:
                         self.logger.info(state)
                     counter += 1
+                    print('Iteration {}'.format(counter))
                     task.reset()
                 else:
                     task.performAction(action)
