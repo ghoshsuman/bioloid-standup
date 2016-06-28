@@ -54,8 +54,11 @@ class SimulationMaster:
         self.controller.initialize(10.)
         self.load_q_table()
 
+        alpha = self.learner.alpha
+        self.learner.alpha = 1
         for i in range(5):
             self.learn_trajectory()
+        self.learner.alpha = alpha
 
     def learn_trajectory(self):
         with open('data/trajectory.pkl', 'rb') as file:
@@ -65,7 +68,7 @@ class SimulationMaster:
                 for t in trajectory:
                     if t['action'] == -1:
                         continue
-                    self.add_observation([t['state'], Utils.vecToInt(t['action']), t['reward']])
+                    self.add_observation([t['state'], t['action'], t['reward']])
                 self.agent.learn()
                 self.agent.reset()
 
@@ -98,7 +101,10 @@ class SimulationMaster:
             sim.traces.clear()
         if self.explorer.epsilon > 0.1:
             self.explorer.apply_decay()
+        if self.learner.alpha > 0.1:
+            self.learner.alpha *= 0.999
         self.logger.info('new epsilon: {}'.format(self.explorer.epsilon))
+        self.logger.info('new alpha: {}'.format(self.learner.alpha))
         self.logger.info('n episodes: {}'.format(self.n_episodes))
 
     def load_q_table(self):
@@ -132,14 +138,19 @@ class SimulationMaster:
         self.initialize_q_table()
         for sim in self.simulations:
             sim.start()
-
+        counter = 0
         while True:
             try:
                 self.barrier.wait()  # wait until all simulations are done
                 self.update_q_table()
                 self.save_t_table()
                 self.barrier.wait()  # Free simulations threads and start a new cycle
-                self.save_q_table()
+                # Counter to avoid to save q-table too often
+                if counter == 5:
+                    self.save_q_table()
+                    counter = 0
+                else:
+                    counter += 1
                 while self.failed_simulations:
                     sim = self.failed_simulations.pop()
                     self.restart_simulation(sim)

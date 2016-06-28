@@ -67,7 +67,7 @@ class StandingUpTask(EpisodicTask):
     SELF_COLLISION_REWARD = -100
     TOO_FAR_REWARD = -100
 
-    def __init__(self, environment, log_file_path='data/learning.log'):
+    def __init__(self, environment, log_file_path='data/learning.log', multiple_init_state=False):
         super(StandingUpTask, self).__init__(environment)
         self.finished = False
         self.t_table = NDSparseMatrix()
@@ -78,6 +78,23 @@ class StandingUpTask(EpisodicTask):
         self.logger = logging.getLogger(log_file_path)
         self.logger.setLevel(logging.DEBUG)
         self.logger.addHandler(logging.FileHandler(log_file_path))
+        self.init_state_prob_distribution = []
+        # self.init_states = []
+        self.multiple_init_state = multiple_init_state
+        if multiple_init_state:
+            n = len(Utils.standingUpActions)
+            den = n * (n + 1) / 2
+            for i in range(n):
+                self.init_state_prob_distribution.append((n - i) / den)
+            #     self.init_states.append([])
+            # with open('data/trajectory.pkl', 'rb') as handle:
+            #     trajectories = pickle.load(handle)
+            #     for trajectory in trajectories:
+            #         for i, t in enumerate(trajectory):
+            #             if t['action'] != -1:
+            #                 self.init_states[i].append(t['full_state'])
+
+
 
     def getReward(self):
         reward = self.ENERGY_CONSUMPTION_REWARD
@@ -127,7 +144,26 @@ class StandingUpTask(EpisodicTask):
     def reset(self):
         self.finished = False
         self.env.reset()
+        if self.multiple_init_state:
+            step = numpy.random.choice(len(self.init_state_prob_distribution), p=self.init_state_prob_distribution)
+            for i in range(step):
+                self.env.performAction(Utils.standingUpActions[i])
+            # index = numpy.random.choice(len(self.init_states[step]))
+            # state = self.init_states[step][index]
+            # self.env.bioloid.set_full_state(state)
+            # self.env.performAction([0, 0, 0, 0, 0, 0])
+            # self.logger.info('Init at step {} {} {}'.format(step, len(self.init_states[step]), index))
+            # self.update_current_state()
+            # with open('data/trajectory.pkl', 'rb') as handle:
+            #     trajectories = pickle.load(handle)
+            #     self.logger.info('comp states {} {} '.format(self.current_state, trajectories[index][step]['state']))
+            #     if self.current_state != trajectories[index][step]['state']:
+            #         print(self.env.bioloid.read_state())
+            #         print(trajectories[index][step]['state_vector'])
         self.update_current_state()
+        self.logger.info('Init state {} step {}'.format(self.getObservation()[0], step))
+
+
 
     def isFinished(self):
         return self.finished
@@ -136,4 +172,4 @@ class StandingUpTask(EpisodicTask):
         return self.state_mapper.get_state_space_size()
 
     def get_action_space_size(self):
-        return 729
+        return Utils.N_ACTIONS

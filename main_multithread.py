@@ -2,6 +2,7 @@ import pickle
 import vrep
 from SimulationMaster import SimulationMaster
 from egreedy_boltzmann import EpsilonGreedyBoltzmannExplorer
+from pybrain.rl.explorers import EpsilonGreedyExplorer
 
 
 def main():
@@ -9,8 +10,9 @@ def main():
         n_threads = 40
         initial_port = 8000
         q_table_version = 0
-        batch_size = 5
-        explorer = EpsilonGreedyBoltzmannExplorer(0.2, 5, 0.998)
+        batch_size = 10
+        # explorer = EpsilonGreedyBoltzmannExplorer(0.2, 5, 0.998)
+        explorer = EpsilonGreedyExplorer(0.15, 0.999)
         master = SimulationMaster(n_threads, initial_port, q_table_version, batch_size, explorer=explorer)
 
         master.run()

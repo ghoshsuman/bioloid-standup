@@ -41,11 +41,12 @@ class Simulation(threading.Thread):
             proc = subprocess.Popen(
                 'cd {} &&  xvfb-run --auto-servernum --server-num=1 ./vrep.sh -h -gREMOTEAPISERVERSERVICE_{}_FALSE_TRUE'.format(
                     vrep_path, self.port), shell=True)
-            time.sleep(5)
+            time.sleep(10)
             # connect to V-REP server
             self.client_id = Utils.connectToVREP(self.port)
             self.environment = StandingUpEnvironment(self.client_id)
-            self.task = StandingUpTask(self.environment, 'data/learning-tables/log_{}.log'.format(self.port))
+            self.task = StandingUpTask(self.environment, 'data/learning-tables/log_{}.log'.format(self.port),
+                                       multiple_init_state=True)
             self.load_t_table()
 
             while not self.stopped():
