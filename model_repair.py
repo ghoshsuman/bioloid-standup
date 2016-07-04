@@ -12,7 +12,6 @@ class ModelRepairer:
         self.dtmc_generator = dtmc_generator
         self.formula = stormpy.parse_formulas("P=? [ F (\"far\"  | \"collided\" | \"fallen\")]")
         self._lambda = _lambda
-        self.epsilon = 10 ** - 6
 
     def repair(self, local_repairer, dtmc_name, policy_name, base_dir):
         dtmc = self.dtmc_generator.compute_dtmc()
@@ -22,18 +21,14 @@ class ModelRepairer:
         model = stormpy.parse_explicit_model(dtmc_tra, dtmc_lab)
         unsafe_reachability_prob = stormpy.model_checking_all(model, self.formula[0])
 
-        prev_unsafe_prob = 1 + self.epsilon
-
         init_unsafe_prob = unsafe_reachability_prob[state_mapper.INITIAL_STATE]
         print('Init Unsafe Prob {}'.format(init_unsafe_prob))
-        while init_unsafe_prob > self._lambda and prev_unsafe_prob - init_unsafe_prob >= self.epsilon \
-                and local_repairer.repair(self.dtmc_generator, unsafe_reachability_prob):
+        while init_unsafe_prob > self._lambda and local_repairer.repair(self.dtmc_generator, unsafe_reachability_prob):
             dtmc = self.dtmc_generator.compute_dtmc()
             dtmc.save(dtmc_name, base_dir)
             self.dtmc_generator.save_policy(policy_name, base_dir)
             model = stormpy.parse_explicit_model(dtmc_tra, dtmc_lab)
             unsafe_reachability_prob = stormpy.model_checking_all(model, self.formula[0])
-            prev_unsafe_prob = init_unsafe_prob
             init_unsafe_prob = unsafe_reachability_prob[state_mapper.INITIAL_STATE]
             print('Prob {}'.format(init_unsafe_prob))
         print('Final Unsafe Prob {}'.format(init_unsafe_prob))
@@ -55,14 +50,25 @@ class DeltaRepairer(LocalRepairer):
     def __init__(self, deltas=[0.2, 0.1, 0.05, 0.01]):
         self.deltas = deltas
         self.delta_index = 0
+        self.epsilon = 10 ** - 6
+        self.unsafe_prob = 1 + self.epsilon
 
     def repair(self, dtmc_generator, probs):
+        prob = probs[state_mapper.INITIAL_STATE]
+        if self.unsafe_prob - prob < self.epsilon:
+            if self.delta_index + 1 < len(self.deltas):
+                self.delta_index += 1
+            else:
+                return False
+        self.unsafe_prob = prob
         repair = False
         for state in range(len(probs)):
             repair |= self.repair_state(dtmc_generator, probs, state, self.deltas[self.delta_index])
 
         if repair is False and self.delta_index + 1 < len(self.deltas):
             self.delta_index += 1
+            # Reset unsafe_prob to prevent that delta_index is incremented two times consecutively
+            self.unsafe_prob = 1 + self.epsilon
             return self.repair(dtmc_generator, probs)
         return repair
 

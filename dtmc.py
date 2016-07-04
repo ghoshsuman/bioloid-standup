@@ -1,6 +1,8 @@
 import os
 import pickle
 import numpy
+
+from NDSparseMatrix import NDSparseMatrix
 from StateMapper import StateMapper
 from utils import Utils
 
@@ -8,7 +10,6 @@ state_mapper = StateMapper()
 
 
 class DTMC:
-
     def __init__(self):
         self.dtmc = {}
 
@@ -39,12 +40,33 @@ class DTMC:
         file.write('{} goal\n'.format(state_mapper.goal_state))
         file.close()
 
+    def compute_probabilities(self, base_dir='data/repair'):
+        import stormpy
+        import stormpy.logic
+        goal_formula = stormpy.parse_formulas("P=? [ F \"goal\" ]")
+        fallen_formula = stormpy.parse_formulas("P=? [ F \"fallen\" ]")
+        far_formula = stormpy.parse_formulas("P=? [ F \"far\" ]")
+        collided_formula = stormpy.parse_formulas("P=? [ F \"collided\" ]")
+        total_formula = stormpy.parse_formulas("P=? [ F (\"far\"  | \"collided\" | \"fallen\")]")
+        self.save('temp', base_dir)
+        model = stormpy.parse_explicit_model(os.path.join(base_dir, 'temp.tra'),
+                                             os.path.join(base_dir, 'temp.lab'))
+        goal_prob = stormpy.model_checking(model, goal_formula[0])
+        fallen_prob = stormpy.model_checking(model, fallen_formula[0])
+        far_prob = stormpy.model_checking(model, far_formula[0])
+        collided_prob = stormpy.model_checking(model, collided_formula[0])
+        total_prob = stormpy.model_checking(model, total_formula[0])
+
+        return {'goal': goal_prob, 'fallen': fallen_prob, 'far': far_prob,
+                'collided': collided_prob, 'total': total_prob}
+
 
 class DTMCGenerator:
     safe_shutdown_action = Utils.N_ACTIONS
 
-    def __init__(self, ttable_file_path, qtable_file_path, temp = 1):
-        self.trans_prob_dict = self.compute_transition_probabilities_dict(ttable_file_path)
+    def __init__(self, ttable_file_path, qtable_file_path, temp=1):
+        self.t_table = NDSparseMatrix(ttable_file_path)
+        self.trans_prob_dict = self.compute_transition_probabilities_dict()
         with open(qtable_file_path, 'rb') as file:
             qtable = pickle.load(file)
         self.Q = qtable.reshape(len(qtable) // Utils.N_ACTIONS, Utils.N_ACTIONS)
@@ -56,6 +78,10 @@ class DTMCGenerator:
         policy = numpy.zeros((n_states, n_actions + 1), dtype=float)
 
         for state in range(n_states):
+            if state == state_mapper.too_far_state or state == state_mapper.fallen_state or \
+                            state == state_mapper.self_collided_state or state == state_mapper.goal_state:
+                policy[state, self.safe_shutdown_action] = 1
+                continue
             actions = []
             for action in range(n_actions):
                 if self.Q[state, action] != 10:  # and Q[state, action] >= 0:
@@ -77,8 +103,8 @@ class DTMCGenerator:
             pickle.dump(self.policy, file)
 
     def load_policy(self, file_name='policy.pkl', base_dir='data/'):
-         with open(os.path.join(base_dir, file_name), 'rb') as file:
-             self.policy = pickle.load(file)
+        with open(os.path.join(base_dir, file_name), 'rb') as file:
+            self.policy = pickle.load(file)
 
     def get_possible_actions(self, state):
         n_states, n_actions = self.Q.shape
@@ -116,15 +142,12 @@ class DTMCGenerator:
             successors = [(state_mapper.too_far_state, 1)]
         return successors
 
-    @staticmethod
-    def compute_transition_probabilities_dict(ttable_file_path):
-        with open(ttable_file_path, 'rb') as file:
-            ttable = pickle.load(file)
+    def compute_transition_probabilities_dict(self):
         trans_prob_dict = {}
 
-        for key, value in ttable.items():
-            if value < 10:
-                continue
+        for key, value in self.t_table.elements.items():
+            # if value < 10:
+            #     continue
             new_key = (key[0], key[1])
             v = trans_prob_dict.get(new_key, [])
             v.append((key[2], value))
@@ -156,7 +179,12 @@ class DTMCGenerator:
     def softmax(items, temp):
         values = []
         for v in items:
-            values.append(numpy.exp(v[1] / temp))
+            # if v[1] > 500:
+            #     value = 500
+            # else:
+            #     value = v[1]
+            value = v[1]
+            values.append(numpy.exp(value / temp))
         den = numpy.sum(values)
         for i, value in enumerate(values):
             values[i] = (items[i][0], values[i] / den)
@@ -175,4 +203,3 @@ class DTMCGenerator:
             else:
                 values.append((items[i][0], 0))
         return values
-

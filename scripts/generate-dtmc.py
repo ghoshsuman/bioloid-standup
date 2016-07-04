@@ -9,9 +9,9 @@ from dtmc import DTMC, DTMCGenerator
 
 safe_shutdown_action = Utils.N_ACTIONS
 state_mapper = StateMapper()
-BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
-Q_TABLE_VERSION = 881
-temperature = 5
+BASE_DIR = 'data/learning-tables/learning-1-july-blade21/'
+Q_TABLE_VERSION = 40
+temperature = 20
 
 def main():
     print('Loading data...')
@@ -33,20 +33,23 @@ def main():
 
     dtmc_generator.save_policy('sm{}-policy.pkl'.format(temperature), base_dir=BASE_DIR)
 
-    print('Computing deterministic policy...')
+    print(dtmc.compute_probabilities())
 
-    dtmc_generator.temp = 0
-    dtmc_generator.compute_policy()
+    # print('Computing deterministic policy...')
+    #
+    # dtmc_generator.temp = 0
+    # dtmc_generator.compute_policy()
+    #
+    # print('Computing deterministic dtmc...')
+    #
+    # dtmc = dtmc_generator.compute_dtmc()
+    #
+    # print('Saving files...')
+    #
+    # dtmc.save('dtmc-det', BASE_DIR)
+    #
+    # dtmc_generator.save_policy('det-policy.pkl', base_dir=BASE_DIR)
 
-    print('Computing deterministic dtmc...')
-
-    dtmc = dtmc_generator.compute_dtmc()
-
-    print('Saving files...')
-
-    dtmc.save('dtmc-det', BASE_DIR)
-
-    dtmc_generator.save_policy('det-policy.pkl', base_dir=BASE_DIR)
 
 
 
