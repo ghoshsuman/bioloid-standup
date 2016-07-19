@@ -10,10 +10,11 @@ from dtmc import DTMCGenerator
 from pybrain.rl.learners import ActionValueTable
 from pybrain_components import StandingUpEnvironment, StandingUpTask
 from utils import Utils
+import datetime as dt
 
-BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
-POLICY_PREFIX = 'sm2-rep'
-Q_TABLE_VERSION = 881
+BASE_DIR = 'data/learning-tables/learning-4-july-blade21/'
+POLICY_PREFIX = ''
+Q_TABLE_VERSION = 66
 
 def select_action(policy, state, method='argmax'):
     if method == 'argmax':
@@ -36,7 +37,7 @@ def main():
     ttable_path = os.path.join(BASE_DIR, 't-table.pkl')
     qtable_path = os.path.join(BASE_DIR, 'q-table-{}.pkl'.format(Q_TABLE_VERSION))
     dtmc_generator = DTMCGenerator(ttable_path, qtable_path, temperature)
-    dtmc_generator.load_policy(POLICY_PREFIX + '-policy.pkl', BASE_DIR)
+    dtmc_generator.load_policy(POLICY_PREFIX + 'policy-sm10-8.pkl', BASE_DIR)
 
     with open(ttable_path, 'rb') as file:
         ttable = pickle.load(file)
@@ -49,6 +50,7 @@ def main():
             trans_prob_dict[new_key] = v
 
     while True:
+        n1=dt.datetime.now()
         state = task.getObservation()[0]
 
         action = numpy.argmax(dtmc_generator.Q[state])
@@ -72,6 +74,9 @@ def main():
                 found = True
         if not found:
             print('{} state not found! successors: {}'.format(new_state, successors))
+        n2=dt.datetime.now()
+        print('elapsed time: {} s'.format((n2-n1).microseconds/1e6))
+
     Utils.endVREP()
 
 if __name__ == '__main__':

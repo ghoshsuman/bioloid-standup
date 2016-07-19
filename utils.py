@@ -45,8 +45,11 @@ class Utils:
         return cls.client_id
 
     @classmethod
-    def endVREP(cls):
-        vrep.simxFinish(cls.client_id)
+    def endVREP(cls, client_id=None):
+        if client_id is None:
+            vrep.simxFinish(cls.client_id)
+        else:
+            vrep.simxFinish(client_id)
 
     @classmethod
     def vecToInt(cls, action):

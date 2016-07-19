@@ -1,3 +1,4 @@
+import logging
 import os
 
 import numpy
@@ -10,9 +11,9 @@ from dtmc import DTMCGenerator, DTMC, state_mapper
 from model_repair import ModelRepairer, DeltaRepairer
 from monitor import Monitor
 
-BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
-Q_TABLE_VERSION = 881
-temperature = 2.5
+BASE_DIR = 'data/learning-tables/learning-4-july-blade21/'
+Q_TABLE_VERSION = 66
+temperature = 10
 
 
 def main():
@@ -25,20 +26,18 @@ def main():
     dtmc_generator = DTMCGenerator(ttable_path, qtable_path, temperature)
     dtmc_generator.compute_policy()
     dtmc_generator.save_policy(policy_file_name, 'data/repair')
-    model_repairer = ModelRepairer(dtmc_generator)
+    model_repairer = ModelRepairer(dtmc_generator, _lambda=0.005)
 
-    monitor = Monitor(dtmc_generator, n_trheads=2)
+    monitor = Monitor(dtmc_generator, model_repairer, BASE_DIR, n_trheads=3, n_episodes=10)
+    monitor.load(9)
 
-    for i in range(10):
+    # dtmc_generator.load_policy('policy-sm5-9.pkl', 'data/repair')
+    # dtmc_generator.t_table.load('data/repair/t-table-9.pkl')
+    # dtmc_generator.trans_prob_dict = dtmc_generator.compute_transition_probabilities_dict()
+
+    for i in range(0, 20):
         print('Iteration {}'.format(i))
-        policy_file_name = 'policy-sm{}-{}.pkl'.format(temperature, i)
-        dtmc = model_repairer.repair(DeltaRepairer(), dtmc_file_name, policy_file_name, 'data/repair')
-        dtmc.save(dtmc_file_name + '-rep-{}'.format(i), BASE_DIR)
-        dtmc_generator.save_policy(policy_file_name, BASE_DIR)
-        # dtmc_generator.load_policy(policy_file_name, BASE_DIR)
-        print(dtmc.compute_probabilities())
-        monitor.simulate_policy()
-        dtmc_generator.trans_prob_dict = dtmc_generator.compute_transition_probabilities_dict()
+        monitor.iteration()
 
 
 if __name__ == '__main__':

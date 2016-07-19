@@ -84,7 +84,7 @@ class DTMCGenerator:
                 continue
             actions = []
             for action in range(n_actions):
-                if self.Q[state, action] != 10:  # and Q[state, action] >= 0:
+                if self.Q[state, action] != 10 and action != Utils.NULL_ACTION:  # and Q[state, action] >= 0:
                     actions.append((action, self.Q[state, action]))
             if len(actions) > 0:
                 if self.temp > 0:
@@ -142,33 +142,34 @@ class DTMCGenerator:
             successors = [(state_mapper.too_far_state, 1)]
         return successors
 
-    def compute_transition_probabilities_dict(self):
+    def compute_transition_probabilities_dict(self, transition_counters=None):
         trans_prob_dict = {}
 
         for key, value in self.t_table.elements.items():
-            # if value < 10:
-            #     continue
+            if value <= 0:
+                continue
             new_key = (key[0], key[1])
             v = trans_prob_dict.get(new_key, [])
             v.append((key[2], value))
             trans_prob_dict[new_key] = v
 
-        for successors in trans_prob_dict.values():
+        for (s1, a), successors in trans_prob_dict.items():
             total = 0
             for a, v in successors:
                 total += v
 
-            # val = int(numpy.exp(- total / (50 * len(successors))) * 10)
-            # total += val
-            # index = -1
-            # # Check if the far state is already in the successors vector
-            # for i, succ in enumerate(successors):
-            #     if succ[0] == state_mapper.too_far_state:
-            #         index = i
-            # if index < 0:
-            #     successors.append((state_mapper.too_far_state, val))
-            # else:
-            #     successors[index] = (successors[index][0], successors[index][1] + val)
+            val = int(numpy.exp(- total / 50 * len(successors)) * 100)
+            if val > 0:
+                total += val
+                index = -1
+                # Check if the far state is already in the successors vector
+                for i, succ in enumerate(successors):
+                    if succ[0] == state_mapper.too_far_state:
+                        index = i
+                if index < 0:
+                    successors.append((state_mapper.too_far_state, val))
+                else:
+                    successors[index] = (successors[index][0], successors[index][1] + val)
 
             for i, succ in enumerate(successors):
                 successors[i] = (succ[0], succ[1] / total)

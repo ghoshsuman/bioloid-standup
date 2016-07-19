@@ -9,9 +9,9 @@ import stormpy.logic
 from dtmc import DTMCGenerator, DTMC, state_mapper
 from model_repair import ModelRepairer, DeltaRepairer
 
-BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
-Q_TABLE_VERSION = 881
-temperature = 5
+BASE_DIR = 'data/learning-tables/learning-4-july-blade21/'
+Q_TABLE_VERSION = 66
+temperature = 10
 
 
 def main():
@@ -19,14 +19,20 @@ def main():
     ttable_path = os.path.join(BASE_DIR, 't-table.pkl')
     qtable_path = os.path.join(BASE_DIR, 'q-table-{}.pkl'.format(Q_TABLE_VERSION))
     dtmc_file_name = 'dtmc-sm{}'.format(temperature)
-    policy_file_name = 'policy-{}.pkl'.format(temperature)
+    policy_file_name = 'sm{}-rep-policy.pkl'.format(temperature)
     dtmc_generator = DTMCGenerator(ttable_path, qtable_path, temperature)
     dtmc_generator.compute_policy()
+    dtmc_generator.save_policy('sm{}-policy.pkl'.format(temperature), BASE_DIR)
+    dtmc = dtmc_generator.compute_dtmc()
+    print(dtmc.compute_probabilities())
+    # dtmc_generator.load_policy('sm5-policy.pkl', BASE_DIR)
     dtmc_generator.save_policy(policy_file_name, 'data/repair')
-    model_repairer = ModelRepairer(dtmc_generator)
+    model_repairer = ModelRepairer(dtmc_generator, _lambda=0.001)
     dtmc = model_repairer.repair(DeltaRepairer(), dtmc_file_name, policy_file_name, 'data/repair')
     dtmc.save(dtmc_file_name + '-rep', BASE_DIR)
     dtmc_generator.save_policy(policy_file_name, BASE_DIR)
+
+    print(dtmc.compute_probabilities())
 
 
 if __name__ == '__main__':

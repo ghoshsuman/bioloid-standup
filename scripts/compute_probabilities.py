@@ -3,12 +3,12 @@ import os
 import stormpy
 import stormpy.logic
 
-BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
+BASE_DIR = 'data/learning-tables/learning-4-july-blade21/'
 # BASE_DIR = 'data/repair'
-temperature = 5
+temperature = 10
 
 def main():
-    file_name = 'dtmc-sm{}-rep'.format(temperature)
+    file_name = 'dtmc-sm{}'.format(temperature)
     fallen_formula = stormpy.parse_formulas("P=? [ F \"fallen\" ]")
     goal_formula = stormpy.parse_formulas("P=? [ F \"goal\" ]")
     far_formula = stormpy.parse_formulas("P=? [ F \"far\" ]")

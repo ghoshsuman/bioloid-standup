@@ -47,7 +47,7 @@ class LocalRepairer(ABC):
 
 
 class DeltaRepairer(LocalRepairer):
-    def __init__(self, deltas=[0.2, 0.1, 0.05, 0.01]):
+    def __init__(self, deltas=[0.2, 0.1, 0.05, 0.01, 0.00001]):
         self.deltas = deltas
         self.delta_index = 0
         self.epsilon = 10 ** - 6

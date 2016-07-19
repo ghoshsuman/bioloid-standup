@@ -10,9 +10,8 @@ from pybrain.rl.learners import ActionValueTable
 from pybrain_components import StandingUpEnvironment, StandingUpTask
 from utils import Utils
 
-BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
-POLICY_PREFIX = 'rep-sm2.5'
-MAX_ITERATIONS = 100
+BASE_DIR = 'data/learning-tables/learning-4-july-blade21/'
+MAX_ITERATIONS = 300
 
 
 class PolicyExecutor(threading.Thread):
@@ -72,8 +71,9 @@ def select_action(policy, state, method='argmax'):
 
 def main():
 
-    PolicyExecutor(8000, 'sm2.5-policy.pkl', BASE_DIR).start()
-    PolicyExecutor(8001, 'rep-sm2.5-policy.pkl', BASE_DIR).start()
+    PolicyExecutor(8000, 'sm10-policy.pkl', BASE_DIR).start()
+    PolicyExecutor(8001, 'sm10-rep-policy.pkl', BASE_DIR).start()
+
 
 if __name__ == '__main__':
     main()

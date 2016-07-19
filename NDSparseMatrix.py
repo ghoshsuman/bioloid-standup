@@ -21,9 +21,9 @@ class NDSparseMatrix:
           value = 0
         return value
 
-    def incrementValue(self, tuple):
+    def incrementValue(self, tuple, amount=1):
         value = self.getValue(tuple)
-        self.setValue(tuple, value + 1)
+        self.setValue(tuple, value + amount)
 
     def save(self, filename=DEFAULT_FILE_NAME):
         with open(filename, 'wb') as file:
@@ -39,6 +39,9 @@ class NDSparseMatrix:
     def add(self, sparse_matrix):
         for key, value in sparse_matrix.elements.items():
             self.setValue(key, self.getValue(key) + value)
+
+    def items(self):
+        return self.elements.items()
 
     def reset(self):
         del self.elements
