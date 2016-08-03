@@ -1,4 +1,7 @@
+import os
 import pickle
+import subprocess
+
 from scipy.spatial.distance import euclidean
 
 import vrep
@@ -6,7 +9,6 @@ from StateMapper import StateMapper
 
 
 class Utils:
-
     N_ACTIONS = 729
     NULL_ACTION = 364  # Action in which no movement is done -> [0, 0, 0, 0, 0, 0]
     NULL_ACTION_VEC = [0, 0, 0, 0, 0, 0]  # Action in which no movement is done
@@ -28,12 +30,21 @@ class Utils:
 
     client_id = -1
     __state_mapper = None
+    vrep_path = os.path.abspath('V-REP_PRO_EDU_V3_3_0_64_Linux/')
+
 
     @classmethod
     def state_mapper(cls):
         if cls.__state_mapper is None:
             cls.__state_mapper = StateMapper()
         return cls.__state_mapper
+
+    @classmethod
+    def exec_vrep(cls, port):
+        proc = subprocess.Popen(
+            'cd {} &&  xvfb-run --auto-servernum --server-num=1 ./vrep.sh -h -gREMOTEAPISERVERSERVICE_{}_FALSE_TRUE'
+            .format(cls.vrep_path, port), shell=True)
+        return proc
 
     @classmethod
     def connectToVREP(cls, port=19997):
@@ -43,8 +54,11 @@ class Utils:
         return cls.client_id
 
     @classmethod
-    def endVREP(cls):
-        vrep.simxFinish(cls.client_id)
+    def endVREP(cls, client_id=None):
+        if client_id is None:
+            vrep.simxFinish(cls.client_id)
+        else:
+            vrep.simxFinish(client_id)
 
     @classmethod
     def vecToInt(cls, action):
@@ -59,7 +73,7 @@ class Utils:
         for i in range(vecLength):
             v = action % 3
             action //= 3
-            a.append(v-1)
+            a.append(v - 1)
         return a
 
     @classmethod
