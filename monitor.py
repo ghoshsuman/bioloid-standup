@@ -8,7 +8,7 @@ import time
 import numpy
 
 from NDSparseMatrix import NDSparseMatrix
-from model_repair import DeltaRepairer
+from model_repair import DeltaRepairer, TotalRepairer
 from pybrain_components import StandingUpEnvironment, StandingUpTask
 from utils import Utils
 
@@ -104,6 +104,7 @@ class Monitor:
 
         self._normalize_t_table()
 
+
     def simulate_policy(self):
 
         simulators = []
@@ -116,7 +117,7 @@ class Monitor:
         counters = {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
         for sim in simulators:
             self._add_to_t_table(sim.t_table)
-            self._add_to_t_table(sim.t_table)
+            #  self._add_to_t_table(sim.t_table)
             print(sim.counters)
             for key, value in sim.counters.items():
                 counters[key] += value
@@ -148,7 +149,7 @@ class Monitor:
         dtmc = self.dtmc_generator.compute_dtmc()
         self.logger.info('Prob before repair: {}'.format(dtmc.compute_probabilities()))
 
-        dtmc = self.model_repairer.repair(DeltaRepairer(), dtmc_file_name, policy_file_name, 'data/repair')
+        dtmc = self.model_repairer.repair(TotalRepairer(), dtmc_file_name, policy_file_name, 'data/repair')
         dtmc.save(dtmc_file_name + '-rep-{}'.format(self.itr), self.base_dir)
         self.dtmc_generator.save_policy(policy_file_name, self.base_dir)
         # dtmc_generator.load_policy(policy_file_name, BASE_DIR)
@@ -157,16 +158,19 @@ class Monitor:
     def iteration(self):
         self.logger.info('Iteration {}'.format(self.itr))
         self.perform_repair()
+        if self.itr == 0:
+            self._remove_transitions(579)
         self.simulate_policy()
         self.itr += 1
 
     def _add_to_t_table(self, t_table):
         self.t_table.add(t_table)
-        for (s1, a, s2), value in t_table.items():
-            self.transition_counters.incrementValue((s1, a), value)
-            if self.transition_counters.getValue((s1, a)) > self.K - value:
-                self._update_t_table(s1, a, self.K - value)
-            self.dtmc_generator.t_table.incrementValue((s1, a , s2), amount=value)
+        self.dtmc_generator.t_table.add(t_table)
+        # for (s1, a, s2), value in t_table.items():
+        #     self.transition_counters.incrementValue((s1, a), value)
+        #     if self.transition_counters.getValue((s1, a)) > self.K - value:
+        #         self._update_t_table(s1, a, self.K - value)
+        #     self.dtmc_generator.t_table.incrementValue((s1, a , s2), amount=value)
 
     def _update_t_table(self, s1, a, k=K):
         successors = self.dtmc_generator.get_successor_states(s1, a)
@@ -188,3 +192,8 @@ class Monitor:
 
         self.dtmc_generator.trans_prob_dict = self.dtmc_generator.compute_transition_probabilities_dict(
             self.transition_counters)
+
+    def _remove_transitions(self, action):
+        for (s1, a) in self.dtmc_generator.trans_prob_dict.keys():
+            if a == action:
+                self.dtmc_generator.trans_prob_dict[(s1, a)] = []

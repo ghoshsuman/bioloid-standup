@@ -13,7 +13,7 @@ from monitor import Monitor
 
 BASE_DIR = 'data/learning-tables/learning-4-july-blade21/'
 Q_TABLE_VERSION = 66
-temperature = 10
+temperature = 50
 
 
 def main():
@@ -28,8 +28,8 @@ def main():
     dtmc_generator.save_policy(policy_file_name, 'data/repair')
     model_repairer = ModelRepairer(dtmc_generator, _lambda=0.005)
 
-    monitor = Monitor(dtmc_generator, model_repairer, BASE_DIR, n_trheads=3, n_episodes=10)
-    monitor.load(9)
+    monitor = Monitor(dtmc_generator, model_repairer, BASE_DIR, n_trheads=3, n_episodes=200)
+    # monitor.load(9)
 
     # dtmc_generator.load_policy('policy-sm5-9.pkl', 'data/repair')
     # dtmc_generator.t_table.load('data/repair/t-table-9.pkl')
