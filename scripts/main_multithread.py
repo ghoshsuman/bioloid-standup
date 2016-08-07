@@ -1,3 +1,4 @@
+import scripts
 import pickle
 import vrep
 from SimulationMaster import SimulationMaster

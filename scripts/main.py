@@ -1,17 +1,15 @@
+import scripts
 import pickle
 
 import numpy
-from scipy.spatial.distance import euclidean
-
 import vrep
 import os
 from pybrain.rl.agents import LearningAgent
-from pybrain.rl.experiments import Experiment, EpisodicExperiment
-from pybrain.rl.explorers import BoltzmannExplorer, EpsilonGreedyExplorer
-from pybrain.rl.learners import ActionValueTable, Q, QLambda
+from pybrain.rl.experiments import EpisodicExperiment
+from pybrain.rl.explorers import EpsilonGreedyExplorer
+from pybrain.rl.learners import ActionValueTable, Q
 from pybrain_components import StandingUpEnvironment, StandingUpTask
 from utils import Utils
-from egreedy_boltzmann import EpsilonGreedyBoltzmannExplorer
 
 Q_TABLE_DIR = 'data/learning-tables/'
 

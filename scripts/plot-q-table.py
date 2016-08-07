@@ -1,6 +1,6 @@
+import scripts
 import pickle
 
-import numpy
 import pylab
 import matplotlib.pyplot as plt
 

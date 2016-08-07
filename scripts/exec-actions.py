@@ -1,3 +1,4 @@
+import scripts
 from pybrain_components import StandingUpEnvironment, StandingUpTask
 from utils import Utils
 

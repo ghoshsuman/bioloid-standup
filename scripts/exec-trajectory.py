@@ -1,3 +1,4 @@
+import scripts
 import pickle
 
 from pybrain_components import StandingUpEnvironment, StandingUpTask

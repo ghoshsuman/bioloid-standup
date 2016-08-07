@@ -1,6 +1,4 @@
-import pickle
-
-import numpy
+import scripts
 import xlsxwriter
 from scipy.spatial.distance import euclidean
 

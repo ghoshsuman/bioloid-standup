@@ -4,6 +4,7 @@ from abc import ABC, abstractmethod
 import numpy
 
 import stormpy
+import stormpy.logic
 from dtmc import state_mapper
 
 
