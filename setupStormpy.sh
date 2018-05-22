@@ -1,4 +1,6 @@
-workig_dir=$(pwd)
+#!/bin/sh
+
+working_dir=$(pwd)
 
 #dependencies
 sudo apt-get install -y libgmp3-dev libginac-dev automake libglpk-dev libhwloc-dev libcln-dev  
@@ -18,7 +20,7 @@ make #Compile all of Storm’s binaries including all tests
 
 export STORM_DIR=$(pwd)
 
-cd $working_dir
+cd ${working_dir}
 
 #Stormpy
 
@@ -26,8 +28,8 @@ cd $working_dir
 git clone https://github.com/moves-rwth/stormpy.git
 git checkout tags/1.2.0
 cd stormpy
-#pip install -ve .
-python3 setup.py build_ext --storm-dir $STORM_DIR develop
+python setup.py build develop
+python -m pytest tests
 
-cd $working_dir
+cd ${working_dir}
 

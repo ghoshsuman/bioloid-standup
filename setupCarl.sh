@@ -1,6 +1,6 @@
-#dependencies
-#Prima di installare stormpy bisogna installare tutte le dipendenze
-#pip è tra le dipendenze ma è stato precedentemente installato
+#!/bin/sh
+
+
 
 #cmake install
 sudo apt-get install -y cmake cmake-curses-gui g++ doxygen
@@ -8,7 +8,7 @@ sudo apt-get install -y cmake cmake-curses-gui g++ doxygen
 #libcln6 install
 sudo apt-get install -y libcln6 libcln-dev libgmp-dev
 
-workig_dir=$(pwd)
+working_dir=$(pwd)
 
 #Download and Install Eigen
 
@@ -18,7 +18,7 @@ mkdir build && cd build/ && cmake ../
 sudo make install
 # make check
 
-cd $working_dir
+cd ${working_dir}
 
 
 #Download and Install Carl
@@ -37,17 +37,12 @@ make test doc
 carl_dir=$(pwd)
 
 #Pycarl
+cd ${working_dir}
 
-cd $workig_dir
-
-#Clone pycarl into any suitable location:
 git clone https://github.com/moves-rwth/pycarl.git
 cd pycarl
-python3 setup.py build_ext --carl-dir $carl_dir develop
+python setup.py build develop
 python -m pytest tests
 
 
-#After building, you can run the test files by:
-#$ 
-
-cd $workig_dir
+cd ${working_dir}
