@@ -11,13 +11,12 @@ sudo apt-get install -y libcln6 libcln-dev libgmp-dev
 working_dir=$(pwd)
 
 #Download and Install Eigen
-
-git clone -b branches/3.3 git@github.com:eigenteam/eigen-git-mirror.git eigen
-cd eigen 
-mkdir build && cd build/ && cmake ../
-sudo make install
-# make check
-
+if [ -d eigen ]; then
+    git clone -b branches/3.3 git@github.com:eigenteam/eigen-git-mirror.git eigen
+    cd eigen 
+    mkdir build && cd build/ && cmake ../
+    sudo make install
+fi
 cd ${working_dir}
 
 

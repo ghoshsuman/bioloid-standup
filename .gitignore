@@ -1,4 +1,8 @@
-pybrain/
 .idea
-V-REP_PRO_EDU_V3_3_0_64_Linux
-stormpy
+V-REP_PRO_EDU_*
+build/
+venv/
+
+remoteApi.so
+vrep.py
+vrepConst.py
