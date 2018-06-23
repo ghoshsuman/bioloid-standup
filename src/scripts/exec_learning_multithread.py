@@ -6,7 +6,7 @@ from pybrain.rl.explorers import EpsilonGreedyExplorer
 
 def main():
     try:
-        n_threads = 40
+        n_threads = 4
         initial_port = 8000
         q_table_version = 0
         batch_size = 10

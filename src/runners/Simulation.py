@@ -37,7 +37,7 @@ class Simulation(threading.Thread):
 
     def run(self):
         try:
-            vrep_path = os.path.abspath('../V-REP_PRO_EDU_V3_3_0_64_Linux/')
+            vrep_path = os.path.abspath('../V-REP_PRO_EDU_V3_5_0_Linux/')
             proc = subprocess.Popen(
                 'cd {} &&  xvfb-run --auto-servernum --server-num=1 ./vrep.sh -h -gREMOTEAPISERVERSERVICE_{}_FALSE_TRUE'.format(
                     vrep_path, self.port), shell=True)

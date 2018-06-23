@@ -6,6 +6,7 @@ from pybrain.rl.agents import LearningAgent
 from pybrain.rl.explorers import EpsilonGreedyExplorer
 from pybrain.rl.learners import Q
 from models import MyActionValueTable
+from utils import Utils
 
 
 class SimulationMaster:
@@ -31,7 +32,7 @@ class SimulationMaster:
         # Logger initialization
         self.logger = logging.getLogger('master_logger')
         self.logger.setLevel(logging.DEBUG)
-        self.logger.addHandler(logging.FileHandler('data/learning-tables/master.log'))
+        self.logger.addHandler(logging.FileHandler(Utils.DATA_PATH + 'learning-tables/master.log'))
         self.failed_simulations = []
         self.n_episodes = 0
         self.simulations = []
