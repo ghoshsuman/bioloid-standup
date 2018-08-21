@@ -2,12 +2,12 @@ import os
 import pickle
 import numpy
 
-from dtmc import DTMCGenerator
-from algs.learning.pybrain_components import StandingUpEnvironment, StandingUpTask
+from models.DTMC import DTMCGenerator
+from models.pybrain import StandingUpEnvironment, StandingUpTask
 from utils import Utils
 import datetime as dt
 
-BASE_DIR = 'data/learning-tables/learning-4-july-blade21/'
+BASE_DIR = 'data/learned_tables'
 POLICY_PREFIX = ''
 Q_TABLE_VERSION = 66
 
@@ -32,7 +32,7 @@ def main():
     ttable_path = os.path.join(BASE_DIR, 't-table.pkl')
     qtable_path = os.path.join(BASE_DIR, 'q-table-{}.pkl'.format(Q_TABLE_VERSION))
     dtmc_generator = DTMCGenerator(ttable_path, qtable_path, temperature)
-    dtmc_generator.load_policy(POLICY_PREFIX + 'policy-sm10-8.pkl', BASE_DIR)
+    dtmc_generator.load_policy(POLICY_PREFIX + 'sm10-policy.pkl', BASE_DIR)
 
     with open(ttable_path, 'rb') as file:
         ttable = pickle.load(file)
@@ -51,7 +51,7 @@ def main():
         action = numpy.argmax(dtmc_generator.Q[state])
         print('trans probs {}'.format(trans_prob_dict.get((state, action))))
 
-        action = select_action(dtmc_generator.policy, state, 'prob')
+        action = select_action(dtmc_generator.policy, state, 'argmax')
         print('State {} Action {} Prob {}'.format(state, action, dtmc_generator.policy[state][action]))
         print('pol trans probs {}'.format(trans_prob_dict.get((state, action))))
 

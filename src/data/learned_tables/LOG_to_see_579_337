@@ -1,0 +1,481 @@
+state: 556 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 556 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 17612 dist: 0.7864678874602204
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 17612 dist: 0.7864678874602204
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 17612 dist: 0.7864678874602204
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 1554 dist: 0.0
+State 1554 Action 313 Prob 0.9999955496685834
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 1554 dist: 0.0
+State 1554 Action 313 Prob 0.9999955496685834
+Action: 313
+state: 16338 dist: 0.0
+State 16338 Action 579 Prob 0.9999911803984383
+Action: 579
+state: 16338 dist: 0.0
+State 16338 Action 579 Prob 0.9999911803984383
+Action: 579
+state: 1554 dist: 0.0
+State 1554 Action 313 Prob 0.9999955496685834
+Action: 313
+state: 3482 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 3482 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 16338 dist: 0.0
+State 16338 Action 579 Prob 0.9999911803984383
+Action: 579
+state: 17612 dist: 0.5480708002388386
+state: 3482 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 17612 dist: 0.5480708002388386
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 17612 dist: 0.5480708002388386
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 14820 dist: 0.0
+State 14820 Action 313 Prob 0.9999996700517338
+Action: 313
+state: 14820 dist: 0.0
+State 14820 Action 313 Prob 0.9999996700517338
+Action: 313
+state: 1554 dist: 0.0
+State 1554 Action 313 Prob 0.9999955496685834
+Action: 313
+state: 14820 dist: 0.0
+State 14820 Action 313 Prob 0.9999996700517338
+Action: 313
+state: 1554 dist: 0.0
+State 1554 Action 313 Prob 0.9999955496685834
+Action: 313
+state: 16338 dist: 0.0
+State 16338 Action 579 Prob 0.9999911803984383
+Action: 579
+state: 16338 dist: 0.0
+State 16338 Action 579 Prob 0.9999911803984383
+Action: 579
+state: 1554 dist: 0.0
+State 1554 Action 313 Prob 0.9999955496685834
+Action: 313
+state: 3482 dist: 0.014193951427936558
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 16338 dist: 0.0
+State 16338 Action 579 Prob 0.9999911803984383
+Action: 579
+state: 3482 dist: 0.014193951427936558
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 17612 dist: 0.5461288222817483
+state: 3482 dist: 0.014193951427936558
+State 17612 Action 729 Prob 1.0
+Action: 729
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 17612 dist: 0.5461288222817483
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 17612 dist: 0.5461288222817483
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 3482 dist: 0.0
+State 3482 Action 337 Prob 0.9999978027230504
+Action: 337
+state: 3482 dist: 0.0
+State 3482 Action 337 Prob 0.9999978027230504
+Action: 337
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 9711 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 3482 dist: 0.0
+State 3482 Action 337 Prob 0.9999978027230504
+Action: 337
+state: 9711 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 9711 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 17612 dist: 0.7871080480415856
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 17612 dist: 0.7871080480415856
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 17612 dist: 0.7871080480415856
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 3482 dist: 0.0
+State 3482 Action 337 Prob 0.9999978027230504
+Action: 337
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 3482 dist: 0.0
+State 3482 Action 337 Prob 0.9999978027230504
+Action: 337
+state: 9711 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 3482 dist: 0.0
+State 3482 Action 337 Prob 0.9999978027230504
+Action: 337
+state: 9711 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 9711 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 17612 dist: 0.7865099198002944
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 17612 dist: 0.7865099198002944
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 17612 dist: 0.7865099198002944
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 983 dist: 0.0
+State 983 Action 337 Prob 0.999998999835217
+Action: 337
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 983 dist: 0.0
+State 983 Action 337 Prob 0.999998999835217
+Action: 337
+state: 983 dist: 0.0
+State 983 Action 337 Prob 0.999998999835217
+Action: 337
+state: 556 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 556 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 556 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 17612 dist: 0.7870552926509029
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 17612 dist: 0.7870552926509029
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 17612 dist: 0.7870552926509029
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 6732 dist: 0.0
+State 6732 Action 303 Prob 0.9999852977048969
+Action: 303
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 3482 dist: 0.0
+State 3482 Action 337 Prob 0.9999978027230504
+Action: 337
+state: 1502 dist: 0.0
+State 1502 Action 589 Prob 0.9999999999989427
+Action: 589
+state: 3482 dist: 0.0
+State 3482 Action 337 Prob 0.9999978027230504
+Action: 337
+state: 3482 dist: 0.0
+State 3482 Action 337 Prob 0.9999978027230504
+Action: 337
+state: 9711 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 9711 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 9711 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 17612 dist: 0.7871080480415856
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 17612 dist: 0.7871080480415856
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 17612 dist: 0.7871080480415856
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 9740 dist: 0.0
+State 9740 Action 313 Prob 0.9999965847152676
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 1554 dist: 0.0
+State 1554 Action 313 Prob 0.9999955496685834
+Action: 313
+state: 11228 dist: 0.0
+State 11228 Action 313 Prob 0.9999957510565859
+Action: 313
+state: 1554 dist: 0.0
+State 1554 Action 313 Prob 0.9999955496685834
+Action: 313
+state: 16338 dist: 0.0
+State 16338 Action 579 Prob 0.9999911803984383
+Action: 579
+state: 1554 dist: 0.0
+State 1554 Action 313 Prob 0.9999955496685834
+Action: 313
+state: 16338 dist: 0.0
+State 16338 Action 579 Prob 0.9999911803984383
+Action: 579
+state: 3482 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 16338 dist: 0.0
+State 16338 Action 579 Prob 0.9999911803984383
+Action: 579
+state: 3482 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 17612 dist: 0.5461288222817483
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 3482 dist: 0.0
+State 17612 Action 729 Prob 1.0
+Action: 729
+state: 17612 dist: 0.5461288222817483
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+state: 17612 dist: 0.5461288222817483
+Initializing the ODE physics engine in plugin 'DynamicsOde'...
+Engine version: 0.12
+Plugin version: 11
+Initialization successful.
+state: 9740 dist: 0.0
+state: 9740 dist: 0.0
+

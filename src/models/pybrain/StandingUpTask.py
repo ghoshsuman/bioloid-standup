@@ -81,12 +81,14 @@ class StandingUpTask(EpisodicTask):
     def reset(self):
         self.finished = False
         self.env.reset()
+        self.update_current_state()
         if self.multiple_init_state:
             step = numpy.random.choice(len(self.init_state_prob_distribution), p=self.init_state_prob_distribution)
             for i in range(step):
                 self.env.performAction(Utils.standingUpActions[i])
             self.update_current_state()
             self.logger.info('Init state {} step {}'.format(self.getObservation()[0], step))
+            print('Init state {} step {}'.format(self.getObservation()[0], step))
 
     def isFinished(self):
         return self.finished

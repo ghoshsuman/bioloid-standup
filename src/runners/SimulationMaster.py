@@ -74,7 +74,7 @@ class SimulationMaster:
 
             sim.traces.clear()
         if self.explorer.epsilon > 0.1:
-            self.explorer.apply_decay()
+      	    self.explorer.epsilon=self.explorer.epsilon*self.explorer.decay
         if self.learner.alpha > 0.1:
             self.learner.alpha *= 0.999
         self.logger.info('new epsilon: {}'.format(self.explorer.epsilon))

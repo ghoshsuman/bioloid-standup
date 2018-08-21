@@ -18,11 +18,18 @@ class Bioloid:
         self._read_handles()
 
     def move_arms(self, values):
+        values_pk=values[:]
+        #values_pk[0]=0#USED TO 'DESTROY ONE OF ACTUATORS'
+        print(values_pk)
         self.leftArm.move_joints(self.client_id, values)
-        self.rightArm.move_joints(self.client_id, values)
+        self.rightArm.move_joints(self.client_id, values_pk)
 
     def move_legs(self, values):
-        self.leftLeg.move_joints(self.client_id, values)
+        values_pk=values[:]
+        #values_pk[1]=0
+        #print(values)
+        #print(values_pk)
+        self.leftLeg.move_joints(self.client_id, values_pk)
         self.rightLeg.move_joints(self.client_id, values)
 
     def read_state(self):
@@ -45,8 +52,13 @@ class Bioloid:
             q3 = -q3
             q4 = -q4
         state_vector = [com_x, com_y, com_z, q1, q2, q3, q4]
-        state_vector += self.leftArm.get_joints_position(self.client_id)
-        state_vector += self.rightArm.get_joints_position(self.client_id)
+        leftArm_pk=self.leftArm.get_joints_position(self.client_id)
+        #leftArm_pk[1]=0
+        #print(leftArm_pk)#Modify to introduce sensor(State Read) based faults
+        state_vector += leftArm_pk
+        rightArm_pk=self.rightArm.get_joints_position(self.client_id)
+        #rightArm_pk[1]=0
+        state_vector += rightArm_pk
         state_vector += self.leftLeg.get_joints_position(self.client_id)
         state_vector += self.rightLeg.get_joints_position(self.client_id)
         return numpy.array(state_vector)
