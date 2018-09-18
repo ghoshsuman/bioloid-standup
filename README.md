@@ -87,6 +87,11 @@ The episode terminates when the robot reached one of the following states:
   
 ## Faults Injection: 
 
+ Three types of faults were injected as follows:
 
+ - **Certain action(s) lead to 'collided state' **: 
+    This can be set in `/src/runners/monitor.py`
+ - **Actuator(s) fail to work**: These can be modelled in `/src/models/Bioloid.py`. A pair of joints can also be made a faulty in `/src/models/pybrain/StandingUpEnvironmnet`.
+ - **Sensor(s) fail to work**:  These can be modelled in `/src/models/Bioloid.py`.
  
  
