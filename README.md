@@ -60,3 +60,28 @@ The episode terminates when the robot reached one of the following states:
  In order to improve performance and reduce instability, `scripts/exec_learning_multithread.py` adopts a batched version of the 
  Q-learning algorithm, that
  updates the q-table only after the `n_threads` parallel simulations have executed `batch_size` episodes.
+ 
+ # UPDATES IN THE ARCHITECTURE : FEB-JULY 2018 , EMARO+ program
+ 
+ The follwing updates and further work was carried out as a Group projrct in the cousework of the EMARO+ masters program. 
+ 
+ Apart from adjusting various scripts and path-variables, major update was done for adjusting the current scripts as per the latest STORM(A modern model checker for probabilistic systems) and its set of python bindings- Stormpy, used fundamentaaly in Probabilistic Model checking and Model repair/update.
+ 
+ A separate folder `/data/src` was created to store logs,learned and repaired tables for run time monitoring and model-repair. Pre-learned tables (q-table and t-table) were taken for all further experiments performed.
+ 
+  ## Model-Repair and Run-time Monitoring
+  
+  There are two scripts for this : `scripts/exec_model_repair.py` and `scripts/exec_monitor.py`. To run them, after initializing the virtual environment as explained earlier, execute the scripts:
+  
+        `python scripts/exec_model_repair.py`
+ 
+ and 
+ 
+        `python scripts/exec_monitor.py`
+        
+        
+
+
+
+ 
+ 
