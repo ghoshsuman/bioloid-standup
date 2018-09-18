@@ -61,7 +61,7 @@ The episode terminates when the robot reached one of the following states:
  Q-learning algorithm, that
  updates the q-table only after the `n_threads` parallel simulations have executed `batch_size` episodes.
  
- # UPDATES IN THE ARCHITECTURE : FEB-JULY 2018 , EMARO+ program
+ ## UPDATES IN THE ARCHITECTURE : FEB-JULY 2018 , EMARO+ program
  
  The follwing updates and further work was carried out as a Group projrct in the cousework of the EMARO+ masters program. 
  
