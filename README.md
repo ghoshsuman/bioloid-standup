@@ -71,7 +71,7 @@ The episode terminates when the robot reached one of the following states:
  
   ## Model-Repair and Run-time Monitoring
   
-  There are two scripts for this : `scripts/exec_model_repair.py` and `scripts/exec_monitor.py`. To run them, after initializing the virtual environment as explained earlier, execute the scripts:
+  There are two scripts for this : `scripts/exec_model_repair.py` and `scripts/exec_monitor.py`. To run them, after initializing the virtual environment as explained earlier and execute the scripts:
   
         `python scripts/exec_model_repair.py`
  
@@ -79,8 +79,13 @@ The episode terminates when the robot reached one of the following states:
  
         `python scripts/exec_monitor.py`
         
-        
-
+  First script does the probabilistic model checking, i.e. calculates the 'unsafe' probabilities to reach terminal states instead of 'goal'. It further tries to 'reapair' the model i.e. decresing the unsafe probabilities below a certain 'lambda' or stops when its not getting further reduced below specified thresholds. The path to the 'learned' q-table ,t-table and the temperature for repair is needed to be specified in this script. This saves the computed policy file( as .pkl) and repaired policy file. 
+  
+ The 'exec_monitor' script performs Run-time Montioring of the Standing-Up task. Before running this, it is required ot initialize V-rep as eariler The path to the 'learned' q-table ,t-table ,temperature for repair as well as the number of iteration, threads and episodes per iteration are needed to be specified in this script. After repairing the model intially, an iteraiton of the Standing up task is run with repaired policy. After every iteration the 'unsafe' probabilities are again computed and the model-repair is performed, saving the new policy, q-table and t-table corresponding to the repaired model.
+ 
+ The repaired-poicies can be 'visualised' by executing the `exec-policy.py` script after running the V-rep environment.
+  
+## Faults Injection: 
 
 
  
