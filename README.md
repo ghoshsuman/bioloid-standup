@@ -61,15 +61,15 @@ The episode terminates when the robot reached one of the following states:
  Q-learning algorithm, that
  updates the q-table only after the `n_threads` parallel simulations have executed `batch_size` episodes.
  
- ## UPDATES IN THE ARCHITECTURE : FEB-JULY 2018 , EMARO+ program
+ ## UPDATES IN THE ARCHITECTURE : FEB-JULY 2018 , EMARO+ program 
  
- The follwing updates and further work was carried out as a Group projrct in the cousework of the EMARO+ masters program. 
+ The follwing updates and further work was carried out as a Group project in the cousework of the EMARO+ masters program by Parag Khanna and Suman Ghosh.
  
  Apart from adjusting various scripts and path-variables, major update was done for adjusting the current scripts as per the latest STORM(A modern model checker for probabilistic systems) and its set of python bindings- Stormpy, used fundamentaaly in Probabilistic Model checking and Model repair/update.
  
  A separate folder `/data/src` was created to store logs,learned and repaired tables for run time monitoring and model-repair. Pre-learned tables (q-table and t-table) were taken for all further experiments performed.
  
-  ## Model-Repair and Run-time Monitoring
+  ### Model-Repair and Run-time Monitoring
   
   There are two scripts for this : `scripts/exec_model_repair.py` and `scripts/exec_monitor.py`. To run them, after initializing the virtual environment as explained earlier and execute the scripts:
   
@@ -85,12 +85,11 @@ The episode terminates when the robot reached one of the following states:
  
  The repaired-poicies can be 'visualised' by executing the `exec-policy.py` script after running the V-rep environment.
   
-## Faults Injection: 
+### Faults Injection: 
 
  Three types of faults were injected as follows:
 
- - **Certain action(s) lead to 'collided state' **: 
-    This can be set in `/src/runners/monitor.py`
+ - **Certain action(s) lead to 'collided state'**: This can be set in `/src/runners/monitor.py`.
  - **Actuator(s) fail to work**: These can be modelled in `/src/models/Bioloid.py`. A pair of joints can also be made a faulty in `/src/models/pybrain/StandingUpEnvironmnet`.
  - **Sensor(s) fail to work**:  These can be modelled in `/src/models/Bioloid.py`.
  
