@@ -49,11 +49,11 @@ class PolicyExecutor(Thread):
                 task.performAction(action)
                 while action != 729:
                     old_state = current_state
-                    # Test to verify Monitor capability
-                    if action == 579:
-                        current_state = task.state_mapper.self_collided_state
-                    else:
-                        current_state = task.getObservation()[0]
+                    # Test to verify Monitor capability,,   #Pk:added more actions
+                    #if action == 579 or action == 337:
+                    #    current_state = task.state_mapper.self_collided_state
+                    #else:
+                    current_state = task.getObservation()[0]
                     self.t_table.incrementValue((old_state, action, current_state))
                     action = self.select_action(self.policy, current_state)
                     print(

@@ -37,7 +37,11 @@ class StandingUpEnvironment(Environment):
         return state_vector
 
     def performAction(self, action):
-        self.bioloid.move_arms(action[0:3])
+        #self.bioloid.move_arms(action[0:3]) #introducing error,
+        action_pk=action[0:3]
+        action_pk[0]=0  #define here what joint doesn't work
+        #print(action_pk)
+        self.bioloid.move_arms(action_pk)
         self.bioloid.move_legs(action[3:])
         old_state = self.bioloid.read_state()
         dist = 1

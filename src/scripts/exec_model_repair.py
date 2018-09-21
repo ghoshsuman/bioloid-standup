@@ -7,10 +7,10 @@ from scipy.sparse.csgraph import shortest_path
 
 import stormpy
 import stormpy.logic
-from dtmc import DTMCGenerator, DTMC, state_mapper
-from model_repair import ModelRepairer, DeltaRepairer
+from models.DTMC import DTMCGenerator, DTMC, state_mapper
+from algs.model_repair import ModelRepairer, DeltaRepairer, TotalRepairer
 
-BASE_DIR = 'data/learning-tables/learning-4-july-blade21/'
+BASE_DIR = 'data/learned_tables'
 Q_TABLE_VERSION = 66
 temperature = 10
 
@@ -29,7 +29,7 @@ def main():
     # dtmc_generator.load_policy('sm5-policy.pkl', BASE_DIR)
     dtmc_generator.save_policy(policy_file_name, 'data/repair')
     model_repairer = ModelRepairer(dtmc_generator, _lambda=0.001)
-    dtmc = model_repairer.repair(DeltaRepairer(), dtmc_file_name, policy_file_name, 'data/repair')
+    dtmc = model_repairer.repair(TotalRepairer(), dtmc_file_name, policy_file_name, 'data/repair')
     dtmc.save(dtmc_file_name + '-rep', BASE_DIR)
     dtmc_generator.save_policy(policy_file_name, BASE_DIR)
 

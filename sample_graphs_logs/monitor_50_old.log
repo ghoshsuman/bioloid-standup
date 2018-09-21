@@ -1,0 +1,453 @@
+Iteration 0
+Prob before repair: {'goal': 1.0, 'fallen': 0.006237234747943749, 'far': 0.9975197551827836, 'collided': 0.003494330667582261, 'total': 0.9975197579845835}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035833680523209363, 'far': 0.013146036755216191, 'collided': 8.947920639301934e-05, 'total': 0.013581759897669006}
+Simulation values: {'goal': 6, 'far': 588, 'fallen': 6, 'collided': 0, 'unknown': 0}
+Iteration 1
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035732697163370317, 'far': 0.013131960570872783, 'collided': 8.945170254712656e-05, 'total': 0.013566678400745295}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035732697084037986, 'far': 0.013131960569788655, 'collided': 8.945170226207264e-05, 'total': 0.013566678399617976}
+Simulation values: {'goal': 6, 'far': 588, 'fallen': 6, 'collided': 0, 'unknown': 0}
+Iteration 2
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003563258181429534, 'far': 0.013117867206399248, 'collided': 8.942412997558877e-05, 'total': 0.013551588739692696}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003563258193904446, 'far': 0.013117867206165005, 'collided': 8.942412965907452e-05, 'total': 0.01355158873990811}
+Simulation values: {'goal': 6, 'far': 588, 'fallen': 6, 'collided': 0, 'unknown': 0}
+Iteration 3
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003553332040347141, 'far': 0.013103762162603196, 'collided': 8.939649507201941e-05, 'total': 0.013536496288853998}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003553332049120684, 'far': 0.013103762162825655, 'collided': 8.939649483310262e-05, 'total': 0.013536496288358183}
+Simulation values: {'goal': 6, 'far': 588, 'fallen': 6, 'collided': 0, 'unknown': 0}
+Iteration 4
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035434899463395825, 'far': 0.01308964232690399, 'collided': 8.93688066215611e-05, 'total': 0.01352139779394785}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003543489928171006, 'far': 0.013089642327684116, 'collided': 8.936880391383631e-05, 'total': 0.013521397808329168}
+Simulation values: {'goal': 6, 'far': 588, 'fallen': 6, 'collided': 0, 'unknown': 0}
+Iteration 5
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003533730482435218, 'far': 0.013075515454787254, 'collided': 8.934106880788198e-05, 'total': 0.013506300887707988}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003533730510506326, 'far': 0.013075515455179577, 'collided': 8.934106773325829e-05, 'total': 0.013506300887043627}
+Simulation values: {'goal': 3, 'far': 567, 'fallen': 3, 'collided': 0, 'unknown': 27}
+Iteration 6
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003529651448615546, 'far': 0.013506477216732147, 'collided': 8.931791571921676e-05, 'total': 0.01393646611666383}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003529651434233834, 'far': 0.013506477733075012, 'collided': 8.931727851911674e-05, 'total': 0.013936465092888437}
+Simulation values: {'goal': 3, 'far': 567, 'fallen': 3, 'collided': 0, 'unknown': 27}
+Iteration 7
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003525566133821875, 'far': 0.014203354118392238, 'collided': 8.9293675093669e-05, 'total': 0.014632304054964691}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003525566110940094, 'far': 0.014203354101015805, 'collided': 8.929367802392222e-05, 'total': 0.014632304020845517}
+Simulation values: {'goal': 6, 'far': 558, 'fallen': 6, 'collided': 0, 'unknown': 30}
+Iteration 8
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035208581073963247, 'far': 0.018515709221756108, 'collided': 8.923603534479958e-05, 'total': 0.01894039710197136}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003520858104195958, 'far': 0.018515709215604883, 'collided': 8.923603659983644e-05, 'total': 0.018940397096824067}
+Simulation values: {'goal': 3, 'far': 567, 'fallen': 3, 'collided': 0, 'unknown': 27}
+Iteration 9
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035167621816155803, 'far': 0.019811304140905348, 'collided': 8.921133475110995e-05, 'total': 0.02023446385504082}
+Prob after repair: {'goal': 1.0, 'fallen': 0.000351676217557221, 'far': 0.019811304140384133, 'collided': 8.921133573299301e-05, 'total': 0.0202344638546978}
+Simulation values: {'goal': 3, 'far': 567, 'fallen': 3, 'collided': 0, 'unknown': 27}
+Iteration 10
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003512666634500663, 'far': 0.021230803406581893, 'collided': 8.918654965424943e-05, 'total': 0.021652338152501064}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003512666619129924, 'far': 0.021230803406070302, 'collided': 8.918654823224055e-05, 'total': 0.021652338150224548}
+
+
+Iteration 0
+Prob before repair: {'goal': 1.0, 'fallen': 0.006237234747943749, 'far': 0.9975197551827836, 'collided': 0.003494330667582261, 'total': 0.9975197579845835}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035833680523209363, 'far': 0.013146036755216191, 'collided': 8.947920639301934e-05, 'total': 0.013581759897669006}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 1
+Prob before repair: {'goal': 1.0, 'fallen': 0.000357903213397728, 'far': 0.013138017536846267, 'collided': 8.944946374316627e-05, 'total': 0.013573294232834144}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003579032137635416, 'far': 0.013138017535826812, 'collided': 8.944946301966905e-05, 'total': 0.013573294233044757}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 2
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003574703491940516, 'far': 0.013129991276742484, 'collided': 8.941998776088901e-05, 'total': 0.013564822561378026}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003574703499340377, 'far': 0.013129991276272346, 'collided': 8.941998753406942e-05, 'total': 0.01356482256108376}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 3
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003570382113340145, 'far': 0.013121958485694883, 'collided': 8.93907763295492e-05, 'total': 0.013556345387859353}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035703821109480007, 'far': 0.013121958485400497, 'collided': 8.939077688481352e-05, 'total': 0.013556345387593283}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 4
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003566068046701058, 'far': 0.013113919662048466, 'collided': 8.936182695880231e-05, 'total': 0.013547863206963082}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035660680453189773, 'far': 0.01311391966174129, 'collided': 8.936182742694738e-05, 'total': 0.013547863207995043}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 5
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035617613202526007, 'far': 0.013105875290843179, 'collided': 8.933313543957781e-05, 'total': 0.013539376503279247}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035617613247826494, 'far': 0.013105875290987326, 'collided': 8.933313503180775e-05, 'total': 0.013539376503567218}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 6
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003557461960387433, 'far': 0.013097825852102566, 'collided': 8.930469964179091e-05, 'total': 0.013530885749156738}
+Prob after repair: {'goal': 1.0, 'fallen': 0.000355746197004871, 'far': 0.013097825851718217, 'collided': 8.930469865852686e-05, 'total': 0.013530885748713683}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 7
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035531699755629153, 'far': 0.013089771806613212, 'collided': 8.927651644720362e-05, 'total': 0.013522391404170525}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035531699763554904, 'far': 0.013089771805764386, 'collided': 8.927651529912455e-05, 'total': 0.013522391404464849}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 8
+Prob before repair: {'goal': 1.0, 'fallen': 0.000354888541701579, 'far': 0.013081713610766326, 'collided': 8.924858062956678e-05, 'total': 0.013513893922451278}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003548885415280095, 'far': 0.013081713610134622, 'collided': 8.924858224243857e-05, 'total': 0.013513893922452466}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 9
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003544608262561443, 'far': 0.013073651709097604, 'collided': 8.922089308797071e-05, 'total': 0.01350539374267287}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035446082640483743, 'far': 0.013073651709114878, 'collided': 8.922089328002805e-05, 'total': 0.013505393742355876}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 10
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035403385692876966, 'far': 0.013065586535439872, 'collided': 8.919344997427132e-05, 'total': 0.013496891295549146}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003540338568499139, 'far': 0.013065586535333188, 'collided': 8.919344992988611e-05, 'total': 0.013496891296041955}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 11
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003536076347475916, 'far': 0.01305751851322162, 'collided': 8.916624712343765e-05, 'total': 0.013488387003843102}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003536076347128656, 'far': 0.013057518512739952, 'collided': 8.916624874270267e-05, 'total': 0.013488387003294636}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 12
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035318215959623267, 'far': 0.013049448058802805, 'collided': 8.913928566560653e-05, 'total': 0.013479881277021174}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003531821610830589, 'far': 0.013049448059292763, 'collided': 8.91392853285491e-05, 'total': 0.013479881276848397}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 13
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035275743840838163, 'far': 0.013041375575491879, 'collided': 8.911255734724706e-05, 'total': 0.013471374517180055}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035275743801126776, 'far': 0.013041375575069625, 'collided': 8.911255673080467e-05, 'total': 0.013471374516485947}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 14
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035233346730181663, 'far': 0.013033301462119857, 'collided': 8.908606256342102e-05, 'total': 0.013462867117582053}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035233346823753797, 'far': 0.013033301460700602, 'collided': 8.908606282875573e-05, 'total': 0.013462867117752852}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 15
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035191025251326955, 'far': 0.013025226101979598, 'collided': 8.905979978187705e-05, 'total': 0.013454359461331215}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035191025251399966, 'far': 0.013025226101884555, 'collided': 8.905979890231103e-05, 'total': 0.013454359461918796}
+Simulation values: {'goal': 2, 'far': 2, 'fallen': 2, 'collided': 0, 'unknown': 0}
+Iteration 16
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003515858128655342, 'far': 0.013018002324585266, 'collided': 8.903331604802408e-05, 'total': 0.013446798078750453}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035158581346886157, 'far': 0.013018002323332858, 'collided': 8.903331539899953e-05, 'total': 0.013446798078261797}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 17
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003511640859558219, 'far': 0.013009927865810633, 'collided': 8.900750684072137e-05, 'total': 0.013438293282448808}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003511640865009884, 'far': 0.013009927865928516, 'collided': 8.900750723226161e-05, 'total': 0.013438293281902344}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 18
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035074311646841026, 'far': 0.013001853200621362, 'collided': 8.898192283024758e-05, 'total': 0.013429789254386796}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003507431172575884, 'far': 0.013001853199403259, 'collided': 8.898192210483537e-05, 'total': 0.013429789254406379}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 19
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003503229041312925, 'far': 0.012993778680633816, 'collided': 8.895655918647046e-05, 'total': 0.013421286346211272}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035032290435726147, 'far': 0.012993778679567506, 'collided': 8.895655903847866e-05, 'total': 0.013421286345974956}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+
+
+Iteration 0
+Prob before repair: {'goal': 1.0, 'fallen': 0.006237234747943749, 'far': 0.9975197551827836, 'collided': 0.003494330667582261, 'total': 0.9975197579845835}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035833680523209363, 'far': 0.013146036755216191, 'collided': 8.947920639301934e-05, 'total': 0.013581759897669006}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 1
+Prob before repair: {'goal': 1.0, 'fallen': 0.000357903213397728, 'far': 0.013138017536846267, 'collided': 8.944946374316627e-05, 'total': 0.013573294232834144}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003579032137635416, 'far': 0.013138017535826812, 'collided': 8.944946301966905e-05, 'total': 0.013573294233044757}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 2
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003574703491940516, 'far': 0.013129991276742484, 'collided': 8.941998776088901e-05, 'total': 0.013564822561378026}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003574703499340377, 'far': 0.013129991276272346, 'collided': 8.941998753406942e-05, 'total': 0.01356482256108376}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 3
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003570382113340145, 'far': 0.013121958485694883, 'collided': 8.93907763295492e-05, 'total': 0.013556345387859353}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035703821109480007, 'far': 0.013121958485400497, 'collided': 8.939077688481352e-05, 'total': 0.013556345387593283}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 4
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003566068046701058, 'far': 0.013113919662048466, 'collided': 8.936182695880231e-05, 'total': 0.013547863206963082}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035660680453189773, 'far': 0.01311391966174129, 'collided': 8.936182742694738e-05, 'total': 0.013547863207995043}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 5
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035617613202526007, 'far': 0.013105875290843179, 'collided': 8.933313543957781e-05, 'total': 0.013539376503279247}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035617613247826494, 'far': 0.013105875290987326, 'collided': 8.933313503180775e-05, 'total': 0.013539376503567218}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 6
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003557461960387433, 'far': 0.013097825852102566, 'collided': 8.930469964179091e-05, 'total': 0.013530885749156738}
+Prob after repair: {'goal': 1.0, 'fallen': 0.000355746197004871, 'far': 0.013097825851718217, 'collided': 8.930469865852686e-05, 'total': 0.013530885748713683}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 7
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035531699755629153, 'far': 0.013089771806613212, 'collided': 8.927651644720362e-05, 'total': 0.013522391404170525}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035531699763554904, 'far': 0.013089771805764386, 'collided': 8.927651529912455e-05, 'total': 0.013522391404464849}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 8
+Prob before repair: {'goal': 1.0, 'fallen': 0.000354888541701579, 'far': 0.013081713610766326, 'collided': 8.924858062956678e-05, 'total': 0.013513893922451278}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003548885415280095, 'far': 0.013081713610134622, 'collided': 8.924858224243857e-05, 'total': 0.013513893922452466}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 9
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003544608262561443, 'far': 0.013073651709097604, 'collided': 8.922089308797071e-05, 'total': 0.01350539374267287}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035446082640483743, 'far': 0.013073651709114878, 'collided': 8.922089328002805e-05, 'total': 0.013505393742355876}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 10
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035403385692876966, 'far': 0.013065586535439872, 'collided': 8.919344997427132e-05, 'total': 0.013496891295549146}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003540338568499139, 'far': 0.013065586535333188, 'collided': 8.919344992988611e-05, 'total': 0.013496891296041955}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 11
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003536076347475916, 'far': 0.01305751851322162, 'collided': 8.916624712343765e-05, 'total': 0.013488387003843102}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003536076347128656, 'far': 0.013057518512739952, 'collided': 8.916624874270267e-05, 'total': 0.013488387003294636}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 12
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035318215959623267, 'far': 0.013049448058802805, 'collided': 8.913928566560653e-05, 'total': 0.013479881277021174}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003531821610830589, 'far': 0.013049448059292763, 'collided': 8.91392853285491e-05, 'total': 0.013479881276848397}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 13
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035275743840838163, 'far': 0.013041375575491879, 'collided': 8.911255734724706e-05, 'total': 0.013471374517180055}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035275743801126776, 'far': 0.013041375575069625, 'collided': 8.911255673080467e-05, 'total': 0.013471374516485947}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 14
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035233346730181663, 'far': 0.013033301462119857, 'collided': 8.908606256342102e-05, 'total': 0.013462867117582053}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035233346823753797, 'far': 0.013033301460700602, 'collided': 8.908606282875573e-05, 'total': 0.013462867117752852}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 15
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035191025251326955, 'far': 0.013025226101979598, 'collided': 8.905979978187705e-05, 'total': 0.013454359461331215}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035191025251399966, 'far': 0.013025226101884555, 'collided': 8.905979890231103e-05, 'total': 0.013454359461918796}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 16
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035148779352467977, 'far': 0.013017149875017885, 'collided': 8.903376322415651e-05, 'total': 0.013445851924738988}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035148779319886796, 'far': 0.013017149875338705, 'collided': 8.90337632161888e-05, 'total': 0.013445851924051757}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 17
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035106609145165916, 'far': 0.01300907315105014, 'collided': 8.900795431189032e-05, 'total': 0.013437344872207097}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035106609180911617, 'far': 0.013009073151740094, 'collided': 8.900795315979299e-05, 'total': 0.013437344871393695}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 18
+Prob before repair: {'goal': 1.0, 'fallen': 0.000350645147580173, 'far': 0.013000996289936999, 'collided': 8.898236537298501e-05, 'total': 0.013428838662256182}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003506451476853459, 'far': 0.013000996290155312, 'collided': 8.898236696638062e-05, 'total': 0.013428838662245566}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+Iteration 19
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003502249648772543, 'far': 0.01299291964644046, 'collided': 8.895700145642668e-05, 'total': 0.01342033364440962}
+Prob after repair: {'goal': 1.0, 'fallen': 0.000350224965524637, 'far': 0.012992919646547474, 'collided': 8.895699876635079e-05, 'total': 0.013420333644686415}
+Simulation values: {'goal': 3, 'far': 0, 'fallen': 3, 'collided': 0, 'unknown': 0}
+
+
+Iteration 0
+Prob before repair: {'goal': 1.0, 'fallen': 0.006237234747943749, 'far': 0.9975197551827836, 'collided': 0.003494330667582261, 'total': 0.9975197579845835}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035833680523209363, 'far': 0.013146036755216191, 'collided': 8.947920639301934e-05, 'total': 0.013581759897669006}
+
+
+
+#################################Correct 1: 22 July..
+
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 1
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035793203828699867, 'far': 0.013128972688230578, 'collided': 8.939431104149423e-05, 'total': 0.013564233089518563}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003579320370100474, 'far': 0.01312897268800834, 'collided': 8.93943101777687e-05, 'total': 0.013564233089567309}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 2
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035752632534650076, 'far': 0.013111978716067426, 'collided': 8.931000155224202e-05, 'total': 0.013546775985246541}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035752632532795576, 'far': 0.013111978715971718, 'collided': 8.931000205924132e-05, 'total': 0.013546775984429165}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 3
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003571196941333342, 'far': 0.013095054755950583, 'collided': 8.922627409032094e-05, 'total': 0.013529388517595541}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035711969213217404, 'far': 0.013095054756831025, 'collided': 8.922627555429549e-05, 'total': 0.013529388517821917}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 4
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035671216971910327, 'far': 0.013078200715664658, 'collided': 8.914311996820282e-05, 'total': 0.013512070611571695}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035671216927078854, 'far': 0.013078200715935661, 'collided': 8.914312106396857e-05, 'total': 0.013512070611069524}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 5
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035630377779998087, 'far': 0.013061416489442474, 'collided': 8.906053575071601e-05, 'total': 0.013494822179012227}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003563037777055453, 'far': 0.013061416489549463, 'collided': 8.906053485097532e-05, 'total': 0.013494822178128118}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 6
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003558945461314383, 'far': 0.013044701961783157, 'collided': 8.897851024283452e-05, 'total': 0.013477643120518964}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035589454520466786, 'far': 0.013044701961432552, 'collided': 8.897851118713338e-05, 'total': 0.013477643121135302}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 7
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003554844996681564, 'far': 0.013028057007249894, 'collided': 8.889704251891523e-05, 'total': 0.013460533330713906}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035548449872963, 'far': 0.013028057008130398, 'collided': 8.889704059933872e-05, 'total': 0.013460533330364025}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 8
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003550736615664276, 'far': 0.013011481493120494, 'collided': 8.881612158301008e-05, 'total': 0.013443492689784077}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003550736623737892, 'far': 0.013011481492613466, 'collided': 8.881612227578849e-05, 'total': 0.013443492689884848}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 9
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003546620631617848, 'far': 0.012994975274687298, 'collided': 8.873574549889273e-05, 'total': 0.013426521072370847}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003546620616475459, 'far': 0.012994975273830185, 'collided': 8.873574607057844e-05, 'total': 0.013426521071476662}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 10
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003542497241281047, 'far': 0.01297883277510899, 'collided': 8.86559068737939e-05, 'total': 0.013409618342588693}
+Prob after repair: {'goal': 1.0, 'fallen': 0.000354249723471792, 'far': 0.012978832775702808, 'collided': 8.86559072787109e-05, 'total': 0.013409618342911293}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 11
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003538366725748209, 'far': 0.012962462419947633, 'collided': 8.857659977875925e-05, 'total': 0.013392784358372408}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035383667306757455, 'far': 0.012962462419537748, 'collided': 8.857659862346025e-05, 'total': 0.013392784358503787}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 12
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003534229346580003, 'far': 0.012946160841566657, 'collided': 8.849781812025252e-05, 'total': 0.013376018967205597}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035342293533431075, 'far': 0.012946160841738141, 'collided': 8.849781699188611e-05, 'total': 0.013376018967073928}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 13
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035300853285910285, 'far': 0.012929927868465807, 'collided': 8.841955621077126e-05, 'total': 0.0133593220083476}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003530085334981518, 'far': 0.01292992786856202, 'collided': 8.841955603859675e-05, 'total': 0.013359322008535552}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 14
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035259349386323276, 'far': 0.012913763315989911, 'collided': 8.83418087417612e-05, 'total': 0.013342693317608836}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003525934947736345, 'far': 0.01291376331544392, 'collided': 8.83418090842308e-05, 'total': 0.013342693317984189}
+Simulation values: {'goal': 6, 'far': 0, 'fallen': 0, 'collided': 0, 'unknown': 0}
+Iteration 15
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035217783940876403, 'far': 0.012897666994057182, 'collided': 8.826457025297952e-05, 'total': 0.013326132720334257}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003521778394216969, 'far': 0.012897666993205121, 'collided': 8.82645702561382e-05, 'total': 0.0133261327197245}
+
+################################# correct with introduced fault(action 579 leads to collision)#########################
+
+
+Iteration 0
+Prob before repair: {'goal': 1.0, 'fallen': 0.006237234747943749, 'far': 0.9975197551827836, 'collided': 0.003494330667582261, 'total': 0.9975197579845835}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035833680523209363, 'far': 0.013146036755216191, 'collided': 8.947920639301934e-05, 'total': 0.013581759897669006}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 60, 'unknown': 0}
+Iteration 1
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035840248946812333, 'far': 0.013205207770382926, 'collided': 0.03076836704897807, 'total': 0.043506522595645934}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003686826927474189, 'far': 0.016649472935138764, 'collided': 0.013924953081974079, 'total': 0.0304642584032686}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 60, 'unknown': 0}
+Iteration 2
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003684996573131825, 'far': 0.016707996084157982, 'collided': 0.05970855192991382, 'total': 0.07480996489540324}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003583291428540135, 'far': 0.013211532906220989, 'collided': 0.04590836202781186, 'total': 0.05826012532860734}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 60, 'unknown': 0}
+Iteration 3
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035839831949863486, 'far': 0.013277166157735876, 'collided': 0.07397054316327499, 'total': 0.08566764818553543}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003613224530583667, 'far': 0.06923625267981942, 'collided': 0.018253294166591397, 'total': 0.08537304209786083}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 4
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035876857272701683, 'far': 0.06414675711966122, 'collided': 0.020492488574883807, 'total': 0.0824216081152487}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003587683934658347, 'far': 0.06414675663644075, 'collided': 0.020492488981596873, 'total': 0.0824216076568555}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 5
+Prob before repair: {'goal': 1.0, 'fallen': 0.000356293587120081, 'far': 0.06013610053215185, 'collided': 0.022674869160644973, 'total': 0.08049584702538018}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035629358636044917, 'far': 0.06013610053143599, 'collided': 0.02267486915895958, 'total': 0.0804958470249245}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 6
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035387970573552046, 'far': 0.05596110887059586, 'collided': 0.024867845202403396, 'total': 0.07845646936988343}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035387971001324376, 'far': 0.05596110887025233, 'collided': 0.024867845202032002, 'total': 0.0784564693691271}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 7
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003515174422990871, 'far': 0.052740935370533155, 'collided': 0.026994952971884742, 'total': 0.07729880764818872}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035151744096236724, 'far': 0.05274093537010742, 'collided': 0.02699495297263256, 'total': 0.07729880764763111}
+Simulation values: {'goal': 43, 'far': 0, 'fallen': 1, 'collided': 16, 'unknown': 0}
+Iteration 8
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003493382332897808, 'far': 0.050601649133643456, 'collided': 0.02926440654529891, 'total': 0.07731732410852177}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00034933823383965276, 'far': 0.05060164913413494, 'collided': 0.029264406544215492, 'total': 0.077317324108601}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 9
+Prob before repair: {'goal': 1.0, 'fallen': 0.00034705031525745746, 'far': 0.04794495113406019, 'collided': 0.03132834566224862, 'total': 0.07668127490245404}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003470503140702103, 'far': 0.04794495113083067, 'collided': 0.03132834566278561, 'total': 0.07668127489762985}
+Simulation values: {'goal': 44, 'far': 1, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 10
+Prob before repair: {'goal': 1.0, 'fallen': 0.000344785125326187, 'far': 0.04551014403442471, 'collided': 0.03336005645382508, 'total': 0.07624474296127104}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00034478512325584185, 'far': 0.04551014403402265, 'collided': 0.0333600564528146, 'total': 0.07624474296212085}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 11
+Prob before repair: {'goal': 1.0, 'fallen': 0.00034254789308158423, 'far': 0.043855843738059286, 'collided': 0.03531899135786241, 'total': 0.0764885525334647}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003425478927306136, 'far': 0.043855843738204635, 'collided': 0.035318991357938305, 'total': 0.0764885525330569}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 12
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003403344128839708, 'far': 0.04235046241997246, 'collided': 0.03724543444833371, 'total': 0.07685337836719015}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00034033441218085837, 'far': 0.04235046241982356, 'collided': 0.03724543444876776, 'total': 0.07685337836717399}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 13
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003381404607207227, 'far': 0.040420570553983216, 'collided': 0.03917843113237417, 'total': 0.07684256045223815}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003381404613565584, 'far': 0.040420570554673046, 'collided': 0.039178431132824834, 'total': 0.07684256045161364}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 14
+Prob before repair: {'goal': 1.0, 'fallen': 0.00033596926133899237, 'far': 0.03917298557204473, 'collided': 0.04103985254030124, 'total': 0.07740884504663717}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003359692615085463, 'far': 0.03917298557161728, 'collided': 0.04103985253985824, 'total': 0.07740884504648889}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 15
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003338172444299552, 'far': 0.03802330628669271, 'collided': 0.04286957886973443, 'total': 0.07804463154510553}
+Prob after repair: {'goal': 1.0, 'fallen': 0.000333817240944458, 'far': 0.03802330628636186, 'collided': 0.04286957887006701, 'total': 0.07804463154425524}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 16
+Prob before repair: {'goal': 1.0, 'fallen': 0.00033168173334803774, 'far': 0.03643923079383308, 'collided': 0.044706023207134425, 'total': 0.07829733406436695}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00033168173289628344, 'far': 0.03643923079338319, 'collided': 0.044706023206964166, 'total': 0.07829733406464225}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 17
+Prob before repair: {'goal': 1.0, 'fallen': 0.00032956601116739383, 'far': 0.035467159027442324, 'collided': 0.04647303976281321, 'total': 0.07905432243581823}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003295660098814368, 'far': 0.03546715902811275, 'collided': 0.04647303976355864, 'total': 0.07905432243519434}
+Simulation values: {'goal': 44, 'far': 2, 'fallen': 0, 'collided': 14, 'unknown': 0}
+Iteration 18
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003275001792652915, 'far': 0.03493056463351642, 'collided': 0.04807793403350148, 'total': 0.08006222473008161}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00032750017753145345, 'far': 0.034930564633483686, 'collided': 0.04807793403218934, 'total': 0.08006222473002927}
+Simulation values: {'goal': 45, 'far': 0, 'fallen': 0, 'collided': 15, 'unknown': 0}
+Iteration 19
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003254188856106565, 'far': 0.034075305814256905, 'collided': 0.04978514267169864, 'total': 0.08088054745750838}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00033190876666215553, 'far': 0.055352651764763526, 'collided': 0.02732292625396629, 'total': 0.08005290324887851}
+Simulation values: {'goal': 24, 'far': 23, 'fallen': 0, 'collided': 13, 'unknown': 0}
+
+###########################################correct with introduced fault: single thread#########################
+
+Iteration 0
+Prob before repair: {'goal': 1.0, 'fallen': 0.006237234747943749, 'far': 0.9975197551827836, 'collided': 0.003494330667582261, 'total': 0.9975197579845835}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035833680523209363, 'far': 0.013146036755216191, 'collided': 8.947920639301934e-05, 'total': 0.013581759897669006}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 20, 'unknown': 0}
+Iteration 1
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003583589349906234, 'far': 0.013165639725958177, 'collided': 0.01056409272356496, 'total': 0.023796212593722988}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003686753494664023, 'far': 0.016619705312626493, 'collided': 0.004783002241639718, 'total': 0.02159576382400003}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 20, 'unknown': 0}
+Iteration 2
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003686035114316547, 'far': 0.01662468317720749, 'collided': 0.020942244816839702, 'total': 0.0372248708454024}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035833279428172486, 'far': 0.013166615662453179, 'collided': 0.015927614758559614, 'total': 0.029018614575277882}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 20, 'unknown': 0}
+Iteration 3
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003583551574902152, 'far': 0.01318694493998014, 'collided': 0.026086497728821052, 'total': 0.038929776773843724}
+Prob after repair: {'goal': 1.0, 'fallen': 0.000358355158012037, 'far': 0.013186944940741362, 'collided': 0.026086497731403174, 'total': 0.0389297767730555}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 20, 'unknown': 0}
+Iteration 4
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003583773591079736, 'far': 0.013207430981984061, 'collided': 0.036004523628306, 'total': 0.0486084365680674}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00036860842628571005, 'far': 0.01665653246080358, 'collided': 0.029748000936334652, 'total': 0.045771181558341666}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 20, 'unknown': 0}
+Iteration 5
+Prob before repair: {'goal': 1.0, 'fallen': 0.00036854810503687287, 'far': 0.01667715080921017, 'collided': 0.04499690121203526, 'total': 0.06054282971591057}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035835291633181694, 'far': 0.013209535931662002, 'collided': 0.04104767547037833, 'total': 0.05352290319454119}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 20, 'unknown': 0}
+Iteration 6
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035837552962579165, 'far': 0.013230756510663867, 'collided': 0.05067547233521643, 'total': 0.06292234661203111}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003583755302628954, 'far': 0.01323075651904125, 'collided': 0.05067547233295598, 'total': 0.06292234660574916}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 20, 'unknown': 0}
+Iteration 7
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035839811653724275, 'far': 0.01325211387872074, 'collided': 0.06008071224532634, 'total': 0.07210669772348396}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003685518177983024, 'far': 0.016710053213622986, 'collided': 0.053319470038967, 'total': 0.06862715139907109}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 20, 'unknown': 0}
+Iteration 8
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003685602380096126, 'far': 0.01673894979597767, 'collided': 0.06774154104492293, 'total': 0.08261611928748111}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035837527366793057, 'far': 0.013255177232143894, 'collided': 0.06483275375333922, 'total': 0.07674094927270277}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 20, 'unknown': 0}
+Iteration 9
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003583983191533477, 'far': 0.013277166169411356, 'collided': 0.07397054316043425, 'total': 0.08566764817895868}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003613224530583667, 'far': 0.06923625267981942, 'collided': 0.018253294166591397, 'total': 0.08537304209786083}
+Simulation values: {'goal': 15, 'far': 0, 'fallen': 0, 'collided': 5, 'unknown': 0}
+Iteration 10
+Prob before repair: {'goal': 1.0, 'fallen': 0.00036046070308391206, 'far': 0.06729574282596328, 'collided': 0.019012641157690892, 'total': 0.08416042768353461}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003604605492931763, 'far': 0.06729574271728057, 'collided': 0.01901264139607711, 'total': 0.08416042756497316}
+Simulation values: {'goal': 15, 'far': 0, 'fallen': 0, 'collided': 5, 'unknown': 0}
+Iteration 11
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035961075318028464, 'far': 0.06596853896001628, 'collided': 0.01973704996121085, 'total': 0.0835133008949537}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035961075246349636, 'far': 0.06596853896016422, 'collided': 0.019737049963562674, 'total': 0.08351330089478988}
+Simulation values: {'goal': 15, 'far': 0, 'fallen': 0, 'collided': 5, 'unknown': 0}
+Iteration 12
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003587683943736713, 'far': 0.06414675663705015, 'collided': 0.020492488982261328, 'total': 0.08242160765669165}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003587683946130856, 'far': 0.06414675663594221, 'collided': 0.020492488982558208, 'total': 0.08242160765731563}
+Simulation values: {'goal': 14, 'far': 1, 'fallen': 0, 'collided': 5, 'unknown': 0}
+Iteration 13
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003579973132280049, 'far': 0.0630157379399093, 'collided': 0.021237847243285563, 'total': 0.08198937714042571}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035799731122504805, 'far': 0.06301573793978203, 'collided': 0.0212378472421212, 'total': 0.08198937714012072}
+Simulation values: {'goal': 15, 'far': 0, 'fallen': 0, 'collided': 5, 'unknown': 0}
+Iteration 14
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003571705744760006, 'far': 0.061292338315079554, 'collided': 0.021989149640045565, 'total': 0.08099780421335198}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003571705748288393, 'far': 0.06129233831540827, 'collided': 0.021989149643162446, 'total': 0.08099780421416368}
+Simulation values: {'goal': 15, 'far': 0, 'fallen': 0, 'collided': 5, 'unknown': 0}
+Iteration 15
+Prob before repair: {'goal': 1.0, 'fallen': 0.000356352748209438, 'far': 0.060198749169643705, 'collided': 0.022702084935088983, 'total': 0.08057994550201282}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003563527475778657, 'far': 0.06019874916953569, 'collided': 0.02270208493537099, 'total': 0.0805799455016608}
+Simulation values: {'goal': 15, 'far': 0, 'fallen': 0, 'collided': 5, 'unknown': 0}
+Iteration 16
+Prob before repair: {'goal': 1.0, 'fallen': 0.00035554055375353863, 'far': 0.05856515476616061, 'collided': 0.023448420238917144, 'total': 0.0796786619724978}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003555405543576111, 'far': 0.0585651547657853, 'collided': 0.02344842023719395, 'total': 0.07967866197272658}
+Simulation values: {'goal': 15, 'far': 0, 'fallen': 0, 'collided': 5, 'unknown': 0}
+Iteration 17
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003547360217336957, 'far': 0.057569067446473395, 'collided': 0.02415488375285991, 'total': 0.07935486433007607}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003547360214997192, 'far': 0.05756906744536229, 'collided': 0.024154883753644437, 'total': 0.07935486432930741}
+Simulation values: {'goal': 15, 'far': 0, 'fallen': 0, 'collided': 5, 'unknown': 0}
+Iteration 18
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003539364591272309, 'far': 0.05601438620051625, 'collided': 0.02489586257510739, 'total': 0.07853230307290093}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035393645777067207, 'far': 0.05601438619975488, 'collided': 0.02489586257490021, 'total': 0.07853230307258013}
+Simulation values: {'goal': 15, 'far': 0, 'fallen': 0, 'collided': 5, 'unknown': 0}
+Iteration 19
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003531435395199444, 'far': 0.055104675546396635, 'collided': 0.025595575436436778, 'total': 0.07829087268972591}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035314353824464443, 'far': 0.05510467554641272, 'collided': 0.0255955754383987, 'total': 0.07829087269026179}
+Simulation values: {'goal': 15, 'far': 0, 'fallen': 0, 'collided': 5, 'unknown': 0}
+#############################################################
+
+Iteration 0
+Prob before repair: {'goal': 1.0, 'fallen': 0.006237234747943749, 'far': 0.9975197551827836, 'collided': 0.003494330667582261, 'total': 0.9975197579845835}
+Prob after repair: {'goal': 1.0, 'fallen': 0.00035833680523209363, 'far': 0.013146036755216191, 'collided': 8.947920639301934e-05, 'total': 0.013581759897669006}
+Simulation values: {'goal': 0, 'far': 0, 'fallen': 0, 'collided': 20, 'unknown': 0}
+Iteration 1
+Prob before repair: {'goal': 1.0, 'fallen': 0.0003583589349906234, 'far': 0.013165639725958177, 'collided': 0.01056409272356496, 'total': 0.023796212593722988}
+Prob after repair: {'goal': 1.0, 'fallen': 0.0003686753494664023, 'far': 0.016619705312626493, 'collided': 0.004783002241639718, 'total': 0.02159576382400003}
