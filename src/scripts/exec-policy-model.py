@@ -2,8 +2,8 @@ import scripts
 import os
 import numpy
 
-from StateMapper import StateMapper
-from dtmc import DTMCGenerator
+from algs import StateMapper
+from models import DTMCGenerator
 
 BASE_DIR = 'data/learning-tables/learning-8-june-taclab/'
 POLICY_PREFIX = 'sm5-rep'

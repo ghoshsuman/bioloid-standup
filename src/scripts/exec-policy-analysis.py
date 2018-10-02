@@ -6,7 +6,7 @@ import threading
 import numpy
 import time
 
-from algs.learning.pybrain_components import StandingUpEnvironment, StandingUpTask
+from models.pybrain import StandingUpEnvironment, StandingUpTask
 from utils import Utils
 
 BASE_DIR = 'data/learning-tables/learning-4-july-blade21/'

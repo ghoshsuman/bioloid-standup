@@ -1,7 +1,7 @@
 import pickle
 
-from StateNormalizer import StateNormalizer
-from algs.learning.pybrain_components import StandingUpEnvironment
+from algs import StateNormalizer
+from models.pybrain import StandingUpEnvironment
 from utils import Utils
 
 

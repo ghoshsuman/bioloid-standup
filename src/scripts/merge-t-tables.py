@@ -1,10 +1,7 @@
-import scripts
 import os
 import re
 
-import pickle
-
-from NDSparseMatrix import NDSparseMatrix
+from models import NDSparseMatrix
 
 
 def main():

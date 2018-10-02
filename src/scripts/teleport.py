@@ -2,7 +2,7 @@ import pickle
 import xlsxwriter
 
 from utils import Utils
-from algs.learning.pybrain_components import StandingUpEnvironment
+from models.pybrain import StandingUpEnvironment
 
 
 def write_row(worksheet, row, values):

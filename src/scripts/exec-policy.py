@@ -2,7 +2,7 @@ import os
 import pickle
 import numpy
 
-from models.DTMC import DTMCGenerator
+from models import DTMCGenerator
 from models.pybrain import StandingUpEnvironment, StandingUpTask
 from utils import Utils
 import datetime as dt

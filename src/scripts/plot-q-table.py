@@ -1,4 +1,3 @@
-import scripts
 import pickle
 
 import pylab

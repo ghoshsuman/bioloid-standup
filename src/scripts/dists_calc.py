@@ -7,7 +7,7 @@ from scipy.spatial import KDTree
 from scipy.spatial.distance import euclidean
 from scipy.stats import probplot
 
-from StateNormalizer import StateNormalizer
+from algs import StateNormalizer
 from utils import Utils
 
 

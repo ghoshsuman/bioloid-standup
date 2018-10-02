@@ -1,11 +1,8 @@
-import scripts
 import pickle
 
 import xlsxwriter
 
-from StateDiscretizer import StateDiscretizer
-from StateNormalizer import StateNormalizer
-
+from algs import StateDiscretizer
 
 def main():
 

@@ -6,7 +6,7 @@ import pickle
 
 import numpy
 
-from algs.learning.pybrain_components import StandingUpEnvironment
+from models.pybrain import StandingUpEnvironment
 from utils import Utils
 
 

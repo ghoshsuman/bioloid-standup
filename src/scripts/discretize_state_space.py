@@ -1,8 +1,6 @@
-import scripts
 import pickle
 
-from StateDiscretizer import StateDiscretizer
-from StateNormalizer import StateNormalizer
+from algs import StateDiscretizer
 
 
 def main():
