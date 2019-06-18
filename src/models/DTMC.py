@@ -3,7 +3,7 @@ import pickle
 import numpy
 
 from models import NDSparseMatrix
-from StateMapper import StateMapper
+from algs.StateMapper import StateMapper
 from utils import Utils
 
 state_mapper = StateMapper()
@@ -43,22 +43,39 @@ class DTMC:
     def compute_probabilities(self, base_dir='data/repair'):
         import stormpy
         import stormpy.logic
-        goal_formula = stormpy.parse_formulas("P=? [ F \"goal\" ]")
-        fallen_formula = stormpy.parse_formulas("P=? [ F \"fallen\" ]")
-        far_formula = stormpy.parse_formulas("P=? [ F \"far\" ]")
-        collided_formula = stormpy.parse_formulas("P=? [ F \"collided\" ]")
-        total_formula = stormpy.parse_formulas("P=? [ F (\"far\"  | \"collided\" | \"fallen\")]")
+        goal_formula_str = "P=? [ F \"goal\" ]"
+        goal_formula = stormpy.parse_properties(goal_formula_str)
+        fallen_formula_str = "P=? [ F \"fallen\" ]"
+        fallen_formula = stormpy.parse_properties(fallen_formula_str)
+        far_formula_str = "P=? [ F \"far\" ]"
+        far_formula = stormpy.parse_properties(far_formula_str)
+        collided_formula_str ="P=? [ F \"collided\" ]"
+        collided_formula = stormpy.parse_properties(collided_formula_str)
+        total_formula_str = "P=? [ F (\"far\"  | \"collided\" | \"fallen\")]"
+        total_formula = stormpy.parse_properties(total_formula_str)
         self.save('temp', base_dir)
-        model = stormpy.parse_explicit_model(os.path.join(base_dir, 'temp.tra'),
+        #model = stormpy.parse_explicit_model(os.path.join(base_dir, 'temp.tra'),
+#                                             os.path.join(base_dir, 'temp.lab'))
+        model = stormpy.build_sparse_model_from_explicit(os.path.join(base_dir, 'temp.tra'),
                                              os.path.join(base_dir, 'temp.lab'))
+	
         goal_prob = stormpy.model_checking(model, goal_formula[0])
+        goal_prob_Init=stormpy.ExplicitQuantitativeCheckResult.at(goal_prob,state_mapper.INITIAL_STATE)
         fallen_prob = stormpy.model_checking(model, fallen_formula[0])
+        fallen_prob_Init=stormpy.ExplicitQuantitativeCheckResult.at(fallen_prob,state_mapper.INITIAL_STATE)
         far_prob = stormpy.model_checking(model, far_formula[0])
+        far_prob_Init=stormpy.ExplicitQuantitativeCheckResult.at(far_prob,state_mapper.INITIAL_STATE)
         collided_prob = stormpy.model_checking(model, collided_formula[0])
+        collided_prob_Init=stormpy.ExplicitQuantitativeCheckResult.at(collided_prob,state_mapper.INITIAL_STATE)
         total_prob = stormpy.model_checking(model, total_formula[0])
+        total_prob_Init=stormpy.ExplicitQuantitativeCheckResult.at(total_prob,state_mapper.INITIAL_STATE)
+        #print('At Init Probs: goal: {} , fallen: {} far: {} collided : {} total : {}'.format(goal_prob_Init,fallen_prob_Init,far_prob_Init,collided_prob_Init,total_prob_Init))
+        return {'goal': goal_prob_Init, 'fallen': fallen_prob_Init, 'far': far_prob_Init,
+                'collided': collided_prob_Init, 'total': total_prob_Init}
 
-        return {'goal': goal_prob, 'fallen': fallen_prob, 'far': far_prob,
-                'collided': collided_prob, 'total': total_prob}
+        #above print added , to verify if below is to be replaced by above
+        #return {'goal': goal_prob, 'fallen': fallen_prob, 'far': far_prob,
+         #       'collided': collided_prob, 'total': total_prob}
 
 
 class DTMCGenerator:

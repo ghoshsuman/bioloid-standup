@@ -1,9 +1,9 @@
 import scripts
 import os
 
-from StateMapper import StateMapper
+from algs import StateMapper
 from utils import Utils
-from dtmc import DTMC, DTMCGenerator
+from models import DTMC, DTMCGenerator
 
 safe_shutdown_action = Utils.N_ACTIONS
 state_mapper = StateMapper()

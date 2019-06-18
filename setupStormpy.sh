@@ -9,8 +9,8 @@ sudo apt-get install -y libz3-dev libxerces-c-dev
 
 #Storm
 
-#The source code of the latest stable release can be downloaded from GitHub. You can either clone the git repository
-git clone -b stable https://github.com/moves-rwth/storm.git
+#The source code of the latest release can be downloaded from GitHub. You can either clone the git repository
+git clone -b master https://github.com/moves-rwth/storm.git
 
 
 cd storm

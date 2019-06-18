@@ -4,7 +4,7 @@ import numpy
 from scipy.spatial import KDTree
 
 import vrep
-from algs.learning.pybrain_components import StandingUpEnvironment
+from models.pybrain import StandingUpEnvironment
 from utils import Utils
 
 

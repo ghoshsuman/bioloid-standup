@@ -1,6 +1,6 @@
 import pickle
 
-from algs.learning.pybrain_components import StandingUpEnvironment, StandingUpTask
+from models.pybrain import StandingUpEnvironment, StandingUpTask
 from utils import Utils
 
 

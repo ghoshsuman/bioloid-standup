@@ -1,8 +1,8 @@
 import scripts
 import numpy
 
-from NDSparseMatrix import NDSparseMatrix
-from StateMapper import StateMapper
+from models import NDSparseMatrix
+from algs import StateMapper
 from utils import Utils
 
 

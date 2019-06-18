@@ -1,13 +1,12 @@
 import os
 
-from dtmc import DTMCGenerator
-from model_repair import ModelRepairer
+from models.DTMC import DTMCGenerator
+from algs.model_repair import ModelRepairer
 from runners.monitor import Monitor
 
-BASE_DIR = 'data/learning-tables/learning-4-july-blade21/'
+BASE_DIR = 'data/learned_tables'
 Q_TABLE_VERSION = 66
-temperature = 50
-
+temperature = 10
 
 def main():
     print('Repairing {} with temperature {}'.format(BASE_DIR, temperature))
@@ -21,7 +20,8 @@ def main():
     dtmc_generator.save_policy(policy_file_name, 'data/repair')
     model_repairer = ModelRepairer(dtmc_generator, _lambda=0.005)
 
-    monitor = Monitor(dtmc_generator, model_repairer, BASE_DIR, n_trheads=3, n_episodes=200)
+#    monitor = Monitor(dtmc_generator, model_repairer, BASE_DIR, n_trheads=3, n_episodes=200)
+    monitor = Monitor(dtmc_generator, model_repairer, BASE_DIR, n_trheads=3, n_episodes=10)
     # monitor.load(9)
 
     # dtmc_generator.load_policy('policy-sm5-9.pkl', 'data/repair')
