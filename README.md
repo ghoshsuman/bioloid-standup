@@ -1,6 +1,6 @@
 # Bioloid Standup
 
-This work was done as part of the Group Project requirement for EMARO+ by Suman Ghosh and Parag Khanna, building on top of Simone Vuotto's published work. Report is available [here](https://github.com/ghoshsuman/bioloid-standup/blob/master/Group_project_report.pdf).
+This work was done as part of the Group Project requirement for EMARO+ by Suman Ghosh and Parag Khanna under the supervision of Prof. Armando Tacchella, building on top of Simone Vuotto's published work. Report is available [here](https://github.com/ghoshsuman/bioloid-standup/blob/master/Group_project_report.pdf).
 
 ## Learning
 
