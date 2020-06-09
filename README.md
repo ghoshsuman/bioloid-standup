@@ -1,16 +1,6 @@
 # Bioloid Standup
 
-This project was part of the Simone Vuotto's master thesis, and published in the International Symposium of Laveraging Applicatioons of Formal Methods.
-If you use the code, please acknowledge it by citing:
-
-    @inproceedings{leofante2016combining,
-        title={Combining static and runtime methods to achieve safe standing-up for humanoid robots},
-        author={Leofante, Francesco and Vuotto, Simone and {\'A}brah{\'a}m, Erika and Tacchella, Armando and Jansen, Nils},
-        booktitle={International Symposium on Leveraging Applications of Formal Methods},
-        pages={496--514},
-        year={2016},
-        organization={Springer}
-    }
+This work was done as part of the Group Project requirement for EMARO+ by Suman Ghosh and Parag Khanna, building on top on Simone Vuotto's published work. Report is available [here](https://github.com/ghoshsuman/bioloid-standup/blob/master/Group_project_report.pdf)
 
 ## Learning
 
